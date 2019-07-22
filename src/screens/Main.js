@@ -105,18 +105,17 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		margin: 10,
-		paddingVertical: 10,
 		elevation: 3,
 		borderRadius: 5
 	},
 	text: {
-		fontSize: 60,
+		fontSize: 50,
 		color: 'black',
 		fontWeight: 'bold',
 		elevation: 3
 	},
 	welcomeText: {
-		fontSize: 30,
+		fontSize: 25,
 		left: 2,
 		top: 5,
 		color: 'grey'
