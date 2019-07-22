@@ -45,6 +45,9 @@ class Main extends Component {
 					  		}
 					  	]}
 					  	titleStyle={{color: 'white'}}
+					  	onPress={() => {
+					  		this.props.navigation.navigate('Register')
+					  	}}
 					/>
 
 					<Button
@@ -56,6 +59,9 @@ class Main extends Component {
 					  		}
 					  	]}
 					  	titleStyle={{color: 'rgba(0,0,0,0.7)'}}
+					  	onPress={() => {
+					  		this.props.navigation.navigate('Login')
+					  	}}
 					/>
 
 		        </View>
