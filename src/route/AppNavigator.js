@@ -5,8 +5,23 @@ import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
 
 
-const AppStack = createStackNavigator({ Home: Main },{headerMode:"none"});
-const AuthStack = createStackNavigator({ Login: Login },{headerMode:"none"});
+const AppStack = createStackNavigator (
+    { 
+        Home: Main 
+    },
+    {
+        headerMode:"none"
+    }
+);
+const AuthStack = createStackNavigator (
+    {
+        Main:Main,
+        Login: Login
+    },
+    {
+        headerMode:"none"
+    }
+);
 
 
 const switchNavigator = createSwitchNavigator (
@@ -19,6 +34,6 @@ const switchNavigator = createSwitchNavigator (
     {
         initialRouteName: 'AuthLoading'
     }
-)
+);
 
 export default createAppContainer(switchNavigator);
