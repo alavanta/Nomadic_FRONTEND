@@ -5,18 +5,14 @@ import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
 
 
-const AppStack = createStackNavigator({ Home: Main });
-const AuthStack = createStackNavigator({ Login: Login });
+const AppStack = createStackNavigator({ Home: Main },{headerMode:"none"});
+const AuthStack = createStackNavigator({ Login: Login },{headerMode:"none"});
 
-const stackNavigator = createStackNavigator( 
-    {
-        Home : Main
-    }
-)
 
 const switchNavigator = createSwitchNavigator (
     {
         AuthLoading: Main,
+        // AuthLoading: AuthLoading,
         App: AppStack,
         Auth: AuthStack,
     },
