@@ -17,8 +17,8 @@ class Booking extends Component {
 				alignItems: 'center'
 			}}>
 				<Image 
-				source={{uri:require('../../assets/no-booking.jpg')}}
-				style={{width:90,height:90}}
+				source={require('../../assets/no-booking.png')}
+				style={{width:'40%',height:'40%'}}
 				/>
 				<Text style={{
 					fontSize: 30,
