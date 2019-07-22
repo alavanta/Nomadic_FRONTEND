@@ -3,6 +3,7 @@ import { View,Text,TextInput,StyleSheet,TouchableOpacity,SafeAreaView } from 're
 import { Button,Input,Icon } from 'react-native-elements';
 import { connect } from "react-redux";
 
+
 class Login extends Component {
     constructor(props){
         super(props);
