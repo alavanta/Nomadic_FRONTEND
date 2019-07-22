@@ -1,8 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import {
 	View,
-	Text
-} from 'react-native'
+	Text,
+	Image
+} from 'react-native';
+import { Button } from 'react-native-elements';
+
 
 
 class Booking extends Component {
@@ -13,12 +16,20 @@ class Booking extends Component {
 				justifyContent: 'center',
 				alignItems: 'center'
 			}}>
+				<Image 
+				source={require('../../assets/no-booking.png')}
+				style={{width:'40%',height:'40%'}}
+				/>
 				<Text style={{
 					fontSize: 30,
 					fontWeight: 'bold'
 				}}>
-					Booking
+					My Bookings
 				</Text>
+				<Text>Login to check orders</Text>
+				<Button
+				title='Login'
+				/>
 			</View>
 		)
 	}
