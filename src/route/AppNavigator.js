@@ -3,20 +3,15 @@ import { createSwitchNavigator,createStackNavigator,createAppContainer } from 'r
 import Main from '../screens/Main';
 import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
+import Register from '../screens/Register';
 
 
 const AppStack = createStackNavigator({ Home: Main });
 const AuthStack = createStackNavigator({ Login: Login });
 
-const stackNavigator = createStackNavigator( 
-    {
-        Home : Main
-    }
-)
-
 const switchNavigator = createSwitchNavigator (
     {
-        AuthLoading: AuthLoading,
+        AuthLoading: Register,
         App: AppStack,
         Auth: AuthStack,
     },
