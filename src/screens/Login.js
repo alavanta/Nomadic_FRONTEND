@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import { View,Text,TextInput,StyleSheet,TouchableOpacity } from 'react-native';
 import { Button,Input,Icon } from 'react-native-elements';
-import Header from '../components/header/Register';
 import { SafeAreaView } from 'react-navigation';
 
 class Login extends Component {
