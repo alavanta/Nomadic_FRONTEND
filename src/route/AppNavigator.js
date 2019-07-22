@@ -11,8 +11,8 @@ const AuthStack = createStackNavigator({ Login: Login },{headerMode:"none"});
 
 const switchNavigator = createSwitchNavigator (
     {
+        AuthLoading: Main,
         // AuthLoading: AuthLoading,
-        AuthLoading: Login,
         App: AppStack,
         Auth: AuthStack,
     },
