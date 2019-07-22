@@ -1,8 +1,7 @@
 import React,{Component} from 'react';
-import { View,Text,TextInput,StyleSheet,TouchableOpacity } from 'react-native';
+import { View,Text,TextInput,StyleSheet,TouchableOpacity,SafeAreaView } from 'react-native';
 import { Button,Input,Icon } from 'react-native-elements';
-import Header from '../components/header/Register';
-import { SafeAreaView } from 'react-navigation';
+import { connect } from "react-redux";
 
 class Login extends Component {
     constructor(props){
@@ -25,7 +24,11 @@ class Login extends Component {
                             color='#808080'
                             size={25} />
                         </View>
+                        <TouchableOpacity
+                        onPress={() => alert('goBack')}
+                        >
                         <Text>Login</Text>
+                        </TouchableOpacity>
                     </View>
             <View style={{flex:1,justifyContent:'center',margin:15}}>
                 
@@ -73,4 +76,10 @@ class Login extends Component {
     }
 }
 
-export default Login;
+const mapStateToProps = ( state ) => {
+    return {
+        login: state.login
+    }
+}
+
+export default connect(mapStateToProps)(Login);
