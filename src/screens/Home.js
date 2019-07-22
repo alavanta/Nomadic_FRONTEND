@@ -19,6 +19,7 @@ import Explore from './tabmenu/Explore'
 import Destination from './tabmenu/Destination'
 import Booking from './tabmenu/Booking'
 import Profile from './tabmenu/Profile'
+import Chat from './tabmenu/Chat'
 
 
 class Home extends Component {
@@ -41,11 +42,16 @@ class Home extends Component {
             	},
             	{ 
               		key: 'third', 
+              		title: 'Chat',
+              		icon: 'message1',
+            	},
+            	{ 
+              		key: 'fourth', 
               		title: 'Booking',
               		icon: 'profile',
             	},
             	{ 
-              		key: 'fourth', 
+              		key: 'five', 
               		title: 'Profile',
               		icon: 'user',
             	},
@@ -63,8 +69,9 @@ class Home extends Component {
 		            renderScene={SceneMap({
 		              	first: Explore,
 		              	second: Destination,
-		              	third: Booking,
-		              	fourth: Profile
+		              	third: Chat,
+		              	fourth: Booking,
+		              	five: Profile
 		            })}
 		            onIndexChange={index => this.setState({ index })}
 		            initialLayout={{ width: Dimensions.get('window').width }}
