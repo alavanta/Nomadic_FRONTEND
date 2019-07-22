@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
 	welcomeText: {
 		fontSize: 30,
 		left: 2,
-		top: 3,
+		top: 5,
 		color: 'grey'
 	}
 })
