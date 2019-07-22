@@ -3,12 +3,13 @@ import { createSwitchNavigator,createStackNavigator,createAppContainer } from 'r
 import Main from '../screens/Main';
 import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
+import Register from '../screens/Register';
 import Home from '../screens/Home'
 
 
 const AppStack = createStackNavigator (
     { 
-        Home: Main 
+        Home: Home 
     },
     {
         headerMode:"none"
@@ -16,8 +17,9 @@ const AppStack = createStackNavigator (
 );
 const AuthStack = createStackNavigator (
     {
-        Main:Main,
-        Login: Login
+        Main: Main,
+        Login: Login,
+        Register: Register,
     },
     {
         headerMode:"none"
@@ -27,7 +29,7 @@ const AuthStack = createStackNavigator (
 
 const switchNavigator = createSwitchNavigator (
     {
-        AuthLoading: AuthLoading,
+        AuthLoading: Home,
         App: AppStack,
         Auth: AuthStack,
     },
