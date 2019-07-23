@@ -1,7 +1,6 @@
 import { AsyncStorage } from 'react-native';
 const initialState = {
   data: [],
-  token: null,
   isLoading: false,
   isError: false,
   isFinish: false
@@ -9,14 +8,13 @@ const initialState = {
 
 export default (user = (state = initialState, action) => {
   switch (action.type) {
-    case 'FETCH_USER_PENDING':
-    case 'ADD_USER_PENDING':
+    case 'FETCH_PACKAGES_PENDING':
       return {
         ...state,
         isLoading: true,
         isFinish: false
       };
-    case 'FETCH_USER_REJECTED':
+    case 'FETCH_PACKAGES_REJECTED':
     case 'ADD_USER_REJECTED':
       return {
         ...state,
@@ -24,24 +22,13 @@ export default (user = (state = initialState, action) => {
         isError: true,
         isFinish: false
       };
-    case 'FETCH_USER_FULFILLED':
-      AsyncStorage.setItem('token', action.payload.data.token);
-      AsyncStorage.setItem('user', action.payload.data.data[0].phone);
+    case 'FETCH_PACKAGES_FULFILLED':
       return {
         ...state,
         isLoading: false,
         isError: false,
         isFinish: true,
-        data: action.payload.data.data,
-        token: action.payload.data.token
-      };
-    case 'ADD_USER_FULFILLED':
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-        isFinish: true,
-        data: action.payload.data.nomadic.data
+        data: action.payload.data.data
       };
     default:
       return state;
