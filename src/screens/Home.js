@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, StatusBar, AsyncStorage } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
@@ -51,7 +51,10 @@ class Home extends Component {
     };
   }
 
+
+
   async componentWillMount() {
+    StatusBar.setHidden(false);
     const userToken = await AsyncStorage.getItem('token');
     const userData = await AsyncStorage.getItem('user');
     console.log('TOKEN ', userToken);
