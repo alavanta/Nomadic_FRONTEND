@@ -7,11 +7,11 @@ import {
     Image,
     StatusBar,
     SafeAreaView,
-    StyleSheet
+    StyleSheet,
+    TextInput
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import { TextInput } from 'react-native-gesture-handler';
 
 
 class Package extends Component {
