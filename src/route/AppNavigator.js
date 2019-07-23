@@ -10,17 +10,18 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
 import Profile from '../screens/tabmenu/Profile';
-import ChangePassword from '../screens/Account/ChangePassword';
-import EditProfile from '../screens/Account/EditProfile';
-import Notification from '../screens/Account/Notifications';
+import EditProfile from '../screens/account/EditProfile';
+import Package from '../screens/Package';
+import PrivateChat from '../screens/PrivateChat';
 
 const AppStack = createStackNavigator(
   {
     Home: Home,
     Profile: Profile,
-    ChangePassword: ChangePassword,
     EditProfile: EditProfile,
-    Notification: Notification
+    Notification: Notification,
+    PrivateChat: PrivateChat,
+    Package
   },
   {
     headerMode: 'none'

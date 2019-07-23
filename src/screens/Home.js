@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, AsyncStorage } from 'react-native';
+import { View, Text, Dimensions, StyleSheet, StatusBar } from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
@@ -61,6 +61,11 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.bodyParent}>
+        <StatusBar
+          translucent
+          barStyle="dark-content"
+          backgroundColor="rgba(0, 0, 0, 0.0)"
+        />
         <TabView
           tabBarPosition="bottom"
           navigationState={this.state}

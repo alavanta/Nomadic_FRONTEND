@@ -27,7 +27,7 @@ class Profile extends Component {
 					</View>
 				</View>
 				<View style={styles.bottomContainer}>
-					<View style={styles.line}></View>
+					<View style={styles.line} />
 					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('Notification')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Notifications</Text>
@@ -36,7 +36,7 @@ class Profile extends Component {
 							<Icon name='ios-arrow-forward' type='ionicon' color='#999999' />
 						</View>
 					</TouchableOpacity>
-					<View style={styles.line}></View>
+					<View style={styles.line} />
 					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('EditProfile')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Edit Profile</Text>
@@ -45,8 +45,8 @@ class Profile extends Component {
 							<Icon name='ios-arrow-forward' type='ionicon' color='#999999' />
 						</View>
 					</TouchableOpacity>
-					<View style={styles.line}></View>
-					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('ChangePassword')}>
+					<View style={styles.line} />
+					<TouchableOpacity disabled={true} style={styles.accountOption} onPress={() => this.props.navigation.navigate('ChangePassword')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Change Password</Text>
 						</View>
@@ -54,7 +54,7 @@ class Profile extends Component {
 							<Icon name='ios-arrow-forward' type='ionicon' color='#999999' />
 						</View>
 					</TouchableOpacity>
-					<View style={styles.line}></View>
+					<View style={styles.line} />
 					<TouchableOpacity style={styles.accountOption} onPress={() => this.setModalVisible(true)}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Logout</Text>
@@ -63,7 +63,7 @@ class Profile extends Component {
 							<Icon name='ios-arrow-forward' type='ionicon' color='#999999' />
 						</View>
 					</TouchableOpacity>
-					<View style={styles.line}></View>
+					<View style={styles.line} />
 				</View>
 				<Modal
 					animationType='fade'
