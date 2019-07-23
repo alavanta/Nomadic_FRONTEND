@@ -19,7 +19,7 @@ const AppStack = createStackNavigator (
     { 
         Home: Home,
         Profile: Profile,
-        //EditProfile: EditProfile,
+        EditProfile: EditProfile,
         PrivateChat: PrivateChat,
 
     },
