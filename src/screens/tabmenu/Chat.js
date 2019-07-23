@@ -3,13 +3,17 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	FlatList
+	FlatList,
+	ActivityIndicator,
+	Dimensions
 } from 'react-native'
 
 import { ListItem } from 'react-native-elements';
 
 import { withNavigation } from 'react-navigation'
 
+
+const { height, width } = Dimensions.get('window')
 
 class RenderItem extends Component {
 	render () {
@@ -37,6 +41,7 @@ class Chat extends Component {
 	  	super(props);
 	
 	  	this.state = {
+	  		isLoading: false,
 	  		users: [
 	  			{
 	  				id: 1,
@@ -99,15 +104,20 @@ class Chat extends Component {
 				<Text style={styles.headerText}>
 					Message
 				</Text>
-				<FlatList
-					data={this.state.users}
-					keyExtractor={(item) => {item.id.toString()}}
-					renderItem={({item, index}) => {
-						return(
-							<RenderItem navigation={this.props.navigation} item={item} index={index}/>
-						)
-					}}
-				/>
+				{
+					this.state.isLoading ?
+					<ActivityIndicator style={{top: height / 3}} size="large" color="#EF4453" />
+					:
+					<FlatList
+						data={this.state.users}
+						keyExtractor={(item) => {item.id.toString()}}
+						renderItem={({item, index}) => {
+							return(
+								<RenderItem navigation={this.props.navigation} item={item} index={index}/>
+							)
+						}}
+					/>
+				}
 			</View>
 		)
 	}
