@@ -33,7 +33,7 @@ class Package extends Component {
                             color='#444'
                             size={25} />
                     </TouchableOpacity>
-                    <View style={{ alignItems: 'center', flex: 1, marginRight: 20, flexDirection: 'row', justifyContent: 'center' }}>
+                    <View style={{ alignItems: 'center', flex: 1, marginRight: 10, flexDirection: 'row', justifyContent: 'center' }}>
                         <TextInput placeholderTextColor='#999' placeholder="Type here..." style={styles.searchInput} />
                         <TouchableOpacity>
                             <Text style={styles.searchButton}>Search</Text>
