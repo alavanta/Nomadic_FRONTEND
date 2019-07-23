@@ -10,9 +10,10 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
 import Profile from '../screens/tabmenu/Profile';
-import EditProfile from '../screens/Account/EditProfile';
+import EditProfile from '../screens/account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
+import PackageDetail from '../screens/PackageDetail';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import otpCode from '../screens/ForgotPassword/otpCode'
 
@@ -23,7 +24,8 @@ const AppStack = createStackNavigator (
         Profile: Profile,
         EditProfile: EditProfile,
         PrivateChat: PrivateChat,
-
+        PackageDetail: PackageDetail,
+        Package: Package,
     },
     {
         headerMode:"none"
