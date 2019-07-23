@@ -4,10 +4,9 @@ import Main from '../screens/Main';
 import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
-
 import Home from '../screens/Home';
-import Package from '../screens/Package
-import PrivateChat from '../screens/PrivateChat'
+import Package from '../screens/Package';
+import PrivateChat from '../screens/PrivateChat';
 
 
 
