@@ -13,7 +13,7 @@ export default class Splash extends Component {
         return (
                 <LinearGradient colors={['#F4A386','#EF4453']} style={styles.linearGradient}>
                     <StatusBar backgroundColor='#F4A386' barStyle='dark-content' />
-                    <Image source={require('../assets/nomadic.png')} style={styles.logoSplash}/>
+                    <Image source={require('../assets/icon.png')} style={styles.logoSplash}/>
                 </LinearGradient>
         );
     }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     logoSplash: {
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 30,
     }
 });
