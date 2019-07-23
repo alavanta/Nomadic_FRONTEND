@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Picker, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Picker, TextInput, ScrollView,Alert } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
+
+import { editUser } from '../../public/redux/action/user';
+import { connect } from 'react-redux';
 
 class EditProfile extends Component {
 
@@ -20,7 +23,12 @@ class EditProfile extends Component {
             errPhone: false
         }
     }
+    userEdit = (name, password,email, phone, address, gender) => {
+        this.props.dispatch(editUser(name,password, email, phone, address, gender))
+        console.warn(this.state.name,this.state.password,this.state.email,this.state.phone,this.state.address,this.state.gender)
+        Alert.alert('Success','Data has created successfully, please login an application.');
 
+    }
 
     validate = () => {
         if (this.state.errName === false && this.state.errEmail === false && this.state.errAddress === false && this.state.errPhone === false) {
@@ -121,6 +129,7 @@ class EditProfile extends Component {
                     </TouchableOpacity>
                     <Text style={{ fontSize: 19, marginLeft: 5 }}>Edit Profile</Text>
                     <TouchableOpacity
+                        onPress={()=>this.userEdit(this.state.name, this.state.password,this.state.email, this.state.phone, this.state.address, this.state.gender)}
                         disabled={
                             this.state.name == '' ? true :
                                 this.state.email == '' ? true :
@@ -255,5 +264,10 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
 })
+const mapStateToProps = state => {
+    return {
+        data: state.user.data,
+    };
+};
 
-export default EditProfile;
+export default connect(mapStateToProps)(EditProfile);

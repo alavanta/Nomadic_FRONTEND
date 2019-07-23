@@ -37,14 +37,17 @@ class Booking extends Component {
 			<View style	={{flex:1,flexDirection:'row'}}>
 			<Card
 			image={{uri:item.package_image}}
-			/>
-			{/* <Image
-			source={{uri:item.package_image}}
-			style={{height:100,width:''}}
-			/> */}
-			<Text>{item.package_name}</Text>
+			containerStyle={{width:'90%'}}
+			title={item.package_name}
+			>
+				<View style={{flexDirection:'column'}}>
+			<Text>{item.date_start}</Text>
+			<Text
+			style={{fontWeight:'bold'}}
+			>Rp. {item.package_price}</Text>
+			</View>
 			
-
+			</Card>
 			</View>
 		
 	)

@@ -13,31 +13,35 @@ import Profile from '../screens/tabmenu/Profile';
 import EditProfile from '../screens/Account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
+import PackageDetail from '../screens/PackageDetail';
+import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
+import otpCode from '../screens/ForgotPassword/otpCode';
 
-
-const AppStack = createStackNavigator (
-    { 
-        Home: Home,
-        Profile: Profile,
-        //EditProfile: EditProfile,
-        PrivateChat: PrivateChat,
-
-    },
-    {
-        headerMode:"none"
-    }
-);
-const AuthStack = createStackNavigator(
+const AppStack = createStackNavigator(
   {
-    Main: Main,
-    Login: Login,
-    Register: Register
+    Home: Home,
+    Profile: Profile,
+    EditProfile: EditProfile,
+    PrivateChat: PrivateChat,
+    PackageDetail: PackageDetail,
+    Package: Package
   },
   {
     headerMode: 'none'
   }
 );
-
+const AuthStack = createStackNavigator(
+  {
+    Main: Main,
+    Login: Login,
+    Register: Register,
+    ForgotPassword: ForgotPassword,
+    otpCode: otpCode
+  },
+  {
+    headerMode: 'none'
+  }
+);
 
 const switchNavigator = createSwitchNavigator(
   {
