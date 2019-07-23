@@ -7,7 +7,7 @@ import {
 	TouchableOpacity,
 	FlatList
 } from 'react-native';
-import { Button,Icon } from 'react-native-elements';
+import { Button,Icon,Card } from 'react-native-elements';
 import MyBookingIsLogin from '../../components/MyBookingIsLogin';
 
 
@@ -28,18 +28,20 @@ class Booking extends Component {
 		super(props);
 		this.state={
 			isLogin:true,
-			//bookingData:booking
-			bookingData:[]
+			bookingData:booking
 		}
 	}
 
 	BookedList = ({item,index}) => (
 		
-			<View style	={{flex:1,backgroundColor:'#000',flexDirection:'row'}}>
-			<Image
-			source={{uri:item.package_image}}
-			style={{height:100,width:50}}
+			<View style	={{flex:1,flexDirection:'row'}}>
+			<Card
+			image={{uri:item.package_image}}
 			/>
+			{/* <Image
+			source={{uri:item.package_image}}
+			style={{height:100,width:''}}
+			/> */}
 			<Text>{item.package_name}</Text>
 			
 
@@ -48,7 +50,7 @@ class Booking extends Component {
 	)
 
 	render () {
-		//    console.warn(this.state.bookingData)
+		   console.warn(this.state.bookingData)
 		return (
 			<View style={{flex:1}}>
 			<View style={{ width: '100%', height: '10%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -82,7 +84,7 @@ class Booking extends Component {
 			{this.state.isLogin === false ? 
 				<MyBookingIsLogin
 				title={'My Bookings'}
-				description={'Login to your check orders'}/>
+				description={'Login to check your orders'}/>
 				:
 				this.state.bookingData.length == 0 ?
 				<View>
