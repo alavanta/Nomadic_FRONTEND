@@ -13,6 +13,8 @@ import Profile from '../screens/tabmenu/Profile';
 import EditProfile from '../screens/Account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
+import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
+import otpCode from '../screens/ForgotPassword/otpCode'
 
 
 const AppStack = createStackNavigator (
@@ -31,7 +33,9 @@ const AuthStack = createStackNavigator(
   {
     Main: Main,
     Login: Login,
-    Register: Register
+    Register: Register,
+    ForgotPassword: ForgotPassword,
+    otpCode: otpCode
   },
   {
     headerMode: 'none'
