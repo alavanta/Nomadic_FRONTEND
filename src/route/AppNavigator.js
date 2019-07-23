@@ -3,22 +3,48 @@ import { createSwitchNavigator,createStackNavigator,createAppContainer } from 'r
 import Main from '../screens/Main';
 import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
-import Account from '../screens/Account/Account';
+import Register from '../screens/Register';
+import Home from '../screens/Home'
+import Profile from '../screens/tabmenu/Profile';
+import ChangePassword from '../screens//account/ChangePassword';
+import EditProfile from '../screens/account/EditProfile';
+import Notification from '../screens/account/Notifications';
 
 
-const AppStack = createStackNavigator({ Home: Main },{headerMode:"none"});
-const AuthStack = createStackNavigator({ Login: Login },{headerMode:"none"});
+const AppStack = createStackNavigator (
+    { 
+        Home: Home,
+        Profile: Profile,
+        ChangePassword: ChangePassword,
+        EditProfile: EditProfile,
+        Notification: Notification
+        
+    },
+    {
+        headerMode:"none"
+    }
+);
+const AuthStack = createStackNavigator (
+    {
+        Main: Main,
+        Login: Login,
+        Register: Register,
+    },
+    {
+        headerMode:"none"
+    }
+);
 
 
 const switchNavigator = createSwitchNavigator (
     {
-        AuthLoading: Account,
+        AuthLoading: AuthLoading,
         App: AppStack,
         Auth: AuthStack,
     },
     {
         initialRouteName: 'AuthLoading'
     }
-)
+);
 
 export default createAppContainer(switchNavigator);
