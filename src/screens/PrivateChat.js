@@ -18,7 +18,7 @@ function Header(props) {
 		<View style={headStyle.headerContainer}>
 			<Button
 				buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
-				onPress={() => {this.props.navigation.goBack()}}
+				onPress={() => {props.navigation.goBack()}}
 			  	icon={
 			    	<Entypo
 			      		name="chevron-left"
@@ -90,7 +90,7 @@ class PrivateChat extends Component {
 				flex: 1,
 				backgroundColor: '#fafafa'
 			}}>
-				<Header data={this.props.navigation.state.params} />
+				<Header data={this.props.navigation.state.params} navigation={this.props.navigation} />
 				<GiftedChat
 			        messages={this.state.messages}
 			        onSend={messages => this.onSend(messages)}
