@@ -24,6 +24,9 @@ class PackageDetail extends Component {
 				name		: 'Wisata Jogja',
 				price		: 500000,
 				description	: 'Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
+				included	: 'Included Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
+				not_included: 'Not Included Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
+				notes		: 'Notes Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
 				image		: 'https://www.thoughtco.com/thmb/V6Mz1MdaTkVXMhuA1GkGbC6v6NA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-599927824-589770da3df78caebcf39797.jpg',
 				destination	: [
 					{
@@ -87,6 +90,14 @@ class PackageDetail extends Component {
 		};
 	}
 
+	bookingHandler = () => {
+		console.warn('booking');
+	}
+
+	gotoMap = () => {
+		console.warn('Map');
+	}
+
 	_keyExtractor = (item, index) => item.id;
 
 	_renderItem = ({item}) => (
@@ -145,15 +156,15 @@ class PackageDetail extends Component {
 					</View>
 					<View style={styles.description}>
 						<Text style={styles.subTitle}>Included</Text>
-						<Text style={styles.caption}>{this.state.package.description}</Text>
+						<Text style={styles.caption}>{this.state.package.included}</Text>
 					</View>
 					<View style={styles.description}>
 						<Text style={styles.subTitle}>Not included</Text>
-						<Text style={styles.caption}>{this.state.package.description}</Text>
+						<Text style={styles.caption}>{this.state.package.not_included}</Text>
 					</View>
 					<View style={styles.description}>
 						<Text style={styles.subTitle}>Notes</Text>
-						<Text style={styles.caption}>{this.state.package.description}</Text>
+						<Text style={styles.caption}>{this.state.package.notes}</Text>
 					</View>
 				</ScrollView>
 				<View style={styles.footer}>
@@ -162,10 +173,10 @@ class PackageDetail extends Component {
 						<Text numberOfLines={1} style={{ color: '#000', fontSize: 16 }}>Rp{this.state.package.price}</Text>
 						<Text numberOfLines={1} style={{ color: '#444', fontSize: 10 }}>{this.state.package.name}</Text>
 					</View>
-					<TouchableOpacity style={styles.button}>
+					<TouchableOpacity onPress={()=>this.bookingHandler()} style={styles.button}>
 						<Text style={{ color: '#FFF', fontWeight: '500', fontSize: 16 }}>BOOKING</Text>
 					</TouchableOpacity>
-					<TouchableOpacity style={styles.mapButton}>
+					<TouchableOpacity onPress={()=>this.gotoMap()} style={styles.mapButton}>
 						<Icon
 							name='map'
 							type='Entypo'
