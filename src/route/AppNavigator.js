@@ -5,11 +5,12 @@ import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home'
-
+import PrivateChat from '../screens/PrivateChat'
 
 const AppStack = createStackNavigator (
     { 
-        Home: Home 
+        Home: Home,
+        PrivateChat: PrivateChat
     },
     {
         headerMode:"none"
