@@ -157,7 +157,7 @@ class Login extends Component {
             disabledTitleStyle={{ color: '#FFF' }}
             onPress={this.validate}
           />
-          <TouchableOpacity style={{ alignSelf: 'center', paddingTop: 10 }}>
+          <TouchableOpacity onPress={() => {this.props.navigation.navigate('ForgotPassword')}} style={{ alignSelf: 'center', paddingTop: 10 }}>
             <Text style={{ fontSize: 12, color: '#F4B086' }}>
               Forgot your password?
             </Text>
