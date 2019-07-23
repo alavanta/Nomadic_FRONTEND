@@ -20,13 +20,16 @@ class Profile extends Component {
 	render() {
 		return (
 			<View style={{ flex: 1, backgroundColor: '#FFF' }}>
+
 				<View style={styles.topContainer}>
 					<View style={{ alignItems: 'center' }}>
 						<Avatar size="large" rounded title="JD" />
 						<Text style={{ fontSize: 35, fontWeight: 'bold' }}>John Doe</Text>
 					</View>
 				</View>
+
 				<View style={styles.bottomContainer}>
+
 					<View style={styles.line} />
 					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('Notification')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
@@ -55,7 +58,7 @@ class Profile extends Component {
 						</View>
 					</TouchableOpacity>
 					<View style={styles.line} />
-					<TouchableOpacity style={styles.accountOption} onPress={() => this.setModalVisible(true)}>
+					<TouchableOpacity style={[styles.accountOption, {backgroundColor: '#EF4453'}]} onPress={() => this.setModalVisible(true)}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Logout</Text>
 						</View>
@@ -65,6 +68,7 @@ class Profile extends Component {
 					</TouchableOpacity>
 					<View style={styles.line} />
 				</View>
+
 				<Modal
 					animationType='fade'
 					transparent={true}
@@ -111,17 +115,18 @@ const styles = StyleSheet.create({
 	},
 	line: {
 		borderWidth: 2,
-		borderColor: '#999999',
+		borderColor: '#f5f5f5',
 		margin: 10,
 		height: '3%',
-		backgroundColor: '#999999'
+		backgroundColor: '#f5f5f5'
 	},
 	accountOption: {
-		borderWidth: 2,
+		borderWidth: 1,
 		borderColor: '#999999',
 		flexDirection: 'row',
 		height: '15%',
-		justifyContent: 'space-between'
+		justifyContent: 'space-between',
+		borderRadius: 5,
 	},
 	modalTransparent: {
 		width: '100%',
