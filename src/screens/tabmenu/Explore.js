@@ -9,7 +9,8 @@ import {
 	Text,
 	View,
 } from 'react-native'
-
+import { withNavigation } from 'react-navigation';
+import PackageMenu from '../../components/ExplorePackageMenu';
 
 class Explore extends Component {
 
@@ -52,7 +53,7 @@ class Explore extends Component {
 			extrapolate: 'clamp',
 		});
 		return (
-			<View style={styles.fill}>
+			<View style={styles.container}>
 				<ScrollView
 					style={styles.fill}
 					scrollEventThrottle={16}
@@ -60,7 +61,11 @@ class Explore extends Component {
 						[{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
 					)}
 				>
+
+					<PackageMenu navigation={this.props.navigation} />
+
 					{this._renderScrollViewContent()}
+
 				</ScrollView>
 				<Animated.View style={[styles.header, { height: headerHeight }]}>
 					<Animated.Image
@@ -74,9 +79,9 @@ class Explore extends Component {
 					/>
 					<Animated.View>
 						<View style={styles.bar}>
-							<Image style={styles.icon} source={require('../../assets/icon.png')}/>
-							<TouchableOpacity style={styles.search}>
-								<Text style={{color:'#F8F8F8', fontSize:12}}>Search ... </Text>
+							<Image style={styles.icon} source={require('../../assets/icon.png')} />
+							<TouchableOpacity onPress={() =>  this.props.navigation.navigate('Package')} style={styles.search}>
+								<Text style={{ color: '#F8F8F8', fontSize: 12 }}>Search ... </Text>
 							</TouchableOpacity>
 						</View>
 					</Animated.View>
@@ -86,15 +91,20 @@ class Explore extends Component {
 	}
 }
 
-export default Explore;
+export default withNavigation(Explore);
 
 const { height, width } = Dimensions.get('window');
 const HEADER_MAX_HEIGHT = 200;
 const HEADER_MIN_HEIGHT = 60;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		backgroundColor: '#F5F5F5'
+	},
 	fill: {
 		flex: 1,
+		paddingTop: HEADER_MAX_HEIGHT,
 	},
 	row: {
 		height: 100,
@@ -115,24 +125,24 @@ const styles = StyleSheet.create({
 		height: '100%',
 		alignItems: 'center',
 		justifyContent: 'center',
-		flexDirection:'column',
-		flexWrap:'wrap'
+		flexDirection: 'column',
+		flexWrap: 'wrap'
 	},
 	search: {
-		marginLeft:10,
-		backgroundColor:'rgba(0, 0, 0, 0.2)',
-		padding:8,
-		width:'50%',
-		borderWidth:1,
-		borderColor:'#F6F6F6',
-		borderRadius:5,
-		justifyContent:'center',
+		marginLeft: 10,
+		backgroundColor: 'rgba(0, 0, 0, 0.2)',
+		padding: 8,
+		width: '50%',
+		borderWidth: 1,
+		borderColor: '#F6F6F6',
+		borderRadius: 5,
+		justifyContent: 'center',
 	},
 	icon: {
-		marginRight:20,
-		height: width/15,
-		width: (width/15)*3,
-		marginBottom:10
+		marginRight: 20,
+		height: width / 15,
+		width: (width / 15) * 3,
+		marginBottom: 10
 	},
 	scrollViewContent: {
 		marginTop: HEADER_MAX_HEIGHT,
