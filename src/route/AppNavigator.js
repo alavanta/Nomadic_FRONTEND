@@ -16,6 +16,7 @@ import PrivateChat from '../screens/PrivateChat';
 import PackageDetail from '../screens/PackageDetail';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 import otpCode from '../screens/ForgotPassword/otpCode'
+import Checkout from '../screens/Checkout/Checkout'
 
 
 const AppStack = createStackNavigator (
@@ -26,6 +27,7 @@ const AppStack = createStackNavigator (
         PrivateChat: PrivateChat,
         PackageDetail: PackageDetail,
         Package: Package,
+        Checkout: Checkout
     },
     {
         headerMode:"none"
