@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, TextInput, Picker } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
 class Register extends Component {
     constructor() {
@@ -31,76 +32,81 @@ class Register extends Component {
 
     // }
 
-    Loginhandler = () => {
 
-    }
-
-    changeName = (text) => {
+    changeName = (name) => {
         let nameVal = /^[a-zA-Z ]*$/
-        if (nameVal.test(text) === false) {
+        if (nameVal.test(name) === false) {
             this.setState({
                 errName: 'Name input only text'
             })
+            this.setState({ name })
+            return false;
         } else {
             this.setState({
-                name: text,
+                name: name,
                 errName: false
             })
         }
     }
 
-    changeEmail = (text) => {
+    changeEmail = (email) => {
         let emailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (emailVal.test(text) === false) {
+        if (emailVal.test(email) === false) {
             this.setState({
                 errEmail: "Wrong email format"
             })
-            this.setState({ email: text })
+            this.setState({ email })
             return false;
         }
         else {
             this.setState({
-                email: text,
+                email: email,
                 errEmail: false
             })
         }
     }
 
-    changePassword = (text) => {
-        if (text.length < 6) {
+    changePassword = (password) => {
+        if (password.length < 6) {
             this.setState({
                 errPassword: 'Password must more than 6 character'
             })
+            this.setState({ password })
+            return false;
         } else {
             this.setState({
-                password: text,
+                password: password,
                 errPassword: false
             })
         }
     }
 
-    changeAddress = (text) => {
-        if (text.length < 6) {
+    changeAddress = (address) => {
+        if (address.length < 6) {
             this.setState({
                 errAddress: 'Address must more than 6 character'
             })
+            this.setState({ address })
+            return false;
         } else {
             this.setState({
-                address: text,
+                address: address,
                 errAddress: false
             })
         }
     }
 
-    changePhone = (text) => {
+    changePhone = (phone) => {
         let phoneVal = /^[0-9]*$/
-        if (phoneVal.test(text) === false) {
+        if (phoneVal.test(phone) === false) {
             this.setState({
                 errPhone: 'Input only numbers'
             })
+            this.setState({ phone })
+            return false;
         } else {
             this.setState({
-                phone: text,
+                phone: phone,
                 errPhone: false
             })
         }
@@ -110,13 +116,13 @@ class Register extends Component {
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
                 <View style={styles.header}>
-                    <View style={{ margin: 10 }}>
+                    <TouchableOpacity style={{ margin: 10 }} onPress={()=> this.props.navigation.goBack()}>
                         <Icon
                             name='arrowleft'
                             type='antdesign'
                             color='#808080'
                             size={25} />
-                    </View>
+                    </TouchableOpacity>
                 </View>
                 <ScrollView style={{ marginTop: 10, marginLeft: 20, marginRight: 20 }}>
                     <View>
@@ -126,7 +132,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Name'
                             style={styles.input}
-                            onChangeText={this.changeName}
+                            onChangeText={(name)=> this.changeName(name)}
                             value={this.state.name} />
                         {
                             this.state.errName !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errName}</Text> : null
@@ -134,7 +140,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Email address'
                             style={styles.input}
-                            onChangeText={(text) => this.changeEmail(text)}
+                            onChangeText={(email) => this.changeEmail(email)}
                             value={this.state.email} />
                         {
                             this.state.errEmail !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errEmail}</Text> : null
@@ -142,7 +148,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Password'
                             style={styles.input}
-                            onChangeText={(text) => this.changePassword(text)}
+                            onChangeText={(password) => this.changePassword(password)}
                             value={this.state.password}
                             secureTextEntry={true} />
                         {
@@ -151,7 +157,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Address'
                             style={styles.input}
-                            onChangeText={(text) => this.changeAddress(text)}
+                            onChangeText={(address) => this.changeAddress(address)}
                             value={this.state.address} />
                         {
                             this.state.errAddress !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errAddress}</Text> : null
@@ -159,7 +165,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Phone Number'
                             style={styles.input}
-                            onChangeText={(text) => this.changePhone(text)}
+                            onChangeText={(phone) => this.changePhone(phone)}
                             value={this.state.phone} />
                         {
                             this.state.errPhone !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errPhone}</Text> : null
@@ -185,8 +191,9 @@ class Register extends Component {
                         }
                         buttonStyle={styles.btnSignUp}
                         disabledStyle={{ backgroundColor: '#A8A8A8' }}
-                        disabledTitleStyle={{ color: '#FFF' }}/>
-                        <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text>Login</Text></Text>
+                        disabledTitleStyle={{ color: '#FFF' }}
+                        onPress={this.validate()}/>
+                        <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text onPress={()=>this.props.navigation.navigate('Login')}>Login</Text></Text>
                 </ScrollView>
             </View>
         )
@@ -219,4 +226,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Register
+export default withNavigation(Register);
