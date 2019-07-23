@@ -28,7 +28,8 @@ class Booking extends Component {
 		super(props);
 		this.state={
 			isLogin:true,
-			bookingData:booking
+			//bookingData:booking
+			bookingData:[]
 		}
 	}
 
