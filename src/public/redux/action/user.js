@@ -1,7 +1,7 @@
 import axios from 'axios';
 import login from '../reducers/user';
 
-const url = 'http://192.168.6.163:3000';
+const url = 'http://192.168.6.184:3000';
 
 export const fetchUser = (data) => {
     return {

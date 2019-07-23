@@ -5,7 +5,8 @@ import {
   TextInput,
   StyleSheet,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from 'react-native';
 import { Button, Input, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -20,7 +21,8 @@ class Login extends Component {
       password: '',
       errEmail: false,
       errPassword: false,
-      errAuth: false
+      errAuth: false,
+      isLoading: false,
     };
   }
 
@@ -63,6 +65,11 @@ class Login extends Component {
   };
 
   loginHandler = async () => {
+
+    this.setState({
+      isLoading: true
+    })
+
     let { email, password } = this.state;
     let data = {
       email,
@@ -72,6 +79,9 @@ class Login extends Component {
       .dispatch(fetchUser(data))
       .then(success => {
         this.props.navigation.navigate('Home');
+        this.setState({
+          isLoading: false
+        })
       })
       .catch(err => {
         this.setState({ errAuth: true });
@@ -81,7 +91,10 @@ class Login extends Component {
   renderError = () => {
     if (this.state.errAuth) {
       alert('Authentikasi Gagal');
-      this.setState({ errAuth: false });
+      this.setState({ 
+        errAuth: false,
+        isLoading: false
+      });
     }
   };
 
@@ -163,6 +176,16 @@ class Login extends Component {
             </Text>
           </TouchableOpacity>
         </View>
+
+        {
+          this.state.isLoading ?
+            <View style={{backgroundColor: 'white', position: 'absolute', width: '100%', height: '100%', justifyContent: 'center'}}>
+              <ActivityIndicator size="large" color="#FF4453" />
+            </View>
+          :
+          <View />
+        }
+
       </SafeAreaView>
     );
   }

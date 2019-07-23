@@ -50,7 +50,6 @@ export default (user = async (state = initialState, action) => {
         // data: action.payload.data[0]
       };
     case 'EDIT_USER_FULFILLED':
-      console.warn('masuk full ',action.payload.data.rowss[])
       return {
         ...state,
         isLoading: false,
