@@ -4,12 +4,12 @@ import Main from '../screens/Main';
 import AuthLoading from '../screens/AuthLoading';
 import Login from '../screens/Login';
 import Register from '../screens/Register';
-import Home from '../screens/Home'
-
+import Home from '../screens/Home';
+import Package from '../screens/Package'
 
 const AppStack = createStackNavigator (
     { 
-        Home: Home 
+        Home, Package
     },
     {
         headerMode:"none"
