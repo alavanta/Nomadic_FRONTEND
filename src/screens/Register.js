@@ -32,6 +32,7 @@ class Register extends Component {
 
     // }
 
+    
 
     changeName = (name) => {
         let nameVal = /^[a-zA-Z ]*$/

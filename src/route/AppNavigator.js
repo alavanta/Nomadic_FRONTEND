@@ -6,7 +6,6 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home'
 import Profile from '../screens/tabmenu/Profile';
-import ChangePassword from '../screens//account/ChangePassword';
 import EditProfile from '../screens/account/EditProfile';
 import Notification from '../screens/account/Notifications';
 
@@ -15,7 +14,6 @@ const AppStack = createStackNavigator (
     { 
         Home: Home,
         Profile: Profile,
-        ChangePassword: ChangePassword,
         EditProfile: EditProfile,
         Notification: Notification
         
@@ -38,7 +36,7 @@ const AuthStack = createStackNavigator (
 
 const switchNavigator = createSwitchNavigator (
     {
-        AuthLoading: AuthLoading,
+        AuthLoading: Profile,
         App: AppStack,
         Auth: AuthStack,
     },
