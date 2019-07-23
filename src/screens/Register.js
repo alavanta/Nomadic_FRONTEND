@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, ScrollView, StyleSheet, TextInput, Picker } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
 
 class Register extends Component {
     constructor() {
@@ -31,9 +32,6 @@ class Register extends Component {
 
     // }
 
-    Loginhandler = () => {
-
-    }
 
     changeName = (text) => {
         let nameVal = /^[a-zA-Z ]*$/
@@ -186,7 +184,7 @@ class Register extends Component {
                         buttonStyle={styles.btnSignUp}
                         disabledStyle={{ backgroundColor: '#A8A8A8' }}
                         disabledTitleStyle={{ color: '#FFF' }}/>
-                        <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text>Login</Text></Text>
+                        <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text onPress={()=>this.props.navigation.navigate('Login')}>Login</Text></Text>
                 </ScrollView>
             </View>
         )
@@ -219,4 +217,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Register
+export default withNavigation(Register);
