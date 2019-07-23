@@ -14,7 +14,8 @@ class Booking extends Component {
 			<View style={{
 				flex: 1,
 				justifyContent: 'center',
-				alignItems: 'center'
+				alignItems: 'center',
+				backgroundColor: 'white'
 			}}>
 				<Image 
 				source={require('../../assets/no-booking.png')}

@@ -14,18 +14,19 @@ import EditProfile from '../screens/account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
 
-const AppStack = createStackNavigator(
-  {
-    Home: Home,
-    Profile: Profile,
-    EditProfile: EditProfile,
-    Notification: Notification,
-    PrivateChat: PrivateChat,
-    Package
-  },
-  {
-    headerMode: 'none'
-  }
+
+const AppStack = createStackNavigator (
+    { 
+        Home: Home,
+        Profile: Profile,
+        //EditProfile: EditProfile,
+        //Notification: Notification,
+        PrivateChat: PrivateChat,
+
+    },
+    {
+        headerMode:"none"
+    }
 );
 const AuthStack = createStackNavigator(
   {
@@ -37,6 +38,7 @@ const AuthStack = createStackNavigator(
     headerMode: 'none'
   }
 );
+
 
 const switchNavigator = createSwitchNavigator(
   {
