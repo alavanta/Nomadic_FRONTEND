@@ -176,14 +176,14 @@ class PackageDetail extends Component {
 					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Checkout')} style={styles.button}>
 						<Text style={{ color: '#FFF', fontWeight: '500', fontSize: 16 }}>BOOKING</Text>
 					</TouchableOpacity>
-					<TouchableOpacity onPress={()=>this.gotoMap()} style={styles.mapButton}>
+				</View>
+				<TouchableOpacity onPress={()=>this.gotoMap()} style={styles.mapFab}>
 						<Icon
 							name='map'
 							type='Entypo'
-							color='#EF4453'
+							color='#FFF'
 							size={25} />
 					</TouchableOpacity>
-				</View>
 				<Animated.View style={[styles.header, { height: headerHeight }]}>
 					<Animated.Image
 						style={[
@@ -304,6 +304,18 @@ const styles = StyleSheet.create({
 	},
 	mapButton: {
 		margin:10
+	},
+	mapFab: {
+		bottom:70,
+		right:20,
+		width:width/7,
+		height:width/7,
+		alignItems:'center',
+		borderRadius:(width/7)/2,
+		justifyContent:'center',
+		backgroundColor:'#EF4453',
+		position:'absolute',
+		elevation:4
 	},
 	flatlist:{
 		marginTop:20
