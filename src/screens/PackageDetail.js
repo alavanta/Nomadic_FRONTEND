@@ -173,7 +173,7 @@ class PackageDetail extends Component {
 						<Text numberOfLines={1} style={{ color: '#000', fontSize: 16 }}>Rp{this.state.package.price}</Text>
 						<Text numberOfLines={1} style={{ color: '#444', fontSize: 10 }}>{this.state.package.name}</Text>
 					</View>
-					<TouchableOpacity onPress={()=>this.bookingHandler()} style={styles.button}>
+					<TouchableOpacity onPress={()=> this.props.navigation.navigate('Checkout')} style={styles.button}>
 						<Text style={{ color: '#FFF', fontWeight: '500', fontSize: 16 }}>BOOKING</Text>
 					</TouchableOpacity>
 					<TouchableOpacity onPress={()=>this.gotoMap()} style={styles.mapButton}>
