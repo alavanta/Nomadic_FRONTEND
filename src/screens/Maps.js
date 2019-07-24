@@ -14,32 +14,8 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
 class Maps extends Component {
     state = {
-        markers: [
-            {
-                latitude: 45.524548,
-                longitude: -122.6749817,
-                destination_name: "Best Place",
-                destination_image: "https://i.imgur.com/sNam9iJ.jpg",
-            },
-            {
-                latitude: 45.524698,
-                longitude: -122.6655507,
-                destination_name: "Second Best Place",
-                destination_image: "https://i.imgur.com/N7rlQYt.jpg",
-            },
-            {
-                latitude: 45.5230786,
-                longitude: -122.6701034,
-                destination_name: "Third Best PlaceThird Best Place",
-                destination_image: "https://i.imgur.com/UDrH0wm.jpg",
-            },
-            {
-                latitude: 45.521016,
-                longitude: -122.6561917,
-                destination_name: "Fourth Best Place",
-                destination_image: "https://i.imgur.com/Ka8kNST.jpg",
-            },
-        ],
+        destinations:this.props.navigation.getParam('destinations'),
+        markers: this.props.navigation.getParam('destinations'),
         region: {
             latitude: 45.52220671242907,
             longitude: -122.6653281029795,
@@ -55,6 +31,7 @@ class Maps extends Component {
     componentDidMount() {
         // We should detect when scrolling has stopped then animate
         // We should just debounce the event listener here
+        console.warn(this.state.destinations)
         this.animation.addListener(({ value }) => {
             let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
             if (index >= this.state.markers.length) {
@@ -167,7 +144,8 @@ class Maps extends Component {
                                 resizeMode="cover"
                             />
                             <View style={styles.textContent}>
-                                <Text numberOfLines={1} style={styles.cardtitle}>{index + 1}. {marker.destination_name}</Text>
+                                <Text numberOfLines={1} style={styles.cardTitle}>{index + 1}. {marker.destination_name}</Text>
+                                <Text numberOfLines={2} style={styles.cardDescription}> {marker.destination_description}</Text>
                             </View>
                         </View>
                     ))}
@@ -182,7 +160,7 @@ export default withNavigation(Maps);
 const { width, height } = Dimensions.get("window");
 
 const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const CARD_WIDTH = CARD_HEIGHT;
 const ASPECT_RATIO = width / height;
 const LATITUDE_DELTA = 0.0152;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -196,7 +174,6 @@ const styles = StyleSheet.create({
         bottom: 30,
         left: 0,
         right: 0,
-        paddingLeft: 100,
     },
     endPadding: {
         paddingRight: width - CARD_WIDTH,
@@ -215,13 +192,13 @@ const styles = StyleSheet.create({
         overflow: "hidden",
     },
     cardImage: {
-        flex: 3,
+        flex: 4,
         width: "100%",
         height: "100%",
         alignSelf: "center",
     },
     textContent: {
-        flex: 1,
+        flex: 2,
     },
     backButton: {
         position:'absolute',
@@ -234,10 +211,14 @@ const styles = StyleSheet.create({
         elevation:3,
         borderRadius:20
     },
-    cardtitle: {
+    cardTitle: {
         fontSize: 12,
         marginTop: 5,
         fontWeight: "bold",
+    },
+    cardDescription: {
+        fontSize: 10,
+        marginTop: 5,
     },
     markerWrap: {
         alignItems: "center",
