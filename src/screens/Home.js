@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, StatusBar, AsyncStorage } from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  AsyncStorage
+} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
