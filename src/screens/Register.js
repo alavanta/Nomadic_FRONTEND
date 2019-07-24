@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity, Alert, TouchableHighlight } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
@@ -200,6 +200,7 @@ class Register extends Component {
                                             this.state.phone == '' ? true : false
                         }
                         buttonStyle={styles.btnSignUp}
+                        TouchableComponent={TouchableHighlight}
                         disabledStyle={{ backgroundColor: '#A8A8A8' }}
                         disabledTitleStyle={{ color: '#FFF' }}
                         onPress={()=>this.sendUser(this.state.name,this.state.password, this.state.email, this.state.phone, this.state.address, this.state.gender)} />

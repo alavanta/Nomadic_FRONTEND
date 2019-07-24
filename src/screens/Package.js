@@ -13,7 +13,6 @@ import {
 import { withNavigation } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
-
 class Package extends Component {
     constructor(props) {
         super(props);

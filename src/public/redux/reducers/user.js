@@ -12,6 +12,8 @@ export default (user = async (state = initialState, action) => {
     case 'FETCH_USER_PENDING':
     case 'ADD_USER_PENDING':
     case 'EDIT_USER_PENDING':
+    case 'ADD_NEW_PASSWORD':
+    case 'FORGET_PASSWORD':
       return {
         ...state,
         isLoading: true,
@@ -20,6 +22,8 @@ export default (user = async (state = initialState, action) => {
     case 'FETCH_USER_REJECTED':
     case 'ADD_USER_REJECTED':
     case 'EDIT_USER_REJECTED':
+    case 'ADD_NEW_PASSWORD':
+    case 'FORGET_PASSWORD':
       console.warn('masuk reject')
       return {
         ...state,
@@ -40,7 +44,7 @@ export default (user = async (state = initialState, action) => {
         token: action.payload.data.token
       };
     case 'ADD_USER_FULFILLED':
-      
+
       return {
         ...state,
         isLoading: false,
@@ -55,10 +59,26 @@ export default (user = async (state = initialState, action) => {
         isLoading: false,
         isError: false,
         isFinish: true,
-        data : state.data.map(users => {
+        data: state.data.map(users => {
           (users.id = parseInt(action.payload.data.rowss[0].id)) ?
-                      action.payload.data.rowss[0] : users
+            action.payload.data.rowss[0] : users
         })
+      }
+    case 'ADD_PASSWORD_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isFinish: true,
+        data: action.payload.data.data
+      }
+    case 'ADD_NEW_PASSWORD_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isFinish: true,
+        data: action.payload.data.data
       }
     default:
       return state;

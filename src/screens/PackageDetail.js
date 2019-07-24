@@ -91,6 +91,7 @@ class PackageDetail extends Component {
 	}
 
 	bookingHandler = () => {
+		this.props.navigation.navigate('Checkout');
 		console.warn('booking');
 	}
 
@@ -196,7 +197,7 @@ class PackageDetail extends Component {
 					/>
 					<Animated.View>
 						<View style={styles.bar}>
-							<TouchableOpacity>
+							<TouchableOpacity onPress={()=> this.navigation.goBack()}>
 								<Icon
 									name='arrowleft'
 									type='antdesign'

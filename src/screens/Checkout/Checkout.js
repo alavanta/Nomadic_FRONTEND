@@ -76,7 +76,7 @@ class Checkout extends Component {
 
                 <View style={styles.package}>
                     <Text style={styles.price}>
-                       Rp {this.state.price * this.state.totalPassenger}
+                       Rp. {this.state.price * this.state.totalPassenger}
                     </Text>
                     <View style={styles.imageWrap}>
                         <Image 
@@ -151,7 +151,6 @@ class Checkout extends Component {
                         <TextInput 
                             placeholder="Full Name" 
                             style={styles.textInput}
-                            
                         />
                     </View>
 
