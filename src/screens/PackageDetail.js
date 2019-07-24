@@ -197,7 +197,7 @@ class PackageDetail extends Component {
 					/>
 					<Animated.View>
 						<View style={styles.bar}>
-							<TouchableOpacity onPress={()=> this.navigation.goBack()}>
+							<TouchableOpacity onPress={()=> this.props.navigation.goBack()}>
 								<Icon
 									name='arrowleft'
 									type='antdesign'

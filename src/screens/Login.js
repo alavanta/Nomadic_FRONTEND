@@ -66,7 +66,6 @@ class Login extends Component {
   };
 
   loginHandler = async () => {
-
     this.setState({
       isLoading: true
     })

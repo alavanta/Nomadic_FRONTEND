@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput, Picker } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //=============== Icons ================//
@@ -18,6 +18,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import DateTimePicker from "react-native-modal-datetime-picker";
+import { thisExpression } from '@babel/types';
 
 
 
@@ -26,22 +27,32 @@ class Checkout extends Component {
 
     constructor(props) {
         super(props);
-
-        const price = 458000
-        const totalPassenger = 1
-
         this.state = {
             isDateTimePickerVisible: false,
             date: '',
             totalPassenger: 1,
             price: 547000,
+            ccName: '',
+            cvcNum: '',
+            exDate: '',
+            exMonth: '',
+            cardExpiry: '',
+            creditCardNumber: '',
+            name: '',
+            address: '',
+            phone: '',
+            gender: 'Male',
+            errName: false,
+            errCcName: '',
+            errAddress: false,
+            errPhone: false
         };
     }
 
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
     };
- 
+
     hideDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: false });
     };
@@ -60,13 +71,115 @@ class Checkout extends Component {
         })
     }
 
+    _handlingCcNumberInput(ccNum) {
+        if (ccNum.indexOf('.') >= 0 || ccNum.length > 19) {
+            return;
+        }
+        if (ccNum.length === 4 || ccNum.length === 9 || ccNum.length === 14) {
+            ccNum += ' '
+        }
+        this.setState({
+            creditCardNumber: ccNum 
+        })
+
+    }
+
+    _handlingCardExpiry(exDate) {
+        if (exDate.indexOf('.') >= 0 || exDate.length > 5) {
+            return;
+        }
+        if (exDate.length === 2 && this.state.cardExpiry.length === 1) {
+            exDate += '/'
+        }
+        this.setState({
+            cardExpiry: exDate
+        });
+    }
+
+    nameChange = (name) => {
+        let nameVal = /^[A-Za-z0-9 ]+$/
+        if (nameVal.test(name) === false) {
+            this.setState({
+                errName: 'Name input only text'
+            })
+            this.setState({ name })
+            return false;
+        } else {
+            this.setState({
+                name: name,
+                errName: false
+            })
+        }
+    }
+
+    phoneChange = (phone) => {
+        let num = /^[0-9]*$/
+        if (num.test(phone) === false) {
+            this.setState({
+                errPhone: 'input only numbers'
+            })
+            this.setState({phone})
+            return false;
+        } else {
+            this.setState({
+                phone: phone,
+                errPhone: false
+            })
+        }
+    }
+
+    CcNameChange = (ccName) => {
+        let nameVal = /^[A-Za-z0-9 ]+$/
+        if (nameVal.test(ccName) === false) {
+            this.setState({
+                errCcName: 'Name input only text'
+            })
+            this.setState({ ccName })
+            return false;
+        } else {
+            this.setState({
+                ccName: ccName,
+                errCcName: false
+            })
+        }
+    }
+
+    totalPassengerDecrement = () => {
+        let dec = this.state.totalPassenger
+        let min = dec - 1
+        this.setState({
+            totalPassenger: min
+        })
+    }
+
+    totalPassengerIncrement = () => {
+        let inc = this.state.totalPassenger
+        let plus = inc + 1
+        this.setState({
+            totalPassenger: plus
+        })
+    }
+
+    priceFormating = (totalPrice) => {
+        let number_string = totalPrice.toString(),
+            remains = number_string.length % 3,
+            idr = number_string.substr(0, remains),
+            Thousands = number_string.substr(remains).match(/\d{3}/g);
+
+        if (Thousands) {
+            separator = remains ? '.' : '';
+            idr += separator + Thousands.join('.');
+        }
+        return idr;
+    }
 
     render() {
+        console.log(this.state.totalPassenger)
         return (
-            <SafeAreaView style={{flex: 1}}>
+            <SafeAreaView style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} title="Checkout" />
                 <View style={styles.background}>
-                    <LinearGradient colors={['#F4A386','#EF4453']} style={styles.redBackground}>
+                    <LinearGradient colors={['#F4A386', '#EF4453']} style={styles.redBackground}>
 
                     </LinearGradient>
                     <View style={styles.whiteBackground}>
@@ -76,97 +189,130 @@ class Checkout extends Component {
 
                 <View style={styles.package}>
                     <Text style={styles.price}>
-                       Rp. {this.state.price * this.state.totalPassenger}
+                        Rp {this.priceFormating(this.state.price * this.state.totalPassenger)}
                     </Text>
                     <View style={styles.imageWrap}>
-                        <Image 
+                        <Image
                             style={styles.image}
-                            source={{uri: 'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'}}
+                            source={{ uri: 'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg' }}
                         />
                     </View>
                 </View>
 
                 <ScrollView style={styles.container}>
-                    
+
                     <View style={[styles.form, {
                         flexDirection: 'row',
                         alignItems: 'flex-end'
                     }]}>
 
-                        <View style={{flex: 1}}>
-                            <TextInput 
-                                placeholder="Date" 
-                                style={styles.textInput} 
+                        <View style={{ flex: 1 }}>
+                            <TextInput
+                                placeholder="Date"
+                                style={styles.textInput}
                                 value={this.state.date.toString()}
                                 editable={false}
                             />
                         </View>
 
-                        <Button 
-                            buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+                        <Button
+                            buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)' }}
                             icon={
                                 <Fontisto
-                                  name="date"
-                                  size={25}
-                                  color="#ff4453"
+                                    name="date"
+                                    size={25}
+                                    color="#ff4453"
                                 />
                             }
                             onPress={this.showDateTimePicker}
-                        />    
-                    </View>
-                    <View style={[styles.form, {
-                        flexDirection: 'row',
-                        alignItems: 'flex-end'
-                    }]}>
-
-                        <View>
-                            <TextInput 
-                                placeholder="Total Passenger" 
-                                style={styles.textInput}
-                                onChangeText={this.totalPassengerChange}
-                                value={this.state.totalPassenger.toString()}
-                                keyboardType={'numeric'}
-                                maxLength={3}
-                            />
-                        </View>
-
-                        <Button 
-                            buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
-                            icon={
-                                <AntDesign
-                                  name="addusergroup"
-                                  size={25}
-                                  color="#ff4453"
-                                />
-                            }
                         />
-
                     </View>
 
-                    <Text style={{fontSize: 18, marginTop: 30}}>
+                    <View style={styles.personBorder}>
+                        <TouchableOpacity style={styles.leftPersonBorder} disabled={this.state.totalPassenger === 1 ? true : false } onPress={this.totalPassengerDecrement}>
+                            <Text style={{ alignSelf: 'center', fontSize: 20 }}>-</Text>
+                        </TouchableOpacity>
+                        <View style={styles.centerPersonBorder}>
+                            <Text style={{ fontWeight: 'bold', fontSize: 20, alignSelf: 'center' }}>{this.state.totalPassenger}</Text>
+                        </View>
+                        <TouchableOpacity style={styles.rightPersonBorder} disabled={this.state.totalPassenger === 999 ? true : false } onPress={this.totalPassengerIncrement}>
+                            <Text style={{ alignSelf: 'center', fontSize: 20 }}>+</Text>
+                        </TouchableOpacity>
+                    </View>
+
+                    <Text style={{ fontSize: 18, marginTop: 30 }}>
                         Traveler Information
                     </Text>
 
                     <View>
-                        <TextInput 
-                            placeholder="Full Name" 
+                        <TextInput
+                            placeholder="Full Name"
                             style={styles.textInput}
+                            value={this.state.name}
+                            onChangeText={(name)=> this.nameChange(name)}
                         />
                     </View>
 
                     <View>
-                        <TextInput 
-                            placeholder="Phone Number (for Emergency)" 
+                        <TextInput
+                            placeholder="Phone Number (for Emergency)"
                             style={styles.textInput}
                             keyboardType={'numeric'}
                             maxLength={12}
+                            value={this.state.phone}
+                            onChangeText={(phone)=>this.phoneChange(phone)}
                         />
                     </View>
                     <View>
-                        <TextInput 
-                            placeholder="Address" 
+                        <TextInput
+                            placeholder="Address"
                             style={styles.textInput}
 
+                        />
+                    </View>
+
+                    <Text style={{ fontSize: 18, marginTop: 30 }}>
+                        Payment Information
+                    </Text>
+
+                    <View>
+                        <TextInput
+                            placeholder="Name on Credit Card"
+                            style={styles.textInput}
+                            onChangeText={(ccName) => this.CcNameChange(ccName)}
+                            value={this.state.ccName}
+                        />
+                    </View>
+
+                    <View>
+                        <TextInput
+                            placeholder="CC numbers"
+                            style={styles.textInput}
+                            keyboardType={'numeric'}
+                            maxLength={19}
+                            value={this.state.creditCardNumber}
+                            onChangeText={this._handlingCcNumberInput.bind(this)}
+                        />
+                    </View>
+
+                    <View>
+                        <TextInput
+                            placeholder="ex Date : MM/YY"
+                            style={styles.textInputPayment}
+                            keyboardType={'numeric'}
+                            maxLength={5}
+                            onChangeText={this._handlingCardExpiry.bind(this)}
+                            value={this.state.cardExpiry}
+                        />
+                    </View>
+
+                    <View>
+                        <TextInput
+                            placeholder="CVC"
+                            style={styles.textInputPayment}
+                            keyboardType={'numeric'}
+                            maxLength={4}
+                            onChangeText={(cvcNum) => this.setState({ cvcNum })}
                         />
                     </View>
 
@@ -176,7 +322,7 @@ class Checkout extends Component {
                             title="Checkout"
                         />
                     </View>
-                    <View style={{height: 50}} />
+                    <View style={{ height: 50 }} />
                 </ScrollView>
 
 
@@ -185,7 +331,7 @@ class Checkout extends Component {
                     onConfirm={this.handleDatePicked}
                     onCancel={this.hideDateTimePicker}
                 />
-                
+
 
             </SafeAreaView>
         )
@@ -202,8 +348,8 @@ const styles = StyleSheet.create({
     },
     redBackground: {
         height: 230,
-        borderBottomLeftRadius: 15, 
-        borderBottomRightRadius: 15, 
+        borderBottomLeftRadius: 15,
+        borderBottomRightRadius: 15,
     },
     whiteBackground: {
         flex: 1,
@@ -250,6 +396,49 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#FF4453'
     },
+    textInputPayment: {
+        borderBottomWidth: 1,
+        borderColor: '#FF4453',
+        width: '35%'
+    },
+    picker: {
+        height: 50,
+        width: 100,
+        marginTop: 10
+    },
+    personBorder: {
+        flexDirection: 'row',
+        height: '5%',
+        width: '40%',
+        marginTop: 20,
+        alignItems: 'center'
+    },
+    leftPersonBorder: {
+        borderWidth: 1,
+        borderColor: '#ff4453',
+        height: '100%',
+        width: '30%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderTopLeftRadius: 20
+    },
+    rightPersonBorder: {
+        borderWidth: 1,
+        borderColor: '#ff4453',
+        height: '100%',
+        width: '30%',
+        alignSelf: 'center',
+        justifyContent: 'center',
+        borderBottomRightRadius: 20
+    },
+    centerPersonBorder: {
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: '#ff4453',
+        width: '40%',
+        height: '100%'
+    }
 })
+
 
 export default Checkout;

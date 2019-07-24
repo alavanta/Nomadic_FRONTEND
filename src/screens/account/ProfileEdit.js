@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Picker, TextInput, ScrollView,Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Picker, TextInput, ScrollView,Alert, AsyncStorage } from 'react-native';
 import { Icon, Avatar } from 'react-native-elements';
 
 import { editUser } from '../../public/redux/action/user';
@@ -23,18 +23,20 @@ class ProfileEdit extends Component {
             errPhone: false
         }
     }
-    userEdit = (name, password,email, phone, address, gender) => {
-        this.props.dispatch(editUser(name,password, email, phone, address, gender))
+    userEdit = (name, password, email, phone, address, gender) => {
+        this.props.dispatch(editUser(name, password, email, phone, address, gender))
         console.warn(this.state.name,this.state.password,this.state.email,this.state.phone,this.state.address,this.state.gender)
-        Alert.alert('Success','Data has created successfully, please login an application.');
+        console.warn(this.state.errName)
+        Alert.alert('Success','Data Has Been Edited');
 
     }
 
     validate = () => {
+        let { name, password, email, phone, address, gender} = this.state
         if (this.state.errName === false && this.state.errEmail === false && this.state.errAddress === false && this.state.errPhone === false) {
-            // this.register()
+            this.userEdit(name, password,email, phone, address, gender)
             console.log('validate masuk ke function register redux')
-        }
+        } 
     }
 
     changeName = (name) => {
@@ -116,6 +118,10 @@ class ProfileEdit extends Component {
         }
     }
 
+    componentDidMount() {
+       AsyncStorage.getItem('userToken')
+    }
+
     render() {
         return (
             <View style={{ flex: 1, flexDirection: 'column', backgroundColor: '#FFF', height: '100%', width: '100%' }}>
@@ -129,7 +135,7 @@ class ProfileEdit extends Component {
                     </TouchableOpacity>
                     <Text style={{ fontSize: 19, marginLeft: 5 }}>Edit Profile</Text>
                     <TouchableOpacity
-                        onPress={()=>this.userEdit(this.state.name, this.state.password,this.state.email, this.state.phone, this.state.address, this.state.gender)}
+                        onPress={this.validate}
                         disabled={
                             this.state.name == '' ? true :
                                 this.state.email == '' ? true :
