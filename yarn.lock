@@ -9,7 +9,7 @@
   dependencies:
     "@babel/highlight" "^7.0.0"
 
-"@babel/core@7.5.5", "@babel/core@^7.0.0", "@babel/core@^7.1.0":
+"@babel/core@^7.0.0", "@babel/core@^7.1.0", "@babel/core@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.5.5.tgz#17b2686ef0d6bc58f963dddd68ab669755582c30"
   integrity sha512-i4qoSr2KTtce0DmkuuQBV4AuQgGPUcPXMr9L5MyYAtk06z068lQ10a4O009fe5OB/DfNV+h+qqT7ddNV8UnRjg==
@@ -609,7 +609,7 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
-"@babel/runtime@7.5.5", "@babel/runtime@^7.0.0", "@babel/runtime@^7.4.5":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.5":
   version "7.5.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.5.5.tgz#74fba56d35efbeca444091c7850ccd494fd2f132"
   integrity sha512-28QvEGyQyNkB0/m2B4FU7IEZGK2NUrcMtT6BZEFALTguLk+AUT6ofsHtPk5QyjAdUkpMJ+/Em+quwz4HOt30AQ==
@@ -1229,7 +1229,7 @@ axios@^0.19.0:
     follow-redirects "1.5.10"
     is-buffer "^2.0.2"
 
-babel-jest@24.8.0, babel-jest@^24.8.0:
+babel-jest@^24.8.0:
   version "24.8.0"
   resolved "https://registry.yarnpkg.com/babel-jest/-/babel-jest-24.8.0.tgz#5c15ff2b28e20b0f45df43fe6b7f2aae93dba589"
   integrity sha512-+5/kaZt4I9efoXzPlZASyK/lN9qdRKmmUav9smVc0ruPQD7IsfucQ87gpOE8mn2jbDuS6M/YOW6n3v9ZoIfgnw==
@@ -3525,7 +3525,7 @@ jest-worker@^24.0.0-alpha.6, jest-worker@^24.6.0:
     merge-stream "^1.0.1"
     supports-color "^6.1.0"
 
-jest@24.8.0:
+jest@^24.8.0:
   version "24.8.0"
   resolved "https://registry.yarnpkg.com/jest/-/jest-24.8.0.tgz#d5dff1984d0d1002196e9b7f12f75af1b2809081"
   integrity sha512-o0HM90RKFRNWmAWvlyV8i5jGZ97pFwkeVoGvPW1EtLTgJc2+jcuqcbbqcSZLE/3f2S5pt0y2ZBETuhpWNl1Reg==
@@ -4053,7 +4053,7 @@ metro-react-native-babel-preset@0.51.1:
     metro-babel7-plugin-react-transform "0.51.1"
     react-transform-hmr "^1.0.4"
 
-metro-react-native-babel-preset@0.55.0:
+metro-react-native-babel-preset@^0.55.0:
   version "0.55.0"
   resolved "https://registry.yarnpkg.com/metro-react-native-babel-preset/-/metro-react-native-babel-preset-0.55.0.tgz#d5d4a6cbe9ccbcedd72fcbb71c0c311e3d56876e"
   integrity sha512-HUI+dEiVym8f1NYIF1grY9PdoY0d3SSS/HED2dDDvTORwndsAEWuXiUgKFOGWX18+RUAQog8obVQuBMgrr8ZBQ==
@@ -5076,6 +5076,13 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-animatable@^1.3.1:
+  version "1.3.2"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.3.2.tgz#4783ee1a73dc98815aef234ce6b819f80bfe7d80"
+  integrity sha512-rmah3KQ63ft8DxkzFUwJSuZeq+oSYwldoGF4DTOR5WM2WR5wiWLgBAtrAHlI3Di3by323uOR21s+MlqPcHz2Kw==
+  dependencies:
+    prop-types "^15.5.10"
+
 react-native-communications@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/react-native-communications/-/react-native-communications-2.2.1.tgz#7883b56b20a002eeb790c113f8616ea8692ca795"
@@ -5139,10 +5146,31 @@ react-native-linear-gradient@^2.5.5:
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.5.tgz#efea1f862bde939f6e073a51b4b3ca9e0bb62437"
   integrity sha512-BoaRqWtQ0Powxrz/4cdkzLQIyV/bwMXCZ+S7fGKSFZr/NtKrOpb9vvyG+d45ufnkuFPbWIqUflFvuLOpf067ag==
 
+react-native-maps@0.25.0:
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.25.0.tgz#81bc51eb50e33811a9e1c345cc48869413ead67d"
+  integrity sha512-PFJuW1pt+HnnnN0m0OGk29RSvICFVkK/DScX6cUk0SuCSN2DAHx0y6y57lZyYXcYqU4J4usNpfxgp/ccjASDiw==
+
 react-native-maps@~0.24.0:
   version "0.24.2"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.24.2.tgz#19974f967cb0c2e24dab74ca879118e0932571b2"
   integrity sha512-1iNIDikp2dkCG+8DguaEviYZiMSYyvwqYT7pO2YTZvuFRDSc/P9jXMhTUnSh4wNDlEeQ47OJ09l0pwWVBZ7wxg==
+
+react-native-modal-datetime-picker@^7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal-datetime-picker/-/react-native-modal-datetime-picker-7.5.0.tgz#415f02e29eedf283035867ae65d2e609af738abf"
+  integrity sha512-TtFS27IGhtg89LnIYIa8FrpNWbQENLiAAdfJPDdskv5VqIKgZSA0toOFYaAMRLeMiB8Urpf2/sAf0rdooCzu+g==
+  dependencies:
+    prop-types "^15.7.2"
+    react-native-modal "^11.0.2"
+
+react-native-modal@^11.0.2:
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/react-native-modal/-/react-native-modal-11.1.0.tgz#7dcb4be8e535b7ee3cc3b3c017e7a32ec0e1b278"
+  integrity sha512-gSD21evs2m+C/vtRS+R/I1ZuIN5td+K+I9Dt04HpBzux3HyA9km2oonQy8t+EKUNN2rFYjFntfUOMmb3vj7i8A==
+  dependencies:
+    prop-types "^15.6.2"
+    react-native-animatable "^1.3.1"
 
 react-native-parsed-text@^0.0.20:
   version "0.0.20"

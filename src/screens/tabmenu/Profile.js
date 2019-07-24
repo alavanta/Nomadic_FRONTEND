@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TouchableHighlight, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TouchableHighlight, Alert, AsyncStorage } from 'react-native';
 import { Avatar, Icon } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
@@ -14,6 +14,12 @@ class Profile extends Component {
 
 	setModalVisible(visible) {
 		this.setState({ modalVisible: visible });
+	}
+
+	logout = async () => {
+		await AsyncStorage.clear()
+
+    	this.props.navigation.navigate('AuthLoading')
 	}
 
 
@@ -40,7 +46,7 @@ class Profile extends Component {
 						</View>
 					</TouchableOpacity>
 					<View style={styles.line} />
-					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('EditProfile')}>
+					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('ProfileEdit')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Edit Profile</Text>
 						</View>
@@ -82,7 +88,7 @@ class Profile extends Component {
 								<Text style={{ fontSize: 19 }}>Are you sure want to log out?</Text>
 							</View>
 							<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginLeft: 10, marginRight: 10, marginTop: 16 }}>
-								<TouchableOpacity style={[styles.btnModal, { backgroundColor: '#62CA90', borderColor: '#62CA90', }]}>
+								<TouchableOpacity onPress={() => {this.logout()}} style={[styles.btnModal, { backgroundColor: '#62CA90', borderColor: '#62CA90', }]}>
 									<Text>Yes</Text>
 								</TouchableOpacity >
 								<TouchableOpacity onPress={() => this.setModalVisible(!this.state.modalVisible)} style={[styles.btnModal, { backgroundColor: '#E75E3F', borderColor: '#E75E3F', }]}>

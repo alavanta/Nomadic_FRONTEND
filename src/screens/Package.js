@@ -7,12 +7,11 @@ import {
     Image,
     StatusBar,
     SafeAreaView,
-    StyleSheet
+    StyleSheet,
+    TextInput
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Icon } from 'react-native-elements';
-import { TextInput } from 'react-native-gesture-handler';
-
 
 class Package extends Component {
     constructor(props) {
@@ -42,7 +41,7 @@ class Package extends Component {
                 </View>
                 <View style={styles.body}>
 
-                    <TouchableOpacity style={styles.card}>
+                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('PackageDetail')} style={styles.card}>
                         <Image source={{ uri: 'https://cdn.getyourguide.com/img/tour_img-991770-148.jpg' }} style={styles.image} />
                         <View>
                             <Text numberOfLines={1} style={styles.name}>Judul Package</Text>

@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity, Alert, TouchableHighlight } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
+
+import { addUser } from '../public/redux/action/user';
+import { connect } from 'react-redux';
 
 class Register extends Component {
     constructor() {
@@ -21,10 +24,16 @@ class Register extends Component {
         }
     }
 
+    sendUser = (name, password,email, phone, address, gender) => {
+        this.props.dispatch(addUser(name,password, email, phone, address, gender))
+        Alert.alert('Success','Data has created successfully, please login an application.')
+        this.props.navigation.goBack();
+    }
     validate = () => {
+        let { name, email, phone, address, gender } = this.state
         if (this.state.errName === false && this.state.errEmail === false && this.state.errPassword == false && this.state.errAddress === false && this.state.errPhone === false) {
-            // this.register()
-            console.log('validate masuk ke function register redux')
+            this.sendUser(name, email, phone, address, gender)
+            console.warn('validate masuk ke function register redux')
         }
     }
 
@@ -32,7 +41,7 @@ class Register extends Component {
 
     // }
 
-    
+
 
     changeName = (name) => {
         let nameVal = /^[a-zA-Z ]*$/
@@ -117,7 +126,7 @@ class Register extends Component {
         return (
             <View style={{ flex: 1, flexDirection: 'column' }}>
                 <View style={styles.header}>
-                    <TouchableOpacity style={{ margin: 10 }} onPress={()=> this.props.navigation.goBack()}>
+                    <TouchableOpacity style={{ margin: 10 }} onPress={() => this.props.navigation.goBack()}>
                         <Icon
                             name='arrowleft'
                             type='antdesign'
@@ -133,7 +142,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Name'
                             style={styles.input}
-                            onChangeText={(name)=> this.changeName(name)}
+                            onChangeText={(name) => this.changeName(name)}
                             value={this.state.name} />
                         {
                             this.state.errName !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errName}</Text> : null
@@ -177,8 +186,8 @@ class Register extends Component {
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ gender: itemValue })
                             }>
-                            <Picker.Item label="Male" value="Male" />
-                            <Picker.Item label="Female" value="Female" />
+                            <Picker.Item label="Male" value="L" />
+                            <Picker.Item label="Female" value="P" />
                         </Picker>
                     </View>
                     <Button
@@ -191,10 +200,11 @@ class Register extends Component {
                                             this.state.phone == '' ? true : false
                         }
                         buttonStyle={styles.btnSignUp}
+                        TouchableComponent={TouchableHighlight}
                         disabledStyle={{ backgroundColor: '#A8A8A8' }}
                         disabledTitleStyle={{ color: '#FFF' }}
-                        onPress={this.validate()}/>
-                        <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text onPress={()=>this.props.navigation.navigate('Login')}>Login</Text></Text>
+                        onPress={()=>this.sendUser(this.state.name,this.state.password, this.state.email, this.state.phone, this.state.address, this.state.gender)} />
+                    <Text style={{ fontSize: 12, color: '#F4B086', marginTop: 10, alignSelf: 'center' }}>Already have an account? <Text onPress={() => this.props.navigation.navigate('Login')}>Login</Text></Text>
                 </ScrollView>
             </View>
         )
@@ -227,4 +237,11 @@ const styles = StyleSheet.create({
     }
 })
 
-export default withNavigation(Register);
+
+const mapStateToProps = state => {
+    return {
+        data: state.user.data,
+    };
+};
+
+export default connect(mapStateToProps)(withNavigation(Register));
