@@ -108,11 +108,11 @@ class PackageDetail extends Component {
   }
 
   bookingHandler = () => {
-    console.warn('booking');
+    this.props.navigation.navigate('Checkout')
   };
 
   gotoMap = () => {
-    // console.warn('Map');
+    this.props.navigation.navigate('Maps')
   };
 
   _keyExtractor = (item, index) => item.id;
@@ -141,6 +141,7 @@ class PackageDetail extends Component {
   }
 
   render() {
+	  console.log(this.props.packages.data)
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -159,8 +160,8 @@ class PackageDetail extends Component {
 
     if (this.state.isLoading) {
       return (
-        <View>
-          <ActivityIndicator size="large" color="red" animating={true} />
+        <View style={{alignItems:'center',justifyContent:'center'}}>
+          <ActivityIndicator style={{marginTop:height/2}} size="large" color="red" animating={true} />
         </View>
       );
     } else {
@@ -227,13 +228,14 @@ class PackageDetail extends Component {
                 BOOKING
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.gotoMap()}
-              style={styles.mapButton}
-            >
-              <Icon name="map" type="Entypo" color="#EF4453" size={25} />
-            </TouchableOpacity>
           </View>
+		  <TouchableOpacity onPress={()=>this.gotoMap()} style={styles.mapFab}>
+						<Icon
+							name='map'
+							type='Entypo'
+							color='#FFF'
+							size={25} />
+					</TouchableOpacity>
           <Animated.View style={[styles.header, { height: headerHeight }]}>
             <Animated.Image
               style={[
@@ -249,7 +251,7 @@ class PackageDetail extends Component {
             />
             <Animated.View>
               <View style={styles.bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
                   <Icon
                     name="arrowleft"
                     type="antdesign"
@@ -283,101 +285,113 @@ const HEADER_MAX_HEIGHT = width;
 const HEADER_MIN_HEIGHT = width * 0.4;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5'
-  },
-  fill: {
-    flex: 1
-    // paddingTop: HEADER_MAX_HEIGHT,
-  },
-  header: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#EF4453',
-    overflow: 'hidden',
-    elevation: 4
-  },
-  headerContent: {
-    flex: 1,
-    alignSelf: 'flex-end',
-    justifyContent: 'flex-end'
-  },
-  bar: {
-    height: '100%',
-    alignItems: 'flex-start',
-    flexDirection: 'column',
-    padding: 20
-  },
-  backgroundImage: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    width: null,
-    height: HEADER_MAX_HEIGHT,
-    resizeMode: 'cover'
-  },
-  name: {
-    color: '#FFF',
-    fontSize: 18,
-    marginRight: 10,
-    marginLeft: 50
-  },
-  priceTag: {
-    marginTop: HEADER_MAX_HEIGHT + 20,
-    backgroundColor: '#FFF',
-    padding: 10
-  },
-  description: {
-    backgroundColor: '#FFF',
-    marginTop: 20,
-    padding: 10
-  },
-  subTitle: {
-    fontWeight: '500',
-    fontSize: 16
-  },
-  caption: {
-    fontSize: 12
-  },
-  footer: {
-    backgroundColor: '#FFF',
-    height: 50,
-    elevation: 6,
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: 10,
-    flexDirection: 'row'
-  },
-  button: {
-    backgroundColor: '#EF4453',
-    padding: 10,
-    width: width * 0.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 5,
-    elevation: 5
-  },
-  detailFooter: {
-    flex: 1
-  },
-  mapButton: {
-    margin: 10
-  },
-  flatlist: {
-    marginTop: 20
-  },
-  destinations: {
-    margin: 10,
-    elevation: 4
-  },
-  destination: {
-    backgroundColor: '#FFF',
-    elevation: 4,
-    padding: 4,
-    margin: 5
-  }
+	container: {
+		flex: 1,
+		backgroundColor: '#F5F5F5'
+	},
+	fill: {
+		flex: 1,
+		// paddingTop: HEADER_MAX_HEIGHT,
+	},
+	header: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		backgroundColor: '#EF4453',
+		overflow: 'hidden',
+		elevation: 4
+	},
+	headerContent: {
+		flex: 1,
+		alignSelf: 'flex-end',
+		justifyContent: 'flex-end'
+	},
+	bar: {
+		height: '100%',
+		alignItems: 'flex-start',
+		flexDirection: 'column',
+		padding: 20
+	},
+	backgroundImage: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		width: null,
+		height: HEADER_MAX_HEIGHT,
+		resizeMode: 'cover',
+	},
+	name: {
+		color: '#FFF',
+		fontSize: 18,
+		marginRight: 10,
+		marginLeft: 50,
+	},
+	priceTag: {
+		marginTop: HEADER_MAX_HEIGHT+20,
+		backgroundColor: '#FFF',
+		padding: 10
+	},
+	description: {
+		backgroundColor: '#FFF',
+		marginTop: 20,
+		padding: 10
+	},
+	subTitle:{
+		fontWeight:'500',
+		fontSize:16
+	},
+	caption:{
+		fontSize:12,
+	},
+	footer: {
+		backgroundColor: '#FFF',
+		height: 50,
+		elevation: 6,
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+		padding: 10,
+		flexDirection: 'row'
+	},
+	button: {
+		backgroundColor: '#EF4453',
+		padding: 10,
+		width: width * 0.5,
+		alignItems: 'center',
+		justifyContent: 'center',
+		borderRadius: 5,
+		elevation: 5
+	},
+	detailFooter: {
+		flex: 1
+	},
+	mapButton: {
+		margin:10
+	},
+	mapFab: {
+		bottom:70,
+		right:20,
+		width:width/7,
+		height:width/7,
+		alignItems:'center',
+		borderRadius:(width/7)/2,
+		justifyContent:'center',
+		backgroundColor:'#EF4453',
+		position:'absolute',
+		elevation:4
+	},
+	flatlist:{
+		marginTop:20
+	},
+	destinations: {
+		margin:10,
+		elevation:4
+	},
+	destination: {
+		backgroundColor:'#FFF',
+		elevation:4,
+		padding:4,
+		margin:5
+	}
 });
