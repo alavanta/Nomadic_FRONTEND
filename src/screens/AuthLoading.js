@@ -6,6 +6,8 @@ import {
   StatusBar,
   AsyncStorage
 } from 'react-native';
+import { connect } from 'react-redux';
+import { fetchUser } from '../public/redux/action';
 
 class AuthLoading extends Component {
   constructor(props) {
@@ -16,7 +18,6 @@ class AuthLoading extends Component {
   }
 
   _bootstrapAsync = async () => {
-    // const userToken = await AsyncStorage.getItem('token');
     await AsyncStorage.getItem('token', (error, result) => {
       if (result) {
         this.props.navigation.navigate('App');
@@ -24,7 +25,6 @@ class AuthLoading extends Component {
         this.props.navigation.navigate('Auth');
       }
     });
-    // this.props.navigation.navigate(userToken ? 'App' : 'Auth');
   };
 
   render() {

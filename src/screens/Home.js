@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { View, Text, Dimensions, StyleSheet, StatusBar, AsyncStorage } from 'react-native';
+import {
+  View,
+  Text,
+  Dimensions,
+  StyleSheet,
+  StatusBar,
+  AsyncStorage
+} from 'react-native';
 
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
@@ -14,6 +21,10 @@ import Destination from './tabmenu/Destination';
 import Booking from './tabmenu/Booking';
 import Profile from './tabmenu/Profile';
 import Chat from './tabmenu/Chat';
+
+//============= Reducer =============//
+import { fetchPackages } from '../public/redux/action';
+import { connect } from 'react-redux';
 
 class Home extends Component {
   constructor(props) {
@@ -51,14 +62,12 @@ class Home extends Component {
     };
   }
 
-
-
-  async componentWillMount() {
-    StatusBar.setHidden(false);
-    const userToken = await AsyncStorage.getItem('token');
-    const userData = await AsyncStorage.getItem('user');
-    console.log('TOKEN ', userToken);
-    console.log('DATA ', userData);
+  componentDidMount() {
+    AsyncStorage.getItem('token', (error, result) => {
+      if (result) {
+        this.props.dispatch(fetchPackages(result));
+      }
+    });
   }
 
   render() {
@@ -102,7 +111,13 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = state => {
+  return {
+    packages: state.packages.data
+  };
+};
+
+export default connect(mapStateToProps)(Home);
 
 const styles = StyleSheet.create({
   bodyParent: {
