@@ -5,7 +5,6 @@ import { Icon } from 'react-native-elements';
 //=============== Icons ================//
 
 import Fontisto from 'react-native-vector-icons/dist/Fontisto';
-import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
 //======== React Native Elements ========//
 
@@ -18,9 +17,6 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import DateTimePicker from "react-native-modal-datetime-picker";
-import { thisExpression } from '@babel/types';
-
-
 
 class Checkout extends Component {
 
@@ -34,8 +30,6 @@ class Checkout extends Component {
             price: 547000,
             ccName: '',
             cvcNum: '',
-            exDate: '',
-            exMonth: '',
             cardExpiry: '',
             creditCardNumber: '',
             name: '',
@@ -313,6 +307,7 @@ class Checkout extends Component {
                             keyboardType={'numeric'}
                             maxLength={4}
                             onChangeText={(cvcNum) => this.setState({ cvcNum })}
+                            value={this.state.cvcNum}
                         />
                     </View>
 
