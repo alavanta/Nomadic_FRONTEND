@@ -21,14 +21,8 @@ Nomadic is an app who help people whit their holiday
 
 ### APP SCREENSHOTS
 <p align="center">
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-16-10-25-41-62.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-16-10-26-29-83.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-19-08-20-23-42.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-01-41-87.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-01-47-11.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-01-52-75.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-06-33-74.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-06-44-29.png" width=400 align="center" style="margin-right:20px"/>
-    <img src="https://raw.githubusercontent.com/AnjasSM/LetsTalkApp/master/src/Assets/Image/Screenshot_2019-07-20-09-06-49-93.png" width=400 align="center" style="margin-right:20px"/>
-    
+    <img src="https://raw.githubusercontent.com/alavanta/Nomadic_FRONTEND/anjas/src/assets/Screenshot_%20(1).png" width=400 align="center" style="margin-right:20px"/>
+    <img src="https://raw.githubusercontent.com/alavanta/Nomadic_FRONTEND/anjas/src/assets/Screenshot_%20(2).png" width=400 align="center" style="margin-right:20px"/>
+    <img src="https://raw.githubusercontent.com/alavanta/Nomadic_FRONTEND/anjas/src/assets/Screenshot_%20(3).png" width=400 align="center" style="margin-right:20px"/>
+    <img src="https://raw.githubusercontent.com/alavanta/Nomadic_FRONTEND/anjas/src/assets/Screenshot_%20(4).png" width=400 align="center" style="margin-right:20px"/>    
 </p> 
