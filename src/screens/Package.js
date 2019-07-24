@@ -45,7 +45,11 @@ class Package extends Component {
           keyExtractor={(item, index) => item.id}
           renderItem={({ item }) => (
             <TouchableOpacity
-              onPress={() => this.props.navigation.navigate('PackageDetail')}
+              onPress={() =>
+                this.props.navigation.navigate('PackageDetail', {
+                  packageId: item.id
+                })
+              }
               style={styles.card}
             >
               <Image

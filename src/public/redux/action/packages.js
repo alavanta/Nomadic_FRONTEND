@@ -10,3 +10,11 @@ export const fetchPackages = token => {
     payload: axios.get(`${url}/packages`)
   };
 };
+
+export const fetchPackageById = (token, id) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'FETCH_PACKAGES_BY_ID',
+    payload: axios.get(`${url}/packages/${id}`)
+  };
+};

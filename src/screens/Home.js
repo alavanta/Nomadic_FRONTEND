@@ -71,7 +71,6 @@ class Home extends Component {
   }
 
   render() {
-    console.log(this.props.state, 'DARI RENDER');
     return (
       <View style={styles.bodyParent}>
         <StatusBar
