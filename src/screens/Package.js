@@ -12,6 +12,8 @@ import {
 } from 'react-native';
 import { withNavigation } from 'react-navigation';
 import { Icon } from 'react-native-elements';
+import { fetchPackages } from '../public/redux/action';
+import { connect } from 'react-redux';
 
 class Package extends Component {
     constructor(props) {
@@ -20,10 +22,19 @@ class Package extends Component {
 
         }
     }
+
+    packagesSearch = (search) => {
+        AsyncStorage.getItem('token', (error, result) => {
+            if (result) {
+                this.props.dispatch(fetchPackages(result, search));
+            }
+        });
+    }
+
     render() {
         return (
             <SafeAreaView style={styles.container}>
-                <StatusBar backgroundColor='#FFF' barStyle='dark-content'/>
+                <StatusBar backgroundColor='#FFF' barStyle='dark-content' />
                 <View style={styles.header}>
                     <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
                         <Icon
@@ -41,7 +52,7 @@ class Package extends Component {
                 </View>
                 <View style={styles.body}>
 
-                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('PackageDetail')} style={styles.card}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('PackageDetail')} style={styles.card}>
                         <Image source={{ uri: 'https://cdn.getyourguide.com/img/tour_img-991770-148.jpg' }} style={styles.image} />
                         <View>
                             <Text numberOfLines={1} style={styles.name}>Judul Package</Text>
@@ -54,7 +65,7 @@ class Package extends Component {
     }
 }
 
-export default withNavigation(Package);
+
 
 
 const { height, width } = Dimensions.get('window');
@@ -83,7 +94,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         flex: 1,
         paddingHorizontal: 10,
-        backgroundColor:'rgba(30,30,30,0.1)',
+        backgroundColor: 'rgba(30,30,30,0.1)',
     },
     searchButton: {
         borderWidth: 1,
@@ -92,7 +103,7 @@ const styles = StyleSheet.create({
         padding: 8,
         backgroundColor: '#555',
         color: '#FFF',
-        elevation:4
+        elevation: 4
     },
     body: {
         backgroundColor: '#FFF',
@@ -119,3 +130,11 @@ const styles = StyleSheet.create({
 
     }
 })
+const navigation = withNavigation(Package);
+const mapStateToProps = state => {
+    return {
+      packages: state.packages.data
+    };
+  };
+  
+export default connect(mapStateToProps)(navigation);
