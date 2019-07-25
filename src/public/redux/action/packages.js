@@ -3,11 +3,14 @@ import packages from '../reducers/packages';
 
 const url = require('./url').url;
 
-export const fetchPackages = token => {
+export const fetchPackages = (token, search) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  if(search == '' || search == undefined){
+    search = ''
+  }
   return {
     type: 'FETCH_PACKAGES',
-    payload: axios.get(`${url}/packages`)
+    payload: axios.get(`${url}/packages?search=${search}`)
   };
 };
 
