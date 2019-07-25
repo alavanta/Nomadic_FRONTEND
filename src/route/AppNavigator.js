@@ -10,6 +10,7 @@ import Login from '../screens/Login';
 import Register from '../screens/Register';
 import Home from '../screens/Home';
 import Profile from '../screens/tabmenu/Profile';
+import EditProfile from '../screens/Account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
 import PackageDetail from '../screens/PackageDetail';
