@@ -42,7 +42,7 @@ class Checkout extends Component {
 const styles = StyleSheet.create({
     parentHeader: {
         flexDirection: 'row',
-        height: 100,
+        height: 70,
         alignItems: 'center',
         paddingHorizontal: 10,
     },

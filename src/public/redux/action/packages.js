@@ -23,3 +23,11 @@ export const fetchPackageById = (token, id) => {
     payload: axios.get(`${url}/packages/${id}`)
   };
 };
+
+export const fetchTourGuide = (token) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'FETCH_TOUR_GUIDE',
+    payload: axios.get(`${url}/tourGuide/status/1`)
+  };
+};
