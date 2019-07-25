@@ -7,7 +7,7 @@ const initialState = {
   isFinish: false
 };
 
-export default (user = async (state = initialState, action) => {
+export default (user = (state = initialState, action) => {
   switch (action.type) {
     case 'FETCH_USER_PENDING':
     case 'ADD_USER_PENDING':
@@ -28,9 +28,8 @@ export default (user = async (state = initialState, action) => {
         isFinish: false
       };
     case 'FETCH_USER_FULFILLED':
-      console.log(action.payload.data.data[0].phone);
-      await AsyncStorage.setItem('token', action.payload.data.token);
-      await AsyncStorage.setItem('user', action.payload.data.data[0].phone);
+      AsyncStorage.setItem('token', action.payload.data.token);
+      AsyncStorage.setItem('user', action.payload.data.data[0].phone);
       return {
         ...state,
         isLoading: false,
