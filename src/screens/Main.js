@@ -35,7 +35,6 @@ class Main extends Component {
                 backgroundColor: '#EF4453'
               }
             ]}
-            TouchableComponent={TouchableHighlight}
             titleStyle={{ color: 'white' }}
             onPress={() => {
               this.props.navigation.navigate('Register');
@@ -50,7 +49,6 @@ class Main extends Component {
                 backgroundColor: '#F4D886'
               }
             ]}
-            TouchableComponent={TouchableHighlight}
             titleStyle={{ color: 'rgba(0,0,0,0.7)' }}
             onPress={() => {
               this.props.navigation.navigate('Login');

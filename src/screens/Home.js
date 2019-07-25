@@ -20,7 +20,6 @@ import Explore from './tabmenu/Explore';
 import Destination from './tabmenu/Destination';
 import Booking from './tabmenu/Booking';
 import Profile from './tabmenu/Profile';
-import Chat from './tabmenu/Chat';
 
 //============= Reducer =============//
 import { fetchPackages } from '../public/redux/action';
@@ -42,11 +41,6 @@ class Home extends Component {
           key: 'second',
           title: 'Destination',
           icon: 'rocket1'
-        },
-        {
-          key: 'third',
-          title: 'Chat',
-          icon: 'message1'
         },
         {
           key: 'fourth',
@@ -83,7 +77,6 @@ class Home extends Component {
           renderScene={SceneMap({
             first: Explore,
             second: Destination,
-            third: Chat,
             fourth: Booking,
             five: Profile
           })}
