@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TextInput, Picker, TouchableOpacity, Alert, TouchableHighlight } from 'react-native';
 import { Icon, Button } from 'react-native-elements';
 import { withNavigation } from 'react-navigation';
 
@@ -37,14 +37,8 @@ class Register extends Component {
         }
     }
 
-    // register = () => {
-
-    // }
-
-
-
     changeName = (name) => {
-        let nameVal = /^[a-zA-Z ]*$/
+        let nameVal = /^[A-Za-z0-9 ]+$/
         if (nameVal.test(name) === false) {
             this.setState({
                 errName: 'Name input only text'
@@ -92,6 +86,7 @@ class Register extends Component {
     }
 
     changeAddress = (address) => {
+        let regex = /^[A-Za-z0-9 ]+$/
         if (address.length < 6) {
             this.setState({
                 errAddress: 'Address must more than 6 character'
@@ -108,7 +103,7 @@ class Register extends Component {
 
     changePhone = (phone) => {
         let phoneVal = /^[0-9]*$/
-        if (phoneVal.test(phone) === false) {
+        if (regex.test(phone) === false) {
             this.setState({
                 errPhone: 'Input only numbers'
             })
@@ -175,6 +170,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Phone Number'
                             style={styles.input}
+                            keyboardType={'numeric'}
                             onChangeText={(phone) => this.changePhone(phone)}
                             value={this.state.phone} />
                         {
@@ -200,6 +196,7 @@ class Register extends Component {
                                             this.state.phone == '' ? true : false
                         }
                         buttonStyle={styles.btnSignUp}
+                        TouchableComponent={TouchableHighlight}
                         disabledStyle={{ backgroundColor: '#A8A8A8' }}
                         disabledTitleStyle={{ color: '#FFF' }}
                         onPress={()=>this.sendUser(this.state.name,this.state.password, this.state.email, this.state.phone, this.state.address, this.state.gender)} />
