@@ -18,6 +18,7 @@ export default (user = (state = initialState, action) => {
     case 'ADD_NEW_PASSWORD_PENDING':
     case 'FORGET_PASSWORD':
     case 'FORGET_PASSWORD_PENDING':
+    case 'GET_USER_BY_ID':
       return {
         ...state,
         isLoading: true,
@@ -26,9 +27,9 @@ export default (user = (state = initialState, action) => {
     case 'FETCH_USER_REJECTED':
     case 'ADD_USER_REJECTED':
     case 'EDIT_USER_REJECTED':
-    case 'ADD_NEW_PASSWORD':
-    case 'FORGET_PASSWORD':
-      console.warn('masuk reject');
+    case 'ADD_NEW_PASSWORD_REJECTED':
+    case 'FORGET_PASSWORD_REJECTED':
+    case 'GET_USER_BY_ID_REJECTED':
       return {
         ...state,
         isLoading: false,
@@ -76,6 +77,14 @@ export default (user = (state = initialState, action) => {
         data: action.payload.data.data
       };
     case 'ADD_NEW_PASSWORD_FULFILLED':
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        isFinish: true,
+        data: action.payload.data.data
+      };
+    case 'GET_USER_BY_ID_FULFILLED':
       return {
         ...state,
         isLoading: false,

@@ -28,9 +28,8 @@ class PackageDetail extends Component {
   }
 
   bookingHandler = () => {
-    this.props.navigation.navigate('Checkout', {
-      selectedItem: this.props.packages,
-      userToken: this.state.userToken
+    this.props.navigation.navigate('ChooseGuide', {
+      selectedItem: this.props.packages.package
     });
   };
 
@@ -42,17 +41,16 @@ class PackageDetail extends Component {
 
   priceFormating = price => {
     let totalPrice = price;
-    // let number_string = totalPrice.toString(),
-    //     remains = number_string.length % 3,
-    //     idr = number_string.substr(0, remains),
-    //     Thousands = number_string.substr(remains).match(/\d{3}/g);
+    let number_string = totalPrice.toString(),
+      remains = number_string.length % 3,
+      idr = number_string.substr(0, remains),
+      Thousands = number_string.substr(remains).match(/\d{3}/g);
 
-    // if (Thousands) {
-    //     separator = remains ? '.' : '';
-    //     idr += separator + Thousands.join('.');
-    // }
-    // return idr;
-    console.warn(totalPrice);
+    if (Thousands) {
+      separator = remains ? '.' : '';
+      idr += separator + Thousands.join('.');
+    }
+    return idr;
   };
 
   _keyExtractor = (item, index) => item.id;
@@ -83,7 +81,6 @@ class PackageDetail extends Component {
   }
 
   render() {
-    console.log(this.props.packages);
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -227,8 +224,7 @@ class PackageDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    packages: state.packages,
-    package: state.packages.package
+    packages: state.packages
   };
 };
 export default connect(mapStateToProps)(withNavigation(PackageDetail));
@@ -322,7 +318,7 @@ const styles = StyleSheet.create({
     margin: 10
   },
   mapFab: {
-    bottom: 70,
+    bottom: 60,
     right: 20,
     width: width / 7,
     height: width / 7,

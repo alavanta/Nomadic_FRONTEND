@@ -20,6 +20,7 @@ import ProfileEdit from '../screens/Account/ProfileEdit';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
 import BookingDetail from '../screens/BookingDetail';
 import ChangePassword from '../screens/Account/ChangePassword';
+import ChooseGuide from '../screens/ChooseGuide';
 
 const AppStack = createStackNavigator(
   {
@@ -32,8 +33,8 @@ const AppStack = createStackNavigator(
     Checkout: Checkout,
     Maps: Maps,
     BookingDetail: BookingDetail,
-    ChangePassword: ChangePassword
-    
+    ChangePassword: ChangePassword,
+    ChooseGuide: ChooseGuide,
   },
   {
     headerMode: 'none'

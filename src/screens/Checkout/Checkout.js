@@ -9,7 +9,8 @@ import {
   SafeAreaView,
   Image,
   TextInput,
-  Picker
+  Picker,
+  Dimensions
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -28,6 +29,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import { withNavigation } from 'react-navigation';
+import OneSignal from 'react-native-onesignal';
 
 import { addCheckout } from '../../public/redux/action/checkout';
 import { connect } from 'react-redux';
@@ -50,26 +52,40 @@ class Checkout extends Component {
       gender: 'Male',
       priceTotal: '',
       item: null,
+      guide: null,
       userToken: null,
       errName: false,
       errCcName: '',
       errAddress: false,
       errPhone: false
     };
+
+    OneSignal.init('90673f44-2b1e-4f5b-9de9-4b008c53d201');
+    OneSignal.addEventListener('ids', this.onIds);
+    OneSignal.configure();
   }
 
   componentWillMount() {
     this.setState({ item: this.props.navigation.getParam('selectedItem') });
+    this.setState({ guide: this.props.navigation.getParam('selectedGuide') });
     AsyncStorage.getItem('token', (error, result) => {
       if (result) {
-        let packageId = this.props.navigation.getParam('packageId');
         this.setState({
           userToken: result,
           isloading: false
         });
       }
     });
+    console.log(this.state.item, ' guide ', this.state.guide);
   }
+
+  componentWillUnmount() {
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onIds = device => {
+    this.setState({ appId: device.userId });
+  };
 
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
@@ -214,13 +230,15 @@ class Checkout extends Component {
       totalPassenger: this.state.totalPassenger,
       packageId: this.state.item.id,
       month: parseInt(this.state.cardExpiry.toString().substring(0, 2)),
-      year: parseInt(20 + this.state.cardExpiry.toString().substring(3, 5))
+      year: parseInt(20 + this.state.cardExpiry.toString().substring(3, 5)),
+      appId: this.state.appId || 0,
+      guideId: this.state.guide.id
     };
 
     this.props
       .dispatch(addCheckout(this.state.userToken, data))
       .then(() => {
-        alert('Transaksi Sukses');
+        alert('Transaction Processed');
         this.props.navigation.navigate('Home');
       })
       .catch(err => {
@@ -230,7 +248,6 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log(this.state.item);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Header navigation={this.props.navigation} title="Checkout" />
@@ -406,6 +423,7 @@ class Checkout extends Component {
   }
 }
 
+const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
@@ -415,7 +433,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   redBackground: {
-    height: 230,
+    height: 180,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15
   },
@@ -427,19 +445,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   price: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: 'white',
     alignSelf: 'flex-start'
   },
   imageWrap: {
-    height: 150,
+    height: 100,
+    width: width * 0.7,
     marginTop: 10,
     borderRadius: 50,
     elevation: 10
   },
   image: {
-    resizeMode: 'cover',
     height: '100%',
     borderRadius: 10,
     zIndex: -99

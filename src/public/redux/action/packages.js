@@ -5,8 +5,8 @@ const url = require('./url').url;
 
 export const fetchPackages = (token, search) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-  if(search == '' || search == undefined){
-    search = ''
+  if (search == '' || search == undefined) {
+    search = '';
   }
   return {
     type: 'FETCH_PACKAGES',
@@ -16,8 +16,18 @@ export const fetchPackages = (token, search) => {
 
 export const fetchPackageById = (token, id) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  console.log(`${url}/packages/${id}`);
+
   return {
     type: 'FETCH_PACKAGES_BY_ID',
     payload: axios.get(`${url}/packages/${id}`)
+  };
+};
+
+export const fetchTourGuide = (token) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'FETCH_TOUR_GUIDE',
+    payload: axios.get(`${url}/tourGuide/status/1`)
   };
 };
