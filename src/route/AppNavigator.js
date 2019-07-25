@@ -17,7 +17,8 @@ import otpCode from '../screens/ForgotPassword/otpCode';
 import Maps from '../screens/Maps';
 import Checkout from '../screens/Checkout/Checkout';
 import ProfileEdit from '../screens/Account/ProfileEdit';
-import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
+import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
+import ChooseGuide from '../screens/ChooseGuide';
 
 const AppStack = createStackNavigator(
   {
@@ -28,7 +29,8 @@ const AppStack = createStackNavigator(
     PackageDetail: PackageDetail,
     Package: Package,
     Checkout: Checkout,
-    Maps: Maps
+    Maps: Maps,
+    ChooseGuide: ChooseGuide,
   },
   {
     headerMode: 'none'

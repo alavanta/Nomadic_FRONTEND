@@ -15,7 +15,7 @@ class Footer extends Component {
 		super(props);
 		this.state={
 			image_url:'https://blog.reservasi.com/wp-content/uploads/2017/03/Rumah-Kurcaci-di-Wisata-Seribu-Songgo-Langit-Yogyakarta-Instagram-@dhani_saputraa-min.png',
-			title:'Destinasi Wisata Seribu Batu Songgo Langit Yogyakarta, Wisata Baru yang Wajib Kamu Kunjungi',
+			title:'Destinasi Wisata Seribu Batu Songgo Langit Yogyakarta',
 			description:'Yap, sesuai dengan namanya, di tempat ini terdapat ribuan batu yang sangat indah dan bisa kamu jadikan sebagai spot selfie paling favorit. Tapi, jika sudah berada di Seribu Batu Songgo Langit nanti, jangan lupa untuk tetap menjaga lingkungan sekitar dan dilarang membuat sampah apapun disana ya.'
 		}
 	}
@@ -23,9 +23,9 @@ class Footer extends Component {
 		return (
 			<ImageBackground source={{uri: this.state.image_url}} style={styles.ImageBackground}>
 				<View style={styles.content}>
-					<Text style={{color:'#FFF', fontSize:30,margin:30}}>Media</Text>
-					<Text style={{color:'#FFF', fontSize:20,marginBottom:5}} numberOfLines={1}>{this.state.title}</Text>
-					<Text style={{color:'#FFF'}} numberOfLines={4}>{this.state.description}</Text>
+					<Text style={{color:'#FFF', fontSize:30,margin:20}}>Media</Text>
+					<Text style={{color:'#FFF', fontSize:18,marginBottom:5}} numberOfLines={2}>{this.state.title}</Text>
+					<Text style={{color:'#FFF'}} numberOfLines={8}>{this.state.description}</Text>
 				</View>
 			</ImageBackground>
 		)

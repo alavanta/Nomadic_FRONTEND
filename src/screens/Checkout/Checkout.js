@@ -9,7 +9,8 @@ import {
   SafeAreaView,
   Image,
   TextInput,
-  Picker
+  Picker,
+  Dimensions
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -49,6 +50,7 @@ class Checkout extends Component {
       phone: '',
       gender: 'Male',
       item: null,
+      guide:null,
       userToken: null,
       errName: false,
       errCcName: '',
@@ -59,9 +61,9 @@ class Checkout extends Component {
 
   componentWillMount() {
     this.setState({ item: this.props.navigation.getParam('selectedItem') });
+    this.setState({ guide: this.props.navigation.getParam('selectedGuide') });
     AsyncStorage.getItem('token', (error, result) => {
       if (result) {
-        let packageId = this.props.navigation.getParam('packageId');
         this.setState({
           userToken: result,
           isloading: false
@@ -213,7 +215,6 @@ class Checkout extends Component {
   };
 
   render() {
-    console.log(this.state.item);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Header navigation={this.props.navigation} title="Checkout" />
@@ -264,7 +265,7 @@ class Checkout extends Component {
             <Button
               buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)' }}
               icon={<Fontisto name="date" size={25} color="#ff4453" />}
-              onPress={this.showDateTimePicker}
+              onPress={(this.showDateTimePicker)}
             />
           </View>
 
@@ -389,6 +390,7 @@ class Checkout extends Component {
   }
 }
 
+const {width, height} = Dimensions.get('window');
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
@@ -398,7 +400,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   redBackground: {
-    height: 230,
+    height: 180,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15
   },
@@ -410,22 +412,23 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   price: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: 'bold',
     color: 'white',
     alignSelf: 'flex-start'
   },
   imageWrap: {
-    height: 150,
+    height: 100,
+    width:width*0.7,
     marginTop: 10,
     borderRadius: 50,
-    elevation: 10
+    elevation: 10,
+
   },
   image: {
-    resizeMode: 'cover',
     height: '100%',
     borderRadius: 10,
-    zIndex: -99
+    zIndex: -99,
   },
   container: {
     height: 300,

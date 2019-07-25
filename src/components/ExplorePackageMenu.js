@@ -31,10 +31,7 @@ class PackageMenu extends Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Text style={styles.title}>Packages</Text>
-					<TouchableOpacity onPress={() => this.props.navigation.navigate('Package')}>
-						<Text style={styles.showAll}>Show All</Text>
-					</TouchableOpacity>
+					<Text style={styles.title}>Gallery</Text>
 				</View>
 				<View style={styles.body}>
 					<TouchableOpacity style={styles.card}>
