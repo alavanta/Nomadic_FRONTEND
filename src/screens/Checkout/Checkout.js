@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput, Picker } from 'react-native';
+import { View, Text, StyleSheet, AsyncStorage , TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput, Picker } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //=============== Icons ================//
@@ -17,6 +17,11 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import DateTimePicker from "react-native-modal-datetime-picker";
+
+import { withNavigation } from 'react-navigation';
+
+import { addCheckout } from '../../public/redux/action/checkout';
+import { connect } from 'react-redux';
 
 class Checkout extends Component {
 
@@ -36,12 +41,26 @@ class Checkout extends Component {
             address: '',
             phone: '',
             gender: 'Male',
+            item: null,
+            userToken: null,
             errName: false,
             errCcName: '',
             errAddress: false,
             errPhone: false
         };
     }
+
+    componentWillMount() {
+        console.log(this.props.navigation.getParam('selectedItem'))
+        this.setState({ isloading: true });
+        this.setState(
+          {
+            item: this.props.navigation.getParam('selectedItem'),
+            userToken: this.props.navigation.getParam('userToken')
+          },
+          this.setState({ isloading: false })
+        );
+      }
 
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
@@ -167,8 +186,28 @@ class Checkout extends Component {
         return idr;
     }
 
+
+    checkoutHandler = () => {
+        // console.log(this.state.item.package.id)
+        // console.log(this.props.navigation.getParam('selectedItem'))
+        let month =
+        this.setState({ isloading: true });
+        const data = {
+            number: this.state.creditCardNumber,
+            cvc: this.state.cvcNum,
+            amount: this.state.totalPassenger * this.state.price,
+            date: this.state.date,
+            totalPassenger: this.state.totalPassenger,
+            packageId: this.state.item.package.id,
+            month: this.state.cardExpiry.toString().substring(0,2),
+            year: parseInt(this.state.cardExpiry.toString().substring(3,5)+20),
+            
+        };
+        this.props.dispatch(addCheckout(this.state.userToken, data));
+      };
+
     render() {
-        console.log(this.state.totalPassenger)
+        // this.props.navigation.getParam('selectedItem')
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} title="Checkout" />
@@ -315,6 +354,7 @@ class Checkout extends Component {
                         <Button
                             buttonStyle={styles.loginButton}
                             title="Checkout"
+                            onPress={()=> this.checkoutHandler()}
                         />
                     </View>
                     <View style={{ height: 50 }} />
@@ -435,5 +475,10 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => {
+    return {
+      packages: state.packages
+    };
+  };
 
-export default Checkout;
+export default connect(mapStateToProps)(Checkout);

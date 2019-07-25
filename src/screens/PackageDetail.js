@@ -28,7 +28,10 @@ class PackageDetail extends Component {
 	}
 
 	bookingHandler = () => {
-		this.props.navigation.navigate('Checkout')
+		this.props.navigation.navigate('Checkout', {
+			selectedItem: this.props.packages,
+			userToken: this.state.userToken
+		  });
 	};
 
 	gotoMap = () => {
