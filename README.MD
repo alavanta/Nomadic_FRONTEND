@@ -8,7 +8,7 @@
 <p align='center'>Nomadic</p>
 
 ### What is Nomadic ?
-Nomadic is an app who help people whit their holiday
+Nomadic is an app who help people with their holiday
 
 ### APK Documentation Video when it Use
 
