@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ActivityIndicator,
+  Image,
   TouchableHighlight
 } from 'react-native';
 import { Button, Input, Icon } from 'react-native-elements';
@@ -102,16 +103,35 @@ class Login extends Component {
     this.renderError();
 
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.header}>
-          <TouchableOpacity style={{ margin: 10, flexDirection: 'row' }} onPress={() => this.props.navigation.goBack()} >
+      <SafeAreaView style={{ flex: 1 , backgroundColor:'#FFF'}}>
+        <View
+          style={{
+            width: '100%',
+            height: '10%',
+            flexDirection: 'row',
+            justifyContent: 'flex-start',
+            alignItems: 'center'
+          }}
+        >
+          <TouchableOpacity
+            style={{ margin: 10, flexDirection: 'row' }}
+            onPress={() => this.props.navigation.goBack()}
+          >
             <Icon name="arrowleft" type="antdesign" color="#808080" size={25} />
           </TouchableOpacity>
-          <View onPress={() => alert('goBack')}>
+          <View onPress={() => this.props.navigation.navigate('Main')}>
             <Text>Login</Text>
           </View>
         </View>
-        <View style={{ flex: 1, justifyContent: 'center', margin: 15 }}>
+       
+        <View style={{ flex: 1, justifyContent: 'flex-start', margin: 15 }}>
+        <View style={{alignSelf:'center'}}>
+            <Image
+            source={require('../assets/Red-nomadic.png')}
+            style={{height:200,width:200}}
+            />
+            {/* <Text style={{margin: 8, fontSize: 15, color: '#FFF'}}>For Tour Guide</Text> */}
+          </View>
           <TextInput
             placeholder="Email"
             clearButtonMode="always"
@@ -119,7 +139,6 @@ class Login extends Component {
             onChangeText={text => this.changeEmail(text)}
             style={{ width: '90%', alignSelf: 'center' }}
             underlineColorAndroid="#EF4453"
-          // inputContainerStyle={{borderBottomColor:'#EF4453',borderBottomWidth:2}}
           />
           {this.state.errEmail !== false ? (
             <Text style={{ color: '#ff0000', marginLeft: 5 }}>

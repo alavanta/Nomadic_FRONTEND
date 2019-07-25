@@ -15,7 +15,7 @@ class Register extends Component {
             password: '',
             address: '',
             phone: '',
-            gender: 'Male',
+            gender: 'M',
             errName: false,
             errEmail: false,
             errPassword: false,
@@ -24,18 +24,42 @@ class Register extends Component {
         }
     }
 
-    sendUser = (name, password,email, phone, address, gender) => {
+    sendUser = (name, password, email, phone, address, gender) => {
         this.props.dispatch(addUser(name, password, email, phone, address, gender))
         Alert.alert('Success','Data has created successfully, please login an application.')
         this.props.navigation.goBack();
     }
     validate = () => {
-        let { name, email, phone, address, gender } = this.state
+        let { name, password, email, phone, address, gender } = this.state
         if (this.state.errName === false && this.state.errEmail === false && this.state.errPassword == false && this.state.errAddress === false && this.state.errPhone === false) {
-            this.sendUser(name, email, phone, address, gender)
+            // this.sendUser(name, email, phone, address, gender)
+            this.registerHandler(name, email, phone, address, gender)
             console.warn('validate masuk ke function register redux')
         }
     }
+
+    // registerHandler = async (name, password, email, phone, address, gender) => {
+    //     this.setState({
+    //       isLoading: true
+    //     })
+    
+    //     let { email, password } = this.state;
+    //     let data = {
+    //       email,
+    //       password
+    //     };
+    //     await this.props
+    //       .dispatch(fetchUser(data))
+    //       .then(success => {
+    //         Alert.alert(`${data.email}`)
+    //         this.setState({
+    //           isLoading: false
+    //         })
+    //       })
+    //       .catch(err => {
+    //         this.setState({ errAuth: true });
+    //       });
+    //   };
 
     changeName = (name) => {
         let nameVal = /^[A-Za-z0-9 ]+$/
@@ -86,7 +110,6 @@ class Register extends Component {
     }
 
     changeAddress = (address) => {
-        let regex = /^[A-Za-z0-9 ]+$/
         if (address.length < 6) {
             this.setState({
                 errAddress: 'Address must more than 6 character'
@@ -103,7 +126,7 @@ class Register extends Component {
 
     changePhone = (phone) => {
         let phoneVal = /^[0-9]*$/
-        if (regex.test(phone) === false) {
+        if (phoneVal.test(phone) === false) {
             this.setState({
                 errPhone: 'Input only numbers'
             })
@@ -137,6 +160,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Name'
                             style={styles.input}
+                            underlineColorAndroid="#EF4453"
                             onChangeText={(name) => this.changeName(name)}
                             value={this.state.name} />
                         {
@@ -145,6 +169,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Email address'
                             style={styles.input}
+                            underlineColorAndroid="#EF4453"
                             onChangeText={(email) => this.changeEmail(email)}
                             value={this.state.email} />
                         {
@@ -153,6 +178,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Password'
                             style={styles.input}
+                            underlineColorAndroid="#EF4453"
                             onChangeText={(password) => this.changePassword(password)}
                             value={this.state.password}
                             secureTextEntry={true} />
@@ -162,6 +188,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Address'
                             style={styles.input}
+                            underlineColorAndroid="#EF4453"
                             onChangeText={(address) => this.changeAddress(address)}
                             value={this.state.address} />
                         {
@@ -170,6 +197,7 @@ class Register extends Component {
                         <TextInput
                             placeholder='Phone Number'
                             style={styles.input}
+                            underlineColorAndroid="#EF4453"
                             keyboardType={'numeric'}
                             onChangeText={(phone) => this.changePhone(phone)}
                             value={this.state.phone} />
@@ -182,8 +210,8 @@ class Register extends Component {
                             onValueChange={(itemValue, itemIndex) =>
                                 this.setState({ gender: itemValue })
                             }>
-                            <Picker.Item label="Male" value="L" />
-                            <Picker.Item label="Female" value="P" />
+                            <Picker.Item label="Male" value="M" />
+                            <Picker.Item label="Female" value="F" />
                         </Picker>
                     </View>
                     <Button
@@ -216,9 +244,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     input: {
-        borderBottomWidth: 2,
         width: '100%',
-        borderBottomColor: '#EF4453',
         marginTop: 5
     },
     picker: {

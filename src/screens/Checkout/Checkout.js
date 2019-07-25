@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput, Picker } from 'react-native';
+import { View, Text, StyleSheet, AsyncStorage , TouchableOpacity, ScrollView, SafeAreaView, Image, TextInput, Picker } from 'react-native';
 import { Icon } from 'react-native-elements';
 
 //=============== Icons ================//
@@ -17,6 +17,11 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 
 import DateTimePicker from "react-native-modal-datetime-picker";
+
+import { withNavigation } from 'react-navigation';
+
+import { addCheckout } from '../../public/redux/action/checkout';
+import { connect } from 'react-redux';
 
 class Checkout extends Component {
 
@@ -36,6 +41,8 @@ class Checkout extends Component {
             address: '',
             phone: '',
             gender: 'Male',
+            item: null,
+            userToken: null,
             errName: false,
             errCcName: false,
             errAddress: false,
@@ -43,6 +50,18 @@ class Checkout extends Component {
             errExDate: false,
         };
     }
+
+    componentWillMount() {
+        console.log(this.props.navigation.getParam('selectedItem'))
+        this.setState({ isloading: true });
+        this.setState(
+          {
+            item: this.props.navigation.getParam('selectedItem'),
+            userToken: this.props.navigation.getParam('userToken')
+          },
+          this.setState({ isloading: false })
+        );
+      }
 
     showDateTimePicker = () => {
         this.setState({ isDateTimePickerVisible: true });
@@ -53,8 +72,13 @@ class Checkout extends Component {
     };
 
     handleDatePicked = date => {
+        var dateTrav = date.toLocaleDateString('en-GB', {  
+            day : 'numeric',
+            month : 'short',
+            year : 'numeric'
+        })
         this.setState({
-            date: date
+            date: dateTrav
         })
 
         this.hideDateTimePicker();
@@ -209,16 +233,29 @@ class Checkout extends Component {
         return idr;
     }
 
-    validate = () => {
-        let { name, phone, address, ccName, creditCardNumber, cardExpiry, cvcNum } = this.state
-        if (this.state.errName === false && this.state.errAddress === false && this.state.errPhone === false) {
-            // this.sendUser(name, email, phone, address, gender)
-            console.warn('validate masuk ke function register redux')
-        }
-    }
+
+    checkoutHandler = () => {
+        // console.log(this.state.item.package.id)
+        // console.log(this.props.navigation.getParam('selectedItem'))
+        let month =
+        this.setState({ isloading: true });
+        const data = {
+            number: this.state.creditCardNumber,
+            cvc: this.state.cvcNum,
+            amount: this.state.totalPassenger * this.state.price,
+            date: this.state.date,
+            totalPassenger: this.state.totalPassenger,
+            packageId: this.state.item.package.id,
+            month: this.state.cardExpiry.toString().substring(0,2),
+            year: parseInt(this.state.cardExpiry.toString().substring(3,5)+20),
+            
+        };
+        this.props.dispatch(addCheckout(this.state.userToken, data));
+        this.props.navigation.navigate('Home')
+      };
 
     render() {
-        console.log(this.state.totalPassenger)
+        // this.props.navigation.getParam('selectedItem')
         return (
             <SafeAreaView style={{ flex: 1 }}>
                 <Header navigation={this.props.navigation} title="Checkout" />
@@ -378,7 +415,7 @@ class Checkout extends Component {
                         <Button
                             buttonStyle={styles.loginButton}
                             title="Checkout"
-                            onPress={this.checkoutPress}
+                            onPress={()=> this.checkoutHandler()}
                         />
                     </View>
                     <View style={{ height: 50 }} />
@@ -499,13 +536,10 @@ const styles = StyleSheet.create({
     }
 })
 
+const mapStateToProps = state => {
+    return {
+      packages: state.packages
+    };
+  };
 
-export default Checkout;
-
-
-arr1 = [{1:1}]
-arr2 = [{2:1}, {2:2}, {2:3}, {2:4}]
-
-for(let i=0; arr2.length < i; i++ ) {
-    arr1.push(arr2[i])
-}
+export default connect(mapStateToProps)(Checkout);
