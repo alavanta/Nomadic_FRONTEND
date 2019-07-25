@@ -79,8 +79,13 @@ class Checkout extends Component {
   };
 
   handleDatePicked = date => {
+    let dateTrav = date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
     this.setState({
-      date: date
+      date: dateTrav
     });
 
     this.hideDateTimePicker();
@@ -204,11 +209,19 @@ class Checkout extends Component {
       date: this.state.date,
       totalPassenger: this.state.totalPassenger,
       packageId: this.state.item.id,
-      month: this.state.cardExpiry.toString().substring(0, 2),
-      year: parseInt(this.state.cardExpiry.toString().substring(3, 5) + 20)
+      month: parseInt(this.state.cardExpiry.toString().substring(0, 2)),
+      year: parseInt(20 + this.state.cardExpiry.toString().substring(3, 5))
     };
 
-    this.props.dispatch(addCheckout(this.state.userToken, data));
+    this.props
+      .dispatch(addCheckout(this.state.userToken, data))
+      .then(() => {
+        alert('Transaksi Sukses');
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        alert('Invalid Credit Card');
+      });
     // this.props.navigation.navigate('Home')
   };
 
