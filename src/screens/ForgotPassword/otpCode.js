@@ -4,27 +4,38 @@ import {
 	Text,
 	StyleSheet,
 	Image,
-	TextInput
+	TextInput,
+	Alert
 } from 'react-native'
+import { changePass } from '../../public/redux/action/user';
+import { connect } from 'react-redux';
 
 import Entypo from 'react-native-vector-icons/dist/Entypo';
-
 import {
 	Button
 } from 'react-native-elements'
 
-class ForgotPassword extends Component {
+class otpCode extends Component {
 
 	constructor(props) {
-	  	super(props);
-	
-	  	this.state = {
-	  		otp: '',
-	  		password: '',
-	  		errPassword: '',
-	  		confirmPassword: '',
-	  		errConfirmPassword: '',
-	  	};
+		super(props);
+
+		this.state = {
+			otp: '',
+			password: '',
+			errPassword: '',
+			confirmPassword: '',
+			errConfirmPassword: '',
+		};
+	}
+
+	changePassword = async (otp, newPass) => {
+		await this.props.dispatch(changePass(otp, newPass)).then((success) => {
+			Alert.alert('Success', 'Password has been changed, please login your account again !')
+			this.props.navigation.navigate('Login')
+		}).catch(err =>{
+			Alert.alert('Error','Something wrong on otp code');
+		});
 	}
 
 	otpChange = (otp) => {
@@ -43,7 +54,7 @@ class ForgotPassword extends Component {
 
 				errPassword: 'Password should be at least 6 characters',
 				password: password,
-				
+
 			})
 		} else {
 
@@ -51,7 +62,7 @@ class ForgotPassword extends Component {
 
 				errPassword: false,
 				password: password,
-				
+
 			})
 		}
 	}
@@ -61,7 +72,7 @@ class ForgotPassword extends Component {
 		await this.setState({
 
 			confirmPassword: confirmPassword
-		})	
+		})
 
 		if (this.state.confirmPassword !== this.state.password) {
 
@@ -73,30 +84,30 @@ class ForgotPassword extends Component {
 		} else {
 
 			this.setState({
-
 				errConfirmPassword: false,
-				
+
 			})
 		}
 	}
 
 
 
-	render () {
+	render() {
 		return (
 			<View style={styles.bodyParent}>
 
 				<View style={styles.parentHeader}>
-					<Button 
-						buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+					<Button
+						buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)' }}
 						icon={
-						    <Entypo
-						      name="chevron-left"
-						      size={25}
-						      color="black"
-						    />
+							<Entypo
+								name="chevron-left"
+								size={25}
+								color="black"
+							/>
 						}
 						onPress={() => {
+
 							this.props.navigation.goBack()
 						}}
 					/>
@@ -115,13 +126,13 @@ class ForgotPassword extends Component {
 
 				<View style={styles.bodyContain}>
 
-					<View style={{ width: '100%', paddingHorizontal: 30}}>
+					<View style={{ width: '100%', paddingHorizontal: 30 }}>
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="code otp..." 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="code otp..."
+								style={styles.textInput}
 								value={this.state.otp}
 								onChangeText={this.otpChange}
 								maxLength={6}
@@ -132,39 +143,39 @@ class ForgotPassword extends Component {
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="New Password" 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="New Password"
+								style={styles.textInput}
 								value={this.state.password}
 								onChangeText={this.passwordChange}
 								secureTextEntry={true}
 							/>
-							<Text style={{color: 'red', top: 5, left: 10}}>{this.state.errPassword}</Text>
+							<Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errPassword}</Text>
 						</View>
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="Confirm New Password" 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="Confirm New Password"
+								style={styles.textInput}
 								value={this.state.confirmPassword}
 								onChangeText={this.confirmPasswordChange}
-								secureTextEntry={true} 
+								secureTextEntry={true}
 							/>
-							<Text style={{color: 'red', top: 5, left: 10}}>{this.state.errConfirmPassword}</Text>
+							<Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errConfirmPassword}</Text>
 						</View>
 
 						<View style={styles.buttonWrap}>
 							<Button
 								disabled={
-					              	this.state.errPassword !== false ? true
-					              	: this.state.errConfirmPassword !== false ? true
-					              	: false
-					            }
+									this.state.errPassword !== false ? true
+										: this.state.errConfirmPassword !== false ? true
+											: false
+								}
 								buttonStyle={styles.loginButton}
 								title="Next"
 								onPress={() => {
-									this.registerHandle()
+									this.changePassword(this.state.otp, this.state.password)
 								}}
 							/>
 						</View>
@@ -177,8 +188,6 @@ class ForgotPassword extends Component {
 		)
 	}
 }
-
-export default ForgotPassword;
 
 const styles = StyleSheet.create({
 	bodyParent: {
@@ -243,3 +252,12 @@ const styles = StyleSheet.create({
 		paddingVertical: 7
 	}
 })
+
+
+const mapStateToProps = state => {
+	return {
+		data: state.user.data,
+	};
+};
+
+export default connect(mapStateToProps)(otpCode);

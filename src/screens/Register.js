@@ -103,7 +103,7 @@ class Register extends Component {
 
     changePhone = (phone) => {
         let phoneVal = /^[0-9]*$/
-        if (regex.test(phone) === false) {
+        if (phoneVal.test(phone) === false) {
             this.setState({
                 errPhone: 'Input only numbers'
             })
