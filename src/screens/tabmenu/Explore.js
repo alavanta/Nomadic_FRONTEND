@@ -8,7 +8,7 @@ import {
 	StyleSheet,
 	Text,
 	View,
-} from 'react-native'
+} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PackageMenu from '../../components/ExplorePackageMenu';
 
