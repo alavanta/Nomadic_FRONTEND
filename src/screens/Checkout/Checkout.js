@@ -204,6 +204,7 @@ class Checkout extends Component {
             
         };
         this.props.dispatch(addCheckout(this.state.userToken, data));
+        this.props.navigation.navigate('Home')
       };
 
     render() {

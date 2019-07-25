@@ -40,16 +40,17 @@ class PackageDetail extends Component {
 
 	priceFormating = (price) => {
 		let totalPrice = price;
-        let number_string = totalPrice.toString(),
-            remains = number_string.length % 3,
-            idr = number_string.substr(0, remains),
-            Thousands = number_string.substr(remains).match(/\d{3}/g);
+        // let number_string = totalPrice.toString(),
+        //     remains = number_string.length % 3,
+        //     idr = number_string.substr(0, remains),
+        //     Thousands = number_string.substr(remains).match(/\d{3}/g);
 
-        if (Thousands) {
-            separator = remains ? '.' : '';
-            idr += separator + Thousands.join('.');
-		}
-        return idr;
+        // if (Thousands) {
+        //     separator = remains ? '.' : '';
+        //     idr += separator + Thousands.join('.');
+		// }
+		// return idr;
+		console.warn(totalPrice)
 	}
 	
 	_keyExtractor = (item, index) => item.id;
@@ -207,7 +208,7 @@ class PackageDetail extends Component {
 
 const mapStateToProps = state => {
 	return {
-		packages: state.packages
+		packages: state.packages.package
 	};
 };
 export default connect(mapStateToProps)(withNavigation(PackageDetail));
