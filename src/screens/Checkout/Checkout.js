@@ -37,9 +37,10 @@ class Checkout extends Component {
             phone: '',
             gender: 'Male',
             errName: false,
-            errCcName: '',
+            errCcName: false,
             errAddress: false,
-            errPhone: false
+            errPhone: false,
+            errExDate: false,
         };
     }
 
@@ -75,11 +76,19 @@ class Checkout extends Component {
         this.setState({
             creditCardNumber: ccNum 
         })
-
     }
 
     _handlingCardExpiry(exDate) {
         if (exDate.indexOf('.') >= 0 || exDate.length > 5) {
+            if(exDate[0] >= 1 || exDate[1] < 13) {
+                this.setState({
+                    errExDate: 'month only input 01 - 12'
+                })
+                return;
+            }
+            this.setState({
+                errExDate: 'cant input decimal in ex date'
+            })
             return;
         }
         if (exDate.length === 2 && this.state.cardExpiry.length === 1) {
@@ -95,6 +104,12 @@ class Checkout extends Component {
         if (nameVal.test(name) === false) {
             this.setState({
                 errName: 'Name input only text'
+            })
+            this.setState({ name })
+            return false;
+        } else if( name.length < 6) {
+            this.setState({
+                errName: 'Name input must more than 6 character'
             })
             this.setState({ name })
             return false;
@@ -114,10 +129,31 @@ class Checkout extends Component {
             })
             this.setState({phone})
             return false;
+        } else if(phone.length < 10) {
+            this.setState({
+                errPhone: 'phone number must more than 10 character'
+            })
+            this.setState({phone})
+            return false;
         } else {
             this.setState({
                 phone: phone,
                 errPhone: false
+            })
+        }
+    }
+
+    addressChange(address) {
+        if(address.length < 10) {
+            this.setState({
+                errAddress: 'fill input with the right address'
+            })
+            this.setState({address})
+            return false;
+        } else {
+            this.setState({
+                address: address,
+                errAddress: false
             })
         }
     }
@@ -127,6 +163,12 @@ class Checkout extends Component {
         if (nameVal.test(ccName) === false) {
             this.setState({
                 errCcName: 'Name input only text'
+            })
+            this.setState({ ccName })
+            return false;
+        } else if( ccName < 6) {
+            this.setState({
+                errCcName: 'cc Name must more than 6 character'
             })
             this.setState({ ccName })
             return false;
@@ -165,6 +207,14 @@ class Checkout extends Component {
             idr += separator + Thousands.join('.');
         }
         return idr;
+    }
+
+    validate = () => {
+        let { name, phone, address, ccName, creditCardNumber, cardExpiry, cvcNum } = this.state
+        if (this.state.errName === false && this.state.errAddress === false && this.state.errPhone === false) {
+            // this.sendUser(name, email, phone, address, gender)
+            console.warn('validate masuk ke function register redux')
+        }
     }
 
     render() {
@@ -245,6 +295,9 @@ class Checkout extends Component {
                             value={this.state.name}
                             onChangeText={(name)=> this.nameChange(name)}
                         />
+                        {
+                            this.state.errName !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errName}</Text> : null
+                        }
                     </View>
 
                     <View>
@@ -256,13 +309,20 @@ class Checkout extends Component {
                             value={this.state.phone}
                             onChangeText={(phone)=>this.phoneChange(phone)}
                         />
+                        {
+                            this.state.errPhone !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errPhone}</Text> : null
+                        }
                     </View>
                     <View>
                         <TextInput
                             placeholder="Address"
                             style={styles.textInput}
-
+                            value={this.state.phone}
+                            onChangeText={(address)=>this.addressChange(address)}
                         />
+                        {
+                            this.state.errAddress !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errAddress}</Text> : null
+                        }
                     </View>
 
                     <Text style={{ fontSize: 18, marginTop: 30 }}>
@@ -298,6 +358,9 @@ class Checkout extends Component {
                             onChangeText={this._handlingCardExpiry.bind(this)}
                             value={this.state.cardExpiry}
                         />
+                        {
+                            this.state.errExDate !== false ? <Text style={{ color: '#ff0000', marginLeft: 5 }}>{this.state.errExDate}</Text> : null
+                        }
                     </View>
 
                     <View>
@@ -315,6 +378,7 @@ class Checkout extends Component {
                         <Button
                             buttonStyle={styles.loginButton}
                             title="Checkout"
+                            onPress={this.checkoutPress}
                         />
                     </View>
                     <View style={{ height: 50 }} />
@@ -437,3 +501,11 @@ const styles = StyleSheet.create({
 
 
 export default Checkout;
+
+
+arr1 = [{1:1}]
+arr2 = [{2:1}, {2:2}, {2:3}, {2:4}]
+
+for(let i=0; arr2.length < i; i++ ) {
+    arr1.push(arr2[i])
+}

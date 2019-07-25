@@ -86,7 +86,6 @@ class Package extends Component {
 
     render() {
         // console.log(this.state.data, 'DATA YANG ADA');
-
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor="#FFF" barStyle="dark-content" />

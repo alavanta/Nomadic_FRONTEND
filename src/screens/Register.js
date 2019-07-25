@@ -25,7 +25,7 @@ class Register extends Component {
     }
 
     sendUser = (name, password,email, phone, address, gender) => {
-        this.props.dispatch(addUser(name,password, email, phone, address, gender))
+        this.props.dispatch(addUser(name, password, email, phone, address, gender))
         Alert.alert('Success','Data has created successfully, please login an application.')
         this.props.navigation.goBack();
     }

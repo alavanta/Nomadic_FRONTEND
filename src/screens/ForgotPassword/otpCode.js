@@ -16,15 +16,15 @@ import {
 class ForgotPassword extends Component {
 
 	constructor(props) {
-	  	super(props);
-	
-	  	this.state = {
-	  		otp: '',
-	  		password: '',
-	  		errPassword: '',
-	  		confirmPassword: '',
-	  		errConfirmPassword: '',
-	  	};
+		super(props);
+
+		this.state = {
+			otp: '',
+			password: '',
+			errPassword: false,
+			confirmPassword: '',
+			errConfirmPassword: false,
+		};
 	}
 
 	otpChange = (otp) => {
@@ -43,15 +43,17 @@ class ForgotPassword extends Component {
 
 				errPassword: 'Password should be at least 6 characters',
 				password: password,
-				
+
 			})
+
+            return false;
 		} else {
 
 			this.setState({
 
 				errPassword: false,
 				password: password,
-				
+
 			})
 		}
 	}
@@ -61,13 +63,13 @@ class ForgotPassword extends Component {
 		await this.setState({
 
 			confirmPassword: confirmPassword
-		})	
+		})
 
 		if (this.state.confirmPassword !== this.state.password) {
 
 			this.setState({
 
-				errConfirmPassword: 'Password dont Match',
+				errConfirmPassword: 'Password not Match',
 
 			})
 		} else {
@@ -75,26 +77,26 @@ class ForgotPassword extends Component {
 			this.setState({
 
 				errConfirmPassword: false,
-				
+
 			})
 		}
 	}
 
 
 
-	render () {
+	render() {
 		return (
 			<View style={styles.bodyParent}>
 
 				<View style={styles.parentHeader}>
-					<Button 
-						buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+					<Button
+						buttonStyle={{ backgroundColor: 'rgba(0,0,0,0)' }}
 						icon={
-						    <Entypo
-						      name="chevron-left"
-						      size={25}
-						      color="black"
-						    />
+							<Entypo
+								name="chevron-left"
+								size={25}
+								color="black"
+							/>
 						}
 						onPress={() => {
 							this.props.navigation.goBack()
@@ -115,13 +117,13 @@ class ForgotPassword extends Component {
 
 				<View style={styles.bodyContain}>
 
-					<View style={{ width: '100%', paddingHorizontal: 30}}>
+					<View style={{ width: '100%', paddingHorizontal: 30 }}>
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="code otp..." 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="code otp..."
+								style={styles.textInput}
 								value={this.state.otp}
 								onChangeText={this.otpChange}
 								maxLength={6}
@@ -132,35 +134,39 @@ class ForgotPassword extends Component {
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="New Password" 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="New Password"
+								style={styles.textInput}
 								value={this.state.password}
 								onChangeText={this.passwordChange}
 								secureTextEntry={true}
 							/>
-							<Text style={{color: 'red', top: 5, left: 10}}>{this.state.errPassword}</Text>
+							{
+								this.state.errPassword !== false ? <Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errPassword}</Text> : null
+							}
 						</View>
 
 						<View style={styles.form}>
 
-							<TextInput 
-								placeholder="Confirm New Password" 
-								style={styles.textInput} 
+							<TextInput
+								placeholder="Confirm New Password"
+								style={styles.textInput}
 								value={this.state.confirmPassword}
 								onChangeText={this.confirmPasswordChange}
-								secureTextEntry={true} 
+								secureTextEntry={true}
 							/>
-							<Text style={{color: 'red', top: 5, left: 10}}>{this.state.errConfirmPassword}</Text>
+							{
+								this.state.errConfirmPassword !== false ? <Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errConfirmPassword}</Text> : null
+							}
 						</View>
 
 						<View style={styles.buttonWrap}>
 							<Button
 								disabled={
-					              	this.state.errPassword !== false ? true
-					              	: this.state.errConfirmPassword !== false ? true
-					              	: false
-					            }
+									this.state.errPassword !== false ? true
+										: this.state.errConfirmPassword !== false ? true
+											: false
+								}
 								buttonStyle={styles.loginButton}
 								title="Next"
 								onPress={() => {

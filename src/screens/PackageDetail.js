@@ -108,6 +108,7 @@ class PackageDetail extends Component {
   }
 
   bookingHandler = () => {
+    this.props.navigation.navigate('Checkout')
     console.warn('booking');
   };
 
@@ -159,7 +160,7 @@ class PackageDetail extends Component {
 
     if (this.state.isLoading) {
       return (
-        <View>
+        <View style={styles.loading}>
           <ActivityIndicator size="large" color="red" animating={true} />
         </View>
       );
@@ -249,7 +250,7 @@ class PackageDetail extends Component {
             />
             <Animated.View>
               <View style={styles.bar}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={()=>this.props.navigation.goBack()}>
                   <Icon
                     name="arrowleft"
                     type="antdesign"
@@ -379,5 +380,12 @@ const styles = StyleSheet.create({
     elevation: 4,
     padding: 4,
     margin: 5
+  },
+  loading: {
+    backgroundColor: 'white',
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center'
   }
 });

@@ -144,7 +144,7 @@ class Login extends Component {
             title="Login"
             disabled={
               this.state.email == '' ? true :
-              this.state.password == '' ? true: false
+                this.state.password == '' ? true : false
             }
             buttonStyle={styles.btnLogin}
             disabledStyle={{ backgroundColor: '#A8A8A8' }}
