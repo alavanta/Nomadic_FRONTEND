@@ -18,6 +18,8 @@ import Maps from '../screens/Maps';
 import Checkout from '../screens/Checkout/Checkout';
 import ProfileEdit from '../screens/Account/ProfileEdit';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
+import BookingDetail from '../screens/BookingDetail';
+import ChangePassword from '../screens/Account/ChangePassword';
 import ChooseGuide from '../screens/ChooseGuide';
 
 const AppStack = createStackNavigator(
@@ -30,6 +32,8 @@ const AppStack = createStackNavigator(
     Package: Package,
     Checkout: Checkout,
     Maps: Maps,
+    BookingDetail: BookingDetail,
+    ChangePassword: ChangePassword,
     ChooseGuide: ChooseGuide,
   },
   {

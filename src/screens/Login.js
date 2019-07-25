@@ -125,6 +125,7 @@ class Login extends Component {
             <View style={styles.textWrap}>
               <Text style={styles.headerText}>Login</Text>
             </View>
+
           </View>
 
 
@@ -183,7 +184,6 @@ class Login extends Component {
             </View>
 
           </View>
-
         </View>
 
         {

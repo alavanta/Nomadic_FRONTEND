@@ -1,28 +1,20 @@
-import React, { Component } from 'react'
-import {
-	View,
-	Text,
-	StyleSheet,
-	Image,
-	TextInput,
-	Alert
-} from 'react-native'
-import { changePass } from '../../public/redux/action/user';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import { View, Text, StyleSheet, Image, TextInput } from 'react-native';
+import { Button } from 'react-native-elements';
+import { withNavigation } from 'react-navigation';
+import Entypo from 'react-native-vector-icons/dist/Entypo';
 
-import { Button } from 'react-native-elements'
-
-class otpCode extends Component {
-
-	constructor(props) {
+class ChangePassword extends Component {
+    constructor(props) {
 		super(props);
 
 		this.state = {
-			otp: '',
-			password: '',
-			errPassword: '',
-			confirmPassword: '',
-			errConfirmPassword: '',
+			oldPassword: '',
+            newPassword: '',
+            errOldPassword: '',
+			errNewPassword: '',
+			confirmNewPassword: '',
+			errConfirmNewPassword: '',
 		};
 	}
 
@@ -35,22 +27,29 @@ class otpCode extends Component {
 		});
 	}
 
-	otpChange = (otp) => {
-
-		this.setState({
-			otp: otp
-		})
-
+	oldPassword = (oldPassword) => {
+        if (oldPassword.length < 6) {
+            this.setState({
+                errOldPassword: 'Password must more than 6 character'
+            })
+            this.setState({ oldPassword })
+            return false;
+        } else {
+            this.setState({
+                oldPassword: oldPassword,
+                errOldPassword: false
+            })
+        }
 	}
 
-	passwordChange = (password) => {
+	passwordChange = (newPassword) => {
 
-		if (this.state.password.length < 5) {
+		if (this.state.newPassword.length < 5) {
 
 			this.setState({
 
-				errPassword: 'Password should be at least 6 characters',
-				password: password,
+				errNewPassword: 'Password should be at least 6 characters',
+				newPassword: newPassword,
 
 			})
 
@@ -59,32 +58,31 @@ class otpCode extends Component {
 
 			this.setState({
 
-				errPassword: false,
-				password: password,
+				errNewPassword: false,
+				newPassword: newPassword,
 
 			})
 		}
 	}
 
-	confirmPasswordChange = async (confirmPassword) => {
+	confirmPasswordChange = async (confirmNewPassword) => {
 
 		await this.setState({
 
-			confirmPassword: confirmPassword
+			confirmNewPassword: confirmNewPassword
 		})
 
-		if (this.state.confirmPassword !== this.state.password) {
+		if (this.state.confirmNewPassword !== this.state.newPassword) {
 
 			this.setState({
 
-				errConfirmPassword: 'Password not Match',
+				errConfirmNewPassword: 'Password not Match',
 
 			})
 		} else {
 
 			this.setState({
-				errConfirmPassword: false,
-
+				errConfirmNewPassword: false,
 			})
 		}
 	}
@@ -111,7 +109,7 @@ class otpCode extends Component {
 						}}
 					/>
 					<View style={styles.textWrap}>
-						<Text style={styles.headerText}>Forgot Password</Text>
+						<Text style={styles.headerText}>Change Password</Text>
 					</View>
 				</View>
 
@@ -130,14 +128,14 @@ class otpCode extends Component {
 						<View style={styles.form}>
 
 							<TextInput
-								placeholder="code otp..."
+								placeholder="Old Password"
 								style={styles.textInput}
-								value={this.state.otp}
-								onChangeText={this.otpChange}
-								maxLength={6}
-								keyboardType={'numeric'}
+								value={this.state.oldPassword}
+								onChangeText={this.oldPassword}
+								secureTextEntry={true}
+                                
 							/>
-
+							<Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errOldPassword}</Text>
 						</View>
 
 						<View style={styles.form}>
@@ -145,19 +143,19 @@ class otpCode extends Component {
 							<TextInput
 								placeholder="New Password"
 								style={styles.textInput}
-								value={this.state.password}
+								value={this.state.newPassword}
 								onChangeText={this.passwordChange}
 								secureTextEntry={true}
 							/>
-							<Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errPassword}</Text>
+							<Text style={{ color: 'red', top: 5, left: 10 }}>{this.state.errNewPassword}</Text>
 						</View>
 
 						<View style={styles.form}>
 
 							<TextInput
-								placeholder="Confirm New Password"
+								placeholder="Re-type New Password"
 								style={styles.textInput}
-								value={this.state.confirmPassword}
+								value={this.state.confirmNewPassword}
 								onChangeText={this.confirmPasswordChange}
 								secureTextEntry={true}
 							/>
@@ -227,8 +225,7 @@ const styles = StyleSheet.create({
 		justifyContent: 'center'
 	},
 	form: {
-		width: '100%',
-		marginVertical: 10
+		width: '100%'
 	},
 	titleInput: {
 		fontSize: 18,
@@ -236,7 +233,8 @@ const styles = StyleSheet.create({
 		marginBottom: 10,
 	},
 	textInput: {
-		borderBottomWidth: 1,
+        borderWidth: 1,
+        borderRadius: 15,
 		borderColor: '#FF4453'
 	},
 	buttonWrap: {
@@ -253,10 +251,10 @@ const styles = StyleSheet.create({
 })
 
 
-const mapStateToProps = state => {
-	return {
-		data: state.user.data,
-	};
-};
+// const mapStateToProps = state => {
+// 	return {
+// 		data: state.user.data,
+// 	};
+// };
 
-export default connect(mapStateToProps)(otpCode);
+export default withNavigation(ChangePassword);

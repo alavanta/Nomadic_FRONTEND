@@ -9,7 +9,8 @@ const logger = createLogger({});
 const store = createStore (
     reducers,
     applyMiddleware (
-        logger,promiseMiddleware
+        logger,
+        promiseMiddleware
     )
 );
 

@@ -54,6 +54,12 @@ class ForgotPassword extends Component {
 	    }
 	}
 
+	validate = () => {
+		if( this.errEmail === false) {
+			//validate with email match or not
+		}
+	}
+
 
 	render () {
 		return (
@@ -93,12 +99,14 @@ class ForgotPassword extends Component {
 						<View style={styles.form}>
 
 							<TextInput 
-								placeholder="E - Mail" 
+								placeholder="E Mail" 
 								style={styles.textInput} 
 								value={this.state.email}
 								onChangeText={this.emailChange}
 							/>
-							<Text style={{color: 'red', top: 5, left: 10}}>{this.state.errEmail}</Text>
+							{
+								this.state.errEmail !== false ? <Text style={{color: 'red', top: 5, left: 10}}>{this.state.errEmail}</Text> : null
+							}
 						</View>
 
 						<View style={styles.buttonWrap}>

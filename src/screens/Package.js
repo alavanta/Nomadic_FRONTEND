@@ -95,7 +95,6 @@ class Package extends Component {
     };
 
     render() {
-
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor="#FFF" barStyle="dark-content" />

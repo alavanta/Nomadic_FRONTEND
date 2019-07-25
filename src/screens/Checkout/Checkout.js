@@ -50,6 +50,7 @@ class Checkout extends Component {
       address: '',
       phone: '',
       gender: 'Male',
+      priceTotal: '',
       item: null,
       guide: null,
       userToken: null,
@@ -211,6 +212,9 @@ class Checkout extends Component {
       separator = remains ? '.' : '';
       idr += separator + Thousands.join('.');
     }
+    this.setState({
+        priceTotal: idr
+    })
     return idr;
   };
 
@@ -319,7 +323,7 @@ class Checkout extends Component {
             </View>
             <TouchableOpacity
               style={styles.rightPersonBorder}
-              disabled={this.state.totalPassenger === 999 ? true : false}
+              disabled={this.state.totalPassenger === 99 ? true : false}
               onPress={this.totalPassengerIncrement}
             >
               <Text style={{ alignSelf: 'center', fontSize: 20 }}>+</Text>
