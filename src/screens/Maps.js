@@ -12,9 +12,11 @@ import { withNavigation } from 'react-navigation';
 import { Icon } from 'react-native-elements';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 
+import Warning from './Error/Warning';
+
 class Maps extends Component {
     state = {
-        destinations:this.props.navigation.getParam('destinations'),
+        destinations: this.props.navigation.getParam('destinations'),
         markers: this.props.navigation.getParam('destinations'),
         region: {
             latitude: 45.52220671242907,
@@ -22,6 +24,7 @@ class Maps extends Component {
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
         },
+        error: false
     };
 
     componentWillMount() {
@@ -60,97 +63,104 @@ class Maps extends Component {
     }
 
     render() {
-        const interpolations = this.state.markers.map((marker, index) => {
-            const inputRange = [
-                ((index - 1) * CARD_WIDTH) + 20,
-                (index * CARD_WIDTH) + 20,
-                ((index + 1) * CARD_WIDTH) + 20,
-            ];
-            const scale = this.animation.interpolate({
-                inputRange,
-                outputRange: [1, 2.5, 1],
-                extrapolate: "clamp",
+        if (this.state.error) {
+            return (
+                <Warning navigation={this.props.navigation}/>
+            );
+        } else {
+            const interpolations = this.state.markers.map((marker, index) => {
+                const inputRange = [
+                    ((index - 1) * CARD_WIDTH) + 20,
+                    (index * CARD_WIDTH) + 20,
+                    ((index + 1) * CARD_WIDTH) + 20,
+                ];
+                const scale = this.animation.interpolate({
+                    inputRange,
+                    outputRange: [1, 2.5, 1],
+                    extrapolate: "clamp",
+                });
+                const opacity = this.animation.interpolate({
+                    inputRange,
+                    outputRange: [0.35, 1, 0.35],
+                    extrapolate: "clamp",
+                });
+                return { scale, opacity };
             });
-            const opacity = this.animation.interpolate({
-                inputRange,
-                outputRange: [0.35, 1, 0.35],
-                extrapolate: "clamp",
-            });
-            return { scale, opacity };
-        });
 
-        return (
-            <View style={styles.container}>
-                <MapView
-                    ref={map => this.map = map}
-                    initialRegion={this.state.region}
-                    style={styles.container}
-                >
-                    {this.state.markers.map((marker, index) => {
-                        const scaleStyle = {
-                            transform: [
+            return (
+                <View style={styles.container}>
+                    <MapView
+                        ref={map => this.map = map}
+                        initialRegion={this.state.region}
+                        style={styles.container}
+                    >
+                        {this.state.markers.map((marker, index) => {
+                            if(marker.longitude == null || marker.latitude == null){this.setState({error:true})}
+                            const scaleStyle = {
+                                transform: [
+                                    {
+                                        scale: interpolations[index].scale,
+                                    },
+                                ],
+                            };
+                            const opacityStyle = {
+                                opacity: interpolations[index].opacity,
+                            };
+                            return (
+                                <MapView.Marker key={index} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}>
+                                    <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                                        <Animated.View style={[styles.ring, scaleStyle]} />
+                                        <View style={styles.marker}><Text style={{ color: '#FFF', fontSize: 10, alignItems: 'center' }}>{index + 1}</Text></View>
+                                    </Animated.View>
+                                </MapView.Marker>
+                            );
+                        })}
+                    </MapView>
+                    <TouchableOpacity onPress={() => this.props.navigation.goBack()} style={styles.backButton}>
+                        <Icon
+                            name="arrowleft"
+                            type="antdesign"
+                            color="#555"
+                            size={25}
+                        />
+                    </TouchableOpacity>
+                    <Animated.ScrollView
+                        horizontal
+                        scrollEventThrottle={1}
+                        showsHorizontalScrollIndicator={false}
+                        snapToInterval={CARD_WIDTH}
+                        onScroll={Animated.event(
+                            [
                                 {
-                                    scale: interpolations[index].scale,
-                                },
-                            ],
-                        };
-                        const opacityStyle = {
-                            opacity: interpolations[index].opacity,
-                        };
-                        return (
-                            <MapView.Marker key={index} coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}>
-                                <Animated.View style={[styles.markerWrap, opacityStyle]}>
-                                    <Animated.View style={[styles.ring, scaleStyle]} />
-                                    <View style={styles.marker}><Text style={{ color: '#FFF', fontSize: 10, alignItems: 'center' }}>{index + 1}</Text></View>
-                                </Animated.View>
-                            </MapView.Marker>
-                        );
-                    })}
-                </MapView>
-                <TouchableOpacity onPress={()=>this.props.navigation.goBack()} style={styles.backButton}>
-                    <Icon
-                        name="arrowleft"
-                        type="antdesign"
-                        color="#555"
-                        size={25}
-                    />
-                </TouchableOpacity>
-                <Animated.ScrollView
-                    horizontal
-                    scrollEventThrottle={1}
-                    showsHorizontalScrollIndicator={false}
-                    snapToInterval={CARD_WIDTH}
-                    onScroll={Animated.event(
-                        [
-                            {
-                                nativeEvent: {
-                                    contentOffset: {
-                                        x: this.animation,
+                                    nativeEvent: {
+                                        contentOffset: {
+                                            x: this.animation,
+                                        },
                                     },
                                 },
-                            },
-                        ],
-                        { useNativeDriver: true }
-                    )}
-                    style={styles.scrollView}
-                    contentContainerStyle={styles.endPadding}
-                >
-                    {this.state.markers.map((marker, index) => (
-                        <View style={styles.card} key={index}>
-                            <Image
-                                source={{ uri: marker.destination_image }}
-                                style={styles.cardImage}
-                                resizeMode="cover"
-                            />
-                            <View style={styles.textContent}>
-                                <Text numberOfLines={1} style={styles.cardTitle}>{index + 1}. {marker.destination_name}</Text>
-                                <Text numberOfLines={2} style={styles.cardDescription}> {marker.destination_description}</Text>
+                            ],
+                            { useNativeDriver: true }
+                        )}
+                        style={styles.scrollView}
+                        contentContainerStyle={styles.endPadding}
+                    >
+                        {this.state.markers.map((marker, index) => (
+                            <View style={styles.card} key={index}>
+                                <Image
+                                    source={{ uri: marker.destination_image }}
+                                    style={styles.cardImage}
+                                    resizeMode="cover"
+                                />
+                                <View style={styles.textContent}>
+                                    <Text numberOfLines={1} style={styles.cardTitle}>{index + 1}. {marker.destination_name}</Text>
+                                    <Text numberOfLines={2} style={styles.cardDescription}> {marker.destination_description}</Text>
+                                </View>
                             </View>
-                        </View>
-                    ))}
-                </Animated.ScrollView>
-            </View>
-        );
+                        ))}
+                    </Animated.ScrollView>
+                </View>
+            );
+        }
     }
 }
 
@@ -200,15 +210,15 @@ const styles = StyleSheet.create({
         flex: 2,
     },
     backButton: {
-        position:'absolute',
-        backgroundColor:'#FFF',
-        margin:20,
-        height:40,
-        width:40,
-        alignItems:'center',
-        justifyContent:'center',
-        elevation:3,
-        borderRadius:20
+        position: 'absolute',
+        backgroundColor: '#FFF',
+        margin: 20,
+        height: 40,
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 3,
+        borderRadius: 20
     },
     cardTitle: {
         fontSize: 12,

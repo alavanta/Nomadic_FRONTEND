@@ -63,8 +63,8 @@ class Booking extends Component {
   render() {
     if (this.props.booking.isLoading) {
       return (
-        <View>
-          <Text style={{fontSize:20,alignSelf:'center'}}>Loading</Text>
+        <View style={{alignItems:'center',justifyContent:'center'}}>
+          <Text style={{fontSize:18,alignSelf:'center'}}>Loading</Text>
         </View>
       );
     } else {

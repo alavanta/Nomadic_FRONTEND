@@ -12,8 +12,6 @@ import { fetchUser } from '../public/redux/action';
 class AuthLoading extends Component {
   constructor(props) {
     super(props);
-
-    StatusBar.setHidden(true);
     this._bootstrapAsync();
   }
 
