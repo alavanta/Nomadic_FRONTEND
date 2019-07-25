@@ -8,9 +8,12 @@ import {
 	StyleSheet,
 	Text,
 	View,
-} from 'react-native'
+} from 'react-native';
 import { withNavigation } from 'react-navigation';
 import PackageMenu from '../../components/ExplorePackageMenu';
+import LoopCarousel from '../../components/LoopCarousel';
+import Testimonial from '../../components/Testimonial';
+import Media from '../../components/Media';
 
 class Explore extends Component {
 
@@ -21,19 +24,6 @@ class Explore extends Component {
 			headerImage: 'https://www.thoughtco.com/thmb/V6Mz1MdaTkVXMhuA1GkGbC6v6NA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-599927824-589770da3df78caebcf39797.jpg',
 			scrollY: new Animated.Value(0),
 		};
-	}
-
-	_renderScrollViewContent() {
-		const data = Array.from({ length: 30 });
-		return (
-			<View style={styles.scrollViewContent}>
-				{data.map((_, i) =>
-					<View key={i} style={styles.row}>
-						<Text> </Text>
-					</View>
-				)}
-			</View>
-		);
 	}
 
 	render() {
@@ -61,10 +51,10 @@ class Explore extends Component {
 						[{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }]
 					)}
 				>
-
+					<LoopCarousel/>
 					<PackageMenu navigation={this.props.navigation} />
-
-					{this._renderScrollViewContent()}
+					<Testimonial/>
+					<Media/>
 
 				</ScrollView>
 				<Animated.View style={[styles.header, { height: headerHeight }]}>
@@ -91,6 +81,7 @@ class Explore extends Component {
 	}
 }
 
+
 export default withNavigation(Explore);
 
 const { height, width } = Dimensions.get('window');
@@ -105,13 +96,6 @@ const styles = StyleSheet.create({
 	fill: {
 		flex: 1,
 		paddingTop: HEADER_MAX_HEIGHT,
-	},
-	row: {
-		height: 100,
-		margin: 16,
-		backgroundColor: '#FFF',
-		alignItems: 'center',
-		justifyContent: 'center',
 	},
 	header: {
 		position: 'absolute',
@@ -145,7 +129,6 @@ const styles = StyleSheet.create({
 		marginBottom: 10
 	},
 	scrollViewContent: {
-		marginTop: HEADER_MAX_HEIGHT,
 	},
 	backgroundImage: {
 		position: 'absolute',

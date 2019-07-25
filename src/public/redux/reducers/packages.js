@@ -9,6 +9,8 @@ const initialState = {
 
 export default (user = (state = initialState, action) => {
   switch (action.type) {
+    case 'FETCH_PACKAGES':
+    case 'FETCH_PACKAGES_BY_ID':
     case 'FETCH_PACKAGES_PENDING':
     case 'FETCH_PACKAGES_BY_ID_PENDING':
       return {

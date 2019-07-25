@@ -6,7 +6,9 @@ import {
   StyleSheet,
   TouchableOpacity,
   SafeAreaView,
-  ActivityIndicator
+  ActivityIndicator,
+  Image,
+  TouchableHighlight
 } from 'react-native';
 import { Button, Input, Icon } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -65,7 +67,6 @@ class Login extends Component {
   };
 
   loginHandler = async () => {
-
     this.setState({
       isLoading: true
     })
@@ -91,7 +92,7 @@ class Login extends Component {
   renderError = () => {
     if (this.state.errAuth) {
       alert('Authentikasi Gagal');
-      this.setState({ 
+      this.setState({
         errAuth: false,
         isLoading: false
       });
@@ -102,7 +103,7 @@ class Login extends Component {
     this.renderError();
 
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 , backgroundColor:'#F4B086'}}>
         <View
           style={{
             width: '100%',
@@ -118,11 +119,19 @@ class Login extends Component {
           >
             <Icon name="arrowleft" type="antdesign" color="#808080" size={25} />
           </TouchableOpacity>
-          <View onPress={() => alert('goBack')}>
+          <View onPress={() => this.props.navigation.navigate('Main')}>
             <Text>Login</Text>
           </View>
         </View>
-        <View style={{ flex: 1, justifyContent: 'center', margin: 15 }}>
+       
+        <View style={{ flex: 1, justifyContent: 'flex-start', margin: 15 }}>
+        <View style={{alignSelf:'center'}}>
+            <Image
+            source={require('../assets/nomadic.png')}
+            style={{height:200,width:200}}
+            />
+            {/* <Text style={{margin: 8, fontSize: 15, color: '#FFF'}}>For Tour Guide</Text> */}
+          </View>
           <TextInput
             placeholder="Email"
             clearButtonMode="always"
@@ -130,7 +139,6 @@ class Login extends Component {
             onChangeText={text => this.changeEmail(text)}
             style={{ width: '90%', alignSelf: 'center' }}
             underlineColorAndroid="#EF4453"
-            // inputContainerStyle={{borderBottomColor:'#EF4453',borderBottomWidth:2}}
           />
           {this.state.errEmail !== false ? (
             <Text style={{ color: '#ff0000', marginLeft: 5 }}>
@@ -144,7 +152,7 @@ class Login extends Component {
             onChangeText={text => this.changePassword(text)}
             style={{ width: '90%', alignSelf: 'center' }}
             underlineColorAndroid="#EF4453"
-            // inputContainerStyle={{borderBottomColor:'#EF4453',borderBottomWidth:2}}
+          // inputContainerStyle={{borderBottomColor:'#EF4453',borderBottomWidth:2}}
           />
           {this.state.errPassword !== false ? (
             <Text style={{ color: '#ff0000', marginLeft: 5 }}>
@@ -154,23 +162,16 @@ class Login extends Component {
           <Button
             title="Login"
             disabled={
-              this.state.email == ''
-                ? true
-                : this.state.password == ''
-                ? true
-                : false
+              this.state.email == '' ? true :
+              this.state.password == '' ? true: false
             }
-            buttonStyle={{
-              backgroundColor: '#EF4453',
-              width: '90%',
-              alignSelf: 'center',
-              marginTop: 40
-            }}
+            buttonStyle={styles.btnLogin}
             disabledStyle={{ backgroundColor: '#A8A8A8' }}
+            TouchableComponent={TouchableHighlight}
             disabledTitleStyle={{ color: '#FFF' }}
             onPress={this.validate}
           />
-          <TouchableOpacity onPress={() => {this.props.navigation.navigate('ForgotPassword')}} style={{ alignSelf: 'center', paddingTop: 10 }}>
+          <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgotPassword') }} style={{ alignSelf: 'center', paddingTop: 10 }}>
             <Text style={{ fontSize: 12, color: '#F4B086' }}>
               Forgot your password?
             </Text>
@@ -179,17 +180,33 @@ class Login extends Component {
 
         {
           this.state.isLoading ?
-            <View style={{backgroundColor: 'white', position: 'absolute', width: '100%', height: '100%', justifyContent: 'center'}}>
+            <View style={{ backgroundColor: 'white', position: 'absolute', width: '100%', height: '100%', justifyContent: 'center' }}>
               <ActivityIndicator size="large" color="#FF4453" />
             </View>
-          :
-          <View />
+            :
+            <View />
         }
 
       </SafeAreaView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    height: '10%',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  btnLogin: {
+    backgroundColor: '#EF4453',
+    width: '90%',
+    alignSelf: 'center',
+    marginTop: 40
+  }
+})
 
 const mapStateToProps = state => {
   return {

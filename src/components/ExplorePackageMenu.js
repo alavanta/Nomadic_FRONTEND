@@ -15,31 +15,53 @@ class PackageMenu extends Component {
 		super(props);
 
 		this.state = {
-			image: 'https://www.thoughtco.com/thmb/V6Mz1MdaTkVXMhuA1GkGbC6v6NA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-599927824-589770da3df78caebcf39797.jpg',
-
+			image: [
+				'https://www.thoughtco.com/thmb/V6Mz1MdaTkVXMhuA1GkGbC6v6NA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-599927824-589770da3df78caebcf39797.jpg',
+				'https://cdn.idntimes.com/content-images/community/2018/09/22621da2b30ee577f10f7ed81431baef.jpg',
+				'https://www.paketwisatajogja.info/wp-content/uploads/2017/10/Paket-Wisata-Jogja-5-Hari-4-Malam-Terbaik.jpg',
+				'https://www.1001malam.com/travel/wp-content/uploads/2016/08/Wisata-Tenang-di-Desa-Wisata-Yogyakarta-Sumber-plesirwisata-wordpresscom.jpg',
+				'http://travelmahasiswa.com/wp-content/uploads/2016/12/Goa-Kiskendo-Jogja-1.jpg1_-1.jpg',
+				'http://bakpiajogja.id/wp-content/uploads/2016/11/pantai-sepanjang-gunung-kidul-yogyakarta.jpg',
+				'https://blog.airpaz.com/wp-content/uploads/Wisata-Yogyakarta-Blue-Lagoon.png',
+				'http://www.pegipegi.com/travel/wp-content/uploads/2014/04/Pantai-Krakal.jpg',			
+			]
 		};
 	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.header}>
-					<Text style={styles.title}>Package</Text>
+					<Text style={styles.title}>Packages</Text>
 					<TouchableOpacity onPress={() => this.props.navigation.navigate('Package')}>
 						<Text style={styles.showAll}>Show All</Text>
 					</TouchableOpacity>
 				</View>
 				<View style={styles.body}>
 					<TouchableOpacity style={styles.card}>
-						<Image style={styles.image} source={{ uri: this.state.image }} />
+						<Image style={styles.image} source={{ uri: this.state.image[0] }} />
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.card}>
-						<Image style={styles.image} source={{ uri: this.state.image }} />
+						<Image style={styles.image} source={{ uri: this.state.image[1] }} />
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.card}>
-						<Image style={styles.image} source={{ uri: this.state.image }} />
+						<Image style={styles.image} source={{ uri: this.state.image[2] }} />
 					</TouchableOpacity>
 					<TouchableOpacity style={styles.card}>
-						<Image style={styles.image} source={{ uri: this.state.image }} />
+						<Image style={styles.image} source={{ uri: this.state.image[3] }} />
+					</TouchableOpacity>
+				</View>
+				<View style={styles.body}>
+					<TouchableOpacity style={styles.card}>
+						<Image style={styles.image} source={{ uri: this.state.image[4] }} />
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.card}>
+						<Image style={styles.image} source={{ uri: this.state.image[5] }} />
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.card}>
+						<Image style={styles.image} source={{ uri: this.state.image[6] }} />
+					</TouchableOpacity>
+					<TouchableOpacity style={styles.card}>
+						<Image style={styles.image} source={{ uri: this.state.image[7] }} />
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -50,27 +72,25 @@ class PackageMenu extends Component {
 export default PackageMenu;
 
 const { height, width } = Dimensions.get('window');
-const HEADER_MAX_HEIGHT = 200;
-const HEADER_MIN_HEIGHT = 60;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		padding: 10,
-		marginTop: 20,
+		marginTop: 10,
 		backgroundColor: '#F9F9F9',
-		elevation: 1
 	},
 	header: {
 		flexDirection: 'row',
 		alignItems: 'center',
-		justifyContent: 'center'
+		justifyContent: 'center',
+		margin:10
 	},
 	title: {
 		color: '#555',
 		flex: 1,
-		fontWeight: '500'
+		fontWeight: '500',
+		fontSize:20
 	},
 	showAll: {
 		color: 'red',
@@ -85,15 +105,15 @@ const styles = StyleSheet.create({
 	},
 	card: {
 		backgroundColor: '#FFF',
-		borderRadius: 5,
-		width: width / 5,
+		borderRadius: 3,
 		elevation: 3,
 		margin: 5
 	},
 	image: {
-		height: width / 5,
-		width: width / 5,
-		borderRadius: 5
+		height: (width / 5)-10,
+		width: (width / 5)-10,
+		borderRadius: 3,
+		margin:5
 	},
 	name: {
 		margin: 3

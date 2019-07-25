@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent:'center',
     },
     logoSplash: {
-        width: 90,
-        height: 30,
+        width: 120,
+        height: 40,
     }
 });

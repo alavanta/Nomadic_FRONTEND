@@ -22,110 +22,52 @@ class PackageDetail extends Component {
     super(props);
 
     this.state = {
-      package: {
-        id: 1,
-        name: 'Wisata Jogja',
-        price: 500000,
-        description:
-          'Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
-        included:
-          'Included Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
-        not_included:
-          'Not Included Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
-        notes:
-          'Notes Bandung merupakan salah satu kota terbesar di Indonesia. Bandung juga dijuluki sebagai paris van java. Semua ada di Bandung. Masyarakat yang ramah membuat Bandung menjadi salah satu kota dengan ketertiban yang tinggi. Tata kota yang apik dan fasilitas yang memadai membuat kota Bandung semakin maju.',
-        image:
-          'https://www.thoughtco.com/thmb/V6Mz1MdaTkVXMhuA1GkGbC6v6NA=/768x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-599927824-589770da3df78caebcf39797.jpg',
-        destination: [
-          {
-            id: 1,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 2,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 3,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 4,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 5,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 6,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 7,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 8,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          },
-          {
-            id: 9,
-            name: 'Prambanan',
-            city: 'Jogjakarta',
-            image:
-              'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
-          }
-        ]
-      },
       scrollY: new Animated.Value(0),
       isLoading: true
     };
   }
 
   bookingHandler = () => {
-    console.warn('booking');
+    this.props.navigation.navigate('Checkout', {
+      selectedItem: this.props.packages,
+      userToken: this.state.userToken
+    });
   };
 
   gotoMap = () => {
-    // console.warn('Map');
+    this.props.navigation.navigate('Maps', {
+      destinations: this.props.packages.package.destinations
+    });
+  };
+
+  priceFormating = price => {
+    let totalPrice = price;
+    // let number_string = totalPrice.toString(),
+    //     remains = number_string.length % 3,
+    //     idr = number_string.substr(0, remains),
+    //     Thousands = number_string.substr(remains).match(/\d{3}/g);
+
+    // if (Thousands) {
+    //     separator = remains ? '.' : '';
+    //     idr += separator + Thousands.join('.');
+    // }
+    // return idr;
+    console.warn(totalPrice);
   };
 
   _keyExtractor = (item, index) => item.id;
 
   _renderItem = ({ item }) => (
     <View style={styles.destinations} key={item.id}>
-      <View style={styles.destination}>
+      <TouchableOpacity style={styles.destination}>
         <Image
           style={{ height: width / 4, width: width / 4 }}
-          source={{ uri: item.image }}
+          source={{ uri: item.destination_image }}
         />
-        <Text numberOfLines={1}>{item.name}</Text>
-      </View>
+        <Text style={{ fontSize: 10, margin: 3 }} numberOfLines={1}>
+          {item.destination_name}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 
@@ -141,6 +83,7 @@ class PackageDetail extends Component {
   }
 
   render() {
+    console.log(this.props.packages);
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -159,8 +102,13 @@ class PackageDetail extends Component {
 
     if (this.state.isLoading) {
       return (
-        <View>
-          <ActivityIndicator size="large" color="red" animating={true} />
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          <ActivityIndicator
+            style={{ marginTop: height / 2 }}
+            size="large"
+            color="red"
+            animating={true}
+          />
         </View>
       );
     } else {
@@ -174,20 +122,25 @@ class PackageDetail extends Component {
             ])}
           >
             <View style={styles.priceTag}>
-              <Text style={styles.subTitle}>{this.state.package.name}</Text>
-              <Text style={styles.caption}>Rp{this.state.package.price}</Text>
+              <Text style={styles.subTitle}>
+                {this.props.packages.package.package_name}
+              </Text>
+              <Text style={styles.caption}>
+                Rp
+                {this.priceFormating(this.props.packages.package.package_price)}
+              </Text>
             </View>
             <View style={styles.description}>
               <Text style={styles.subTitle}>Description</Text>
               <Text style={styles.caption}>
-                {this.state.package.description}
+                {this.props.packages.package.package_description}
               </Text>
             </View>
 
             <View style={styles.description}>
               <Text style={styles.subTitle}>Destinations</Text>
               <FlatList
-                data={this.state.package.destination}
+                data={this.props.packages.package.destinations}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 horizontal={true}
@@ -197,26 +150,25 @@ class PackageDetail extends Component {
             </View>
             <View style={styles.description}>
               <Text style={styles.subTitle}>Included</Text>
-              <Text style={styles.caption}>{this.state.package.included}</Text>
+              <Text style={styles.caption}>
+                {this.props.packages.package.included_fasilities}
+              </Text>
             </View>
             <View style={styles.description}>
               <Text style={styles.subTitle}>Not included</Text>
               <Text style={styles.caption}>
-                {this.state.package.not_included}
+                {this.props.packages.package.nonincluded_fasilities}
               </Text>
-            </View>
-            <View style={styles.description}>
-              <Text style={styles.subTitle}>Notes</Text>
-              <Text style={styles.caption}>{this.state.package.notes}</Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.detailFooter}>
               <Text numberOfLines={1} style={{ color: '#000', fontSize: 16 }}>
-                Rp{this.state.package.price}
+                Rp
+                {this.priceFormating(this.props.packages.package.package_price)}
               </Text>
               <Text numberOfLines={1} style={{ color: '#444', fontSize: 10 }}>
-                {this.state.package.name}
+                {this.props.packages.package.package_name}
               </Text>
             </View>
             <TouchableOpacity
@@ -227,13 +179,13 @@ class PackageDetail extends Component {
                 BOOKING
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => this.gotoMap()}
-              style={styles.mapButton}
-            >
-              <Icon name="map" type="Entypo" color="#EF4453" size={25} />
-            </TouchableOpacity>
           </View>
+          <TouchableOpacity
+            onPress={() => this.gotoMap()}
+            style={styles.mapFab}
+          >
+            <Icon name="map" type="Entypo" color="#FFF" size={25} />
+          </TouchableOpacity>
           <Animated.View style={[styles.header, { height: headerHeight }]}>
             <Animated.Image
               style={[
@@ -244,12 +196,14 @@ class PackageDetail extends Component {
                 }
               ]}
               source={{
-                uri: this.state.package.image
+                uri: this.props.packages.package.package_image
               }}
             />
             <Animated.View>
               <View style={styles.bar}>
-                <TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.goBack()}
+                >
                   <Icon
                     name="arrowleft"
                     type="antdesign"
@@ -259,7 +213,7 @@ class PackageDetail extends Component {
                 </TouchableOpacity>
                 <View style={styles.headerContent}>
                   <Text numberOfLines={1} style={styles.name}>
-                    {this.state.package.name}
+                    {this.props.packages.package.package_name}
                   </Text>
                 </View>
               </View>
@@ -273,7 +227,8 @@ class PackageDetail extends Component {
 
 const mapStateToProps = state => {
   return {
-    packages: state.packages
+    packages: state.packages,
+    package: state.packages.package
   };
 };
 export default connect(mapStateToProps)(withNavigation(PackageDetail));
@@ -289,7 +244,6 @@ const styles = StyleSheet.create({
   },
   fill: {
     flex: 1
-    // paddingTop: HEADER_MAX_HEIGHT,
   },
   header: {
     position: 'absolute',
@@ -367,17 +321,28 @@ const styles = StyleSheet.create({
   mapButton: {
     margin: 10
   },
+  mapFab: {
+    bottom: 70,
+    right: 20,
+    width: width / 7,
+    height: width / 7,
+    alignItems: 'center',
+    borderRadius: width / 7 / 2,
+    justifyContent: 'center',
+    backgroundColor: '#EF4453',
+    position: 'absolute',
+    elevation: 4
+  },
   flatlist: {
     marginTop: 20
   },
   destinations: {
-    margin: 10,
     elevation: 4
   },
   destination: {
     backgroundColor: '#FFF',
     elevation: 4,
-    padding: 4,
-    margin: 5
+    margin: 6,
+    width: width / 4
   }
 });

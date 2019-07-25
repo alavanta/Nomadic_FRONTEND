@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import {withNavigation} from 'react-navigation';
 import { Icon } from 'react-native-elements';
 
 //=============== Icons ================//
@@ -56,4 +57,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Checkout;
+export default withNavigation(Checkout);
