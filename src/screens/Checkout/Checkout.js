@@ -29,6 +29,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 
 import { withNavigation } from 'react-navigation';
+import OneSignal from 'react-native-onesignal';
 
 import { addCheckout } from '../../public/redux/action/checkout';
 import { connect } from 'react-redux';
@@ -57,6 +58,10 @@ class Checkout extends Component {
       errAddress: false,
       errPhone: false
     };
+
+    OneSignal.init('90673f44-2b1e-4f5b-9de9-4b008c53d201');
+    OneSignal.addEventListener('ids', this.onIds);
+    OneSignal.configure();
   }
 
   componentWillMount() {
@@ -72,6 +77,14 @@ class Checkout extends Component {
     });
   }
 
+  componentWillUnmount() {
+    OneSignal.removeEventListener('ids', this.onIds);
+  }
+
+  onIds = device => {
+    this.setState({ appId: device.userId });
+  };
+
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
   };
@@ -81,8 +94,13 @@ class Checkout extends Component {
   };
 
   handleDatePicked = date => {
+    let dateTrav = date.toLocaleDateString('en-GB', {
+      day: 'numeric',
+      month: 'short',
+      year: 'numeric'
+    });
     this.setState({
-      date: date
+      date: dateTrav
     });
 
     this.hideDateTimePicker();
@@ -206,11 +224,20 @@ class Checkout extends Component {
       date: this.state.date,
       totalPassenger: this.state.totalPassenger,
       packageId: this.state.item.id,
-      month: this.state.cardExpiry.toString().substring(0, 2),
-      year: parseInt(this.state.cardExpiry.toString().substring(3, 5) + 20)
+      month: parseInt(this.state.cardExpiry.toString().substring(0, 2)),
+      year: parseInt(20 + this.state.cardExpiry.toString().substring(3, 5)),
+      appId: this.state.appId || 0
     };
 
-    this.props.dispatch(addCheckout(this.state.userToken, data));
+    this.props
+      .dispatch(addCheckout(this.state.userToken, data))
+      .then(() => {
+        alert('Transaction Processed');
+        this.props.navigation.navigate('Home');
+      })
+      .catch(err => {
+        alert('Invalid Credit Card');
+      });
     // this.props.navigation.navigate('Home')
   };
 
