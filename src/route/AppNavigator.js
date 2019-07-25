@@ -13,11 +13,11 @@ import Profile from '../screens/tabmenu/Profile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
 import PackageDetail from '../screens/PackageDetail';
-import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
 import otpCode from '../screens/ForgotPassword/otpCode';
 import Maps from '../screens/Maps';
 import Checkout from '../screens/Checkout/Checkout';
 import ProfileEdit from '../screens/Account/ProfileEdit';
+import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
 
 const AppStack = createStackNavigator(
   {

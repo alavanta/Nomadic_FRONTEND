@@ -26,7 +26,7 @@ class PackageDetail extends Component {
 			isLoading: true
 		};
 	}
-
+	
 	bookingHandler = () => {
 		this.props.navigation.navigate('Checkout', {
 			selectedItem: this.props.packages,
@@ -38,6 +38,21 @@ class PackageDetail extends Component {
 		this.props.navigation.navigate('Maps',{destinations:this.props.packages.package.destinations});
 	};
 
+	priceFormating = (price) => {
+		let totalPrice = price;
+        // let number_string = totalPrice.toString(),
+        //     remains = number_string.length % 3,
+        //     idr = number_string.substr(0, remains),
+        //     Thousands = number_string.substr(remains).match(/\d{3}/g);
+
+        // if (Thousands) {
+        //     separator = remains ? '.' : '';
+        //     idr += separator + Thousands.join('.');
+		// }
+		// return idr;
+		console.warn(totalPrice)
+	}
+	
 	_keyExtractor = (item, index) => item.id;
 
 	_renderItem = ({ item }) => (
@@ -98,7 +113,7 @@ class PackageDetail extends Component {
 					>
 						<View style={styles.priceTag}>
 							<Text style={styles.subTitle}>{this.props.packages.package.package_name}</Text>
-							<Text style={styles.caption}>Rp{this.props.packages.package.package_price}</Text>
+							<Text style={styles.caption}>Rp{this.priceFormating(this.props.packages.package.package_price)}</Text>
 						</View>
 						<View style={styles.description}>
 							<Text style={styles.subTitle}>Description</Text>
@@ -132,7 +147,7 @@ class PackageDetail extends Component {
 					<View style={styles.footer}>
 						<View style={styles.detailFooter}>
 							<Text numberOfLines={1} style={{ color: '#000', fontSize: 16 }}>
-								Rp{this.props.packages.package.package_price}
+								Rp{this.priceFormating(this.props.packages.package.package_price)}
 							</Text>
 							<Text numberOfLines={1} style={{ color: '#444', fontSize: 10 }}>
 								{this.props.packages.package.package_name}
@@ -193,7 +208,7 @@ class PackageDetail extends Component {
 
 const mapStateToProps = state => {
 	return {
-		packages: state.packages
+		packages: state.packages.package
 	};
 };
 export default connect(mapStateToProps)(withNavigation(PackageDetail));

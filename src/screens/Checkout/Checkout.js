@@ -51,6 +51,7 @@ class Checkout extends Component {
     }
 
     componentWillMount() {
+        console.log(this.props.navigation.getParam('selectedItem'))
         this.setState({ isloading: true });
         this.setState(
           {
@@ -185,28 +186,10 @@ class Checkout extends Component {
         return idr;
     }
 
-    // addPackageCheckout = () => {
-    //     const data ={
-    //         number: this.state.cvcNum,
-    //         month: 12,
-    //         year: 2020,
-    //         cvc: this.state.,
-    //         amount: this.state.totalPassenger * this.state.price,
-    //         date: this.state.date,
-    //         totalPassenger: this.state.totalPassenger,
-    //         packageId: this.state.item.id
-    //     }
-    //      AsyncStorage.getItem('token', (error, result) => {
-    //         if (result) {
-    //             this.props.dispatch(addCheckout(result,data))
-    //         } 
-    //       });
-    //       alert('a'); 
-    // }
 
     checkoutHandler = () => {
-        console.log(this.state.item.data.id)
-        console.log(this.props.navigation.getParam('selectedItem'))
+        // console.log(this.state.item.package.id)
+        // console.log(this.props.navigation.getParam('selectedItem'))
         let month =
         this.setState({ isloading: true });
         const data = {
@@ -215,12 +198,13 @@ class Checkout extends Component {
             amount: this.state.totalPassenger * this.state.price,
             date: this.state.date,
             totalPassenger: this.state.totalPassenger,
-            packageId: this.state.item.id,
+            packageId: this.state.item.package.id,
             month: this.state.cardExpiry.toString().substring(0,2),
             year: parseInt(this.state.cardExpiry.toString().substring(3,5)+20),
             
         };
-        // this.props.dispatch(addCheckout(this.state.userToken, data));
+        this.props.dispatch(addCheckout(this.state.userToken, data));
+        this.props.navigation.navigate('Home')
       };
 
     render() {
