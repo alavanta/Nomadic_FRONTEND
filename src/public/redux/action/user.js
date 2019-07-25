@@ -37,3 +37,24 @@ export const editUser = (name,password,email,phone,address,gender) => {
         })
     }
 }
+
+export const forgotPass = (email) => {
+    console.warn('masuk')
+    return {
+        type : 'FORGOT_PASS',
+        payload: axios.post(`${url}/reset_password/send`,{
+            email : email
+        })
+    }
+}
+
+export const changePass = (code,newPass) => {
+    console.warn('masuk change pass')
+    return {
+        type: 'CHANGE_PASS',
+        payload: axios.post(`${url}/reset_password`,{
+            code : code,
+            newPass: newPass
+        })
+    }
+}

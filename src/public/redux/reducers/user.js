@@ -12,6 +12,8 @@ export default (user = (state = initialState, action) => {
     case 'FETCH_USER_PENDING':
     case 'ADD_USER_PENDING':
     case 'EDIT_USER_PENDING':
+    case 'FORGOT_PASS_PENDING':
+    case 'CHANGE_PASS_PENDING':
       return {
         ...state,
         isLoading: true,
@@ -20,6 +22,8 @@ export default (user = (state = initialState, action) => {
     case 'FETCH_USER_REJECTED':
     case 'ADD_USER_REJECTED':
     case 'EDIT_USER_REJECTED':
+    case 'FORGOT_PASS_REJECTED':
+    case 'CHANGE_PASS_REJECTED':
       console.warn('masuk reject')
       return {
         ...state,
@@ -58,6 +62,23 @@ export default (user = (state = initialState, action) => {
           (users.id = parseInt(action.payload.data.rowss[0].id)) ?
                       action.payload.data.rowss[0] : users
         })
+      }
+    case 'FORGOT_PASS_FULFILLED':
+      console.warn('masuk')
+      return {
+        ...state,
+        isLoading:false,
+        isError: false,
+        isFinish: true,
+        data : action.payload.message
+      }
+    case 'CHANGE_PASS_FULFILLED':
+      return {
+        ...state,
+        isLoading:false,
+        isError: false,
+        isFinish: true,
+        data : action.payload.message
       }
     default:
       return state;
