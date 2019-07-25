@@ -39,7 +39,7 @@ class Checkout extends Component {
       isDateTimePickerVisible: false,
       date: '',
       totalPassenger: 1,
-      price: 547000,
+      price: 0,
       ccName: '',
       cvcNum: '',
       cardExpiry: '',
@@ -58,11 +58,11 @@ class Checkout extends Component {
   }
 
   componentWillMount() {
+    this.setState({ item: this.props.navigation.getParam('selectedItem') });
     AsyncStorage.getItem('token', (error, result) => {
       if (result) {
         let packageId = this.props.navigation.getParam('packageId');
         this.setState({
-          item: this.props.navigation.getParam('selectedItem'),
           userToken: result,
           isloading: false
         });
@@ -200,10 +200,10 @@ class Checkout extends Component {
     const data = {
       number: this.state.creditCardNumber,
       cvc: this.state.cvcNum,
-      amount: this.state.totalPassenger * this.state.price,
+      amount: this.state.totalPassenger * this.state.item.package_price,
       date: this.state.date,
       totalPassenger: this.state.totalPassenger,
-      packageId: this.state.item.package.id,
+      packageId: this.state.item.id,
       month: this.state.cardExpiry.toString().substring(0, 2),
       year: parseInt(this.state.cardExpiry.toString().substring(3, 5) + 20)
     };
@@ -213,7 +213,7 @@ class Checkout extends Component {
   };
 
   render() {
-    // this.props.navigation.getParam('selectedItem')
+    console.log(this.state.item);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Header navigation={this.props.navigation} title="Checkout" />
@@ -228,14 +228,15 @@ class Checkout extends Component {
         <View style={styles.package}>
           <Text style={styles.price}>
             Rp{' '}
-            {this.priceFormating(this.state.price * this.state.totalPassenger)}
+            {this.priceFormating(
+              this.state.item.package_price * this.state.totalPassenger
+            )}
           </Text>
           <View style={styles.imageWrap}>
             <Image
               style={styles.image}
               source={{
-                uri:
-                  'https://img.inews.id/media/822/files/inews_new/2018/06/29/prambanan1.jpg'
+                uri: this.state.item.package_image
               }}
             />
           </View>

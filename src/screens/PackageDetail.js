@@ -29,30 +29,30 @@ class PackageDetail extends Component {
 
   bookingHandler = () => {
     this.props.navigation.navigate('Checkout', {
-      selectedItem: this.props.packages,
+      selectedItem: this.props.package,
       userToken: this.state.userToken
     });
   };
 
   gotoMap = () => {
     this.props.navigation.navigate('Maps', {
-      destinations: this.props.packages.package.destinations
+      destinations: this.props.package.destinations
     });
   };
 
   priceFormating = price => {
     let totalPrice = price;
-    // let number_string = totalPrice.toString(),
-    //     remains = number_string.length % 3,
-    //     idr = number_string.substr(0, remains),
-    //     Thousands = number_string.substr(remains).match(/\d{3}/g);
+    let number_string = totalPrice.toString(),
+      remains = number_string.length % 3,
+      idr = number_string.substr(0, remains),
+      Thousands = number_string.substr(remains).match(/\d{3}/g);
 
-    // if (Thousands) {
-    //     separator = remains ? '.' : '';
-    //     idr += separator + Thousands.join('.');
-    // }
-    // return idr;
-    console.warn(totalPrice);
+    if (Thousands) {
+      separator = remains ? '.' : '';
+      idr += separator + Thousands.join('.');
+    }
+    return idr;
+    // console.warn(totalPrice);
   };
 
   _keyExtractor = (item, index) => item.id;
@@ -83,7 +83,6 @@ class PackageDetail extends Component {
   }
 
   render() {
-    console.log(this.props.packages);
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -123,24 +122,23 @@ class PackageDetail extends Component {
           >
             <View style={styles.priceTag}>
               <Text style={styles.subTitle}>
-                {this.props.packages.package.package_name}
+                {this.props.package.package_name}
               </Text>
               <Text style={styles.caption}>
-                Rp
-                {this.priceFormating(this.props.packages.package.package_price)}
+                Rp {this.priceFormating(this.props.package.package_price)}
               </Text>
             </View>
             <View style={styles.description}>
               <Text style={styles.subTitle}>Description</Text>
               <Text style={styles.caption}>
-                {this.props.packages.package.package_description}
+                {this.props.package.package_description}
               </Text>
             </View>
 
             <View style={styles.description}>
               <Text style={styles.subTitle}>Destinations</Text>
               <FlatList
-                data={this.props.packages.package.destinations}
+                data={this.props.package.destinations}
                 keyExtractor={this._keyExtractor}
                 renderItem={this._renderItem}
                 horizontal={true}
@@ -151,24 +149,23 @@ class PackageDetail extends Component {
             <View style={styles.description}>
               <Text style={styles.subTitle}>Included</Text>
               <Text style={styles.caption}>
-                {this.props.packages.package.included_fasilities}
+                {this.props.package.included_fasilities}
               </Text>
             </View>
             <View style={styles.description}>
               <Text style={styles.subTitle}>Not included</Text>
               <Text style={styles.caption}>
-                {this.props.packages.package.nonincluded_fasilities}
+                {this.props.package.nonincluded_fasilities}
               </Text>
             </View>
           </ScrollView>
           <View style={styles.footer}>
             <View style={styles.detailFooter}>
               <Text numberOfLines={1} style={{ color: '#000', fontSize: 16 }}>
-                Rp
-                {this.priceFormating(this.props.packages.package.package_price)}
+                Rp {this.priceFormating(this.props.package.package_price)}
               </Text>
               <Text numberOfLines={1} style={{ color: '#444', fontSize: 10 }}>
-                {this.props.packages.package.package_name}
+                {this.props.package.package_name}
               </Text>
             </View>
             <TouchableOpacity
@@ -196,7 +193,7 @@ class PackageDetail extends Component {
                 }
               ]}
               source={{
-                uri: this.props.packages.package.package_image
+                uri: this.props.package.package_image
               }}
             />
             <Animated.View>
@@ -213,7 +210,7 @@ class PackageDetail extends Component {
                 </TouchableOpacity>
                 <View style={styles.headerContent}>
                   <Text numberOfLines={1} style={styles.name}>
-                    {this.props.packages.package.package_name}
+                    {this.props.package.package_name}
                   </Text>
                 </View>
               </View>
