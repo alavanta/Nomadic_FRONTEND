@@ -76,16 +76,15 @@ class Checkout extends Component {
         });
       }
     });
-    console.log(this.state.item, ' guide ', this.state.guide);
   }
 
   componentWillUnmount() {
     OneSignal.removeEventListener('ids', this.onIds);
   }
 
-  onIds = device => {
-    this.setState({ appId: device.userId });
-  };
+  // onIds = device => {
+  //   this.setState({ appId: device.userId });
+  // };
 
   showDateTimePicker = () => {
     this.setState({ isDateTimePickerVisible: true });
@@ -213,8 +212,8 @@ class Checkout extends Component {
       idr += separator + Thousands.join('.');
     }
     this.setState({
-        priceTotal: idr
-    })
+      priceTotal: idr
+    });
     return idr;
   };
 
