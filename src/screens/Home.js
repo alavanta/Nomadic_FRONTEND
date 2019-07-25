@@ -74,9 +74,8 @@ class Home extends Component {
     return (
       <View style={styles.bodyParent}>
         <StatusBar
-          translucent
           barStyle="dark-content"
-          backgroundColor="rgba(0, 0, 0, 0.0)"
+          backgroundColor="#FFF"
         />
         <TabView
           tabBarPosition="bottom"

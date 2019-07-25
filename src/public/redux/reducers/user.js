@@ -1,5 +1,4 @@
 import { AsyncStorage } from 'react-native';
-
 const initialState = {
   data: [],
   token: null,
@@ -10,10 +9,14 @@ const initialState = {
 
 export default (user = (state = initialState, action) => {
   switch (action.type) {
+    case 'FETCH_USER':
     case 'FETCH_USER_PENDING':
+    case 'ADD_USER':
     case 'ADD_USER_PENDING':
     case 'EDIT_USER_PENDING':
+    case 'ADD_NEW_PASSWORD':
     case 'ADD_NEW_PASSWORD_PENDING':
+    case 'FORGET_PASSWORD':
     case 'FORGET_PASSWORD_PENDING':
       return {
         ...state,

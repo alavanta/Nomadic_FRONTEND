@@ -145,7 +145,7 @@ class ProfileEdit extends Component {
                     >
                         {
                             this.state.name == '' ? (<Icon name='check-circle' type='feather' color='#808080' />) :
-                                this.state.email == '' ? (<Icon name='check-circle' type='feather' color='#808080' />) :
+                                this.state.email == '' ? (<Icon namev='check-circle' type='feather' color='#808080' />) :
                                     this.state.address == '' ? (<Icon name='check-circle' type='feather' color='#808080' />) :
                                         this.state.phone == '' ? (<Icon name='check-circle' type='feather' color='#808080' />) : (<Icon name='check-circle' type='feather' color='green' />)
                         }

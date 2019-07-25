@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://192.168.6.163:3000';
+const url = require('./url').url;
 
 export const addCheckout = (token, data) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;

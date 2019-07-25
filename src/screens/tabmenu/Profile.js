@@ -54,7 +54,7 @@ class Profile extends Component {
 						</View>
 					</TouchableOpacity>
 					<View style={styles.line} />
-					<TouchableOpacity disabled={true} style={styles.accountOption} onPress={() => this.props.navigation.navigate('ChangePassword')}>
+					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('ChangePassword')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Change Password</Text>
 						</View>

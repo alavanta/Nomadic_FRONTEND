@@ -6,25 +6,14 @@ import {
   SafeAreaView,
   TouchableOpacity,
   FlatList,
-  AsyncStorage
+  AsyncStorage,
+  ActivityIndicator
 } from 'react-native';
 import { Button, Icon, Card } from 'react-native-elements';
 import MyBookingIsLogin from '../../components/MyBookingIsLogin';
 import { fetchBooking } from '../../public/redux/action';
 import { connect } from 'react-redux';
-
-const booking = [
-  {
-    idBooking: 1,
-    package_name: 'Trip Wisata Yogyakarta',
-    package_description:
-      'blakbkawakoskawoadkwokdaowdkaowdkwadk;awdoanawodaowdawd',
-    package_price: '500.000',
-    package_image:
-      'https://www.telegraph.co.uk/content/dam/Travel/2019/January/bali.jpg',
-    date_start: '07/08/2019'
-  }
-];
+import { withNavigation } from 'react-navigation';
 
 class Booking extends Component {
   constructor(props) {
@@ -46,7 +35,7 @@ class Booking extends Component {
   }
 
   BookedList = ({ item, index }) => (
-    <View style={{ flex: 1, flexDirection: 'row' }}>
+    <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={()=>this.props.navigation.navigate('BookingDetail')}>
       <Card
         image={{ uri: item.package_image }}
         containerStyle={{ width: '90%' }}
@@ -57,14 +46,14 @@ class Booking extends Component {
           <Text style={{ fontWeight: 'bold' }}>Rp. {item.package_price}</Text>
         </View>
       </Card>
-    </View>
+    </TouchableOpacity>
   );
 
   render() {
     if (this.props.booking.isLoading) {
       return (
-        <View>
-          <Text style={{fontSize:20,alignSelf:'center'}}>Loading</Text>
+        <View style={{ backgroundColor: 'white', position: 'absolute', width: '100%', height: '100%', justifyContent: 'center' }}>
+          <ActivityIndicator size="large" color="#FF4453" animating={true} />
         </View>
       );
     } else {
@@ -82,7 +71,7 @@ class Booking extends Component {
           >
             <View>
               <Text
-              style={{fontSize: 20,margin:25, fontWeight: 'bold',}}
+                style={{ fontSize: 20, margin: 25, fontWeight: 'bold', }}
               >My Bookings</Text>
             </View>
           </View>
@@ -123,16 +112,16 @@ class Booking extends Component {
                 />
               </View>
             ) : (
-              <View style={{ flex: 1,marginBottom:10 }}>
-                <FlatList
-                  keyExtractor={item => {
-                    item.id.toString();
-                  }}
-                  data={this.props.booking.booking}
-                  renderItem={this.BookedList}
-                />
-              </View>
-            )}
+                  <View style={{ flex: 1, marginBottom: 10 }}>
+                    <FlatList
+                      keyExtractor={item => {
+                        item.id.toString();
+                      }}
+                      data={this.props.booking.booking}
+                      renderItem={this.BookedList}
+                    />
+                  </View>
+                )}
           </View>
         </View>
       );
@@ -146,4 +135,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(Booking);
+export default connect(mapStateToProps)(withNavigation(Booking));
