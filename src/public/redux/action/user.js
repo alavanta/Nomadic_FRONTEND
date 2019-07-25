@@ -54,3 +54,11 @@ export const addNewPassword = (code, newPass) => {
     })
   };
 };
+
+export const getUserById = token => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'GET_USER_BY_ID',
+    payload: axios.get(`${url}/users`)
+  };
+};
