@@ -4,14 +4,16 @@ import {
 	Text,
 	StyleSheet,
 	Image,
-	TextInput
+	TextInput,
+	Alert
 } from 'react-native'
-
 import Entypo from 'react-native-vector-icons/dist/Entypo';
-
 import {
 	Button
 } from 'react-native-elements'
+
+import { forgotPass } from '../../public/redux/action/user';
+import { connect } from 'react-redux';
 
 class ForgotPassword extends Component {
 
@@ -24,7 +26,13 @@ class ForgotPassword extends Component {
 	  	};
 	}
 
-
+	sendEmail = async (userEmail) => {
+		await this.props.dispatch(forgotPass(userEmail)).then((success) => {
+			this.props.navigation.navigate('otpCode')
+		}).catch((err)=>{
+			Alert.alert('Invalid Email, please check again your email.')
+		});
+	}
 	emailChange = (email) => {
 		let emailVal = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	    if (emailVal.test(email) === false) {
@@ -101,7 +109,7 @@ class ForgotPassword extends Component {
 								buttonStyle={styles.loginButton}
 								title="Next"
 								onPress={() => {
-									this.props.navigation.navigate('otpCode')
+									this.sendEmail(this.state.email);
 								}}
 							/>
 						</View>
@@ -114,8 +122,6 @@ class ForgotPassword extends Component {
 		)
 	}
 }
-
-export default ForgotPassword;
 
 const styles = StyleSheet.create({
 	bodyParent: {
@@ -180,3 +186,11 @@ const styles = StyleSheet.create({
 		paddingVertical: 7
 	}
 })
+
+const mapStateToProps = state => {
+    return {
+        data: state.user.data,
+    };
+};
+
+export default connect(mapStateToProps)(ForgotPassword);
