@@ -14,20 +14,25 @@ import EditProfile from '../screens/Account/EditProfile';
 import Package from '../screens/Package';
 import PrivateChat from '../screens/PrivateChat';
 import PackageDetail from '../screens/PackageDetail';
+import ForgotPassword from '../screens/ForgotPassword/ForgotPassword';
+import otpCode from '../screens/ForgotPassword/otpCode';
+import Maps from '../screens/Maps';
+import Checkout from '../screens/Checkout/Checkout';
+import ProfileEdit from '../screens/Account/ProfileEdit';
 import ForgotPassword from '../screens/ForgotPassword/ForgotPassword'
-import otpCode from '../screens/ForgotPassword/otpCode'
-import Checkout from '../screens/Checkout/Checkout'
+import Maps from '../screens/Maps';
 
 
 const AppStack = createStackNavigator (
     { 
         Home: Home,
         Profile: Profile,
-        EditProfile: EditProfile,
+        ProfileEdit: ProfileEdit,
         PrivateChat: PrivateChat,
         PackageDetail: PackageDetail,
         Package: Package,
-        Checkout: Checkout
+        Checkout: Checkout,
+        Maps: Maps
     },
     {
         headerMode:"none"

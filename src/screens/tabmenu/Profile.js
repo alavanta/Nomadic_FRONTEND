@@ -46,7 +46,7 @@ class Profile extends Component {
 						</View>
 					</TouchableOpacity>
 					<View style={styles.line} />
-					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('EditProfile')}>
+					<TouchableOpacity style={styles.accountOption} onPress={() => this.props.navigation.navigate('ProfileEdit')}>
 						<View style={{ alignSelf: 'center', margin: 10 }}>
 							<Text>Edit Profile</Text>
 						</View>
