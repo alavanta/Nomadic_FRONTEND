@@ -38,7 +38,7 @@ class Booking extends Component {
     <TouchableOpacity
       style={{ flex: 1, flexDirection: 'row' }}
       onPress={() =>
-        this.props.navigation.navigate('BookingDetail', { id: item.id })
+        this.props.navigation.navigate('BookingDetail', { id: item.booking_id })
       }
     >
       <Card
@@ -55,6 +55,7 @@ class Booking extends Component {
   );
 
   render() {
+    console.log(this.props.booking);
     if (this.props.booking.isLoading) {
       return (
         <View
@@ -128,7 +129,7 @@ class Booking extends Component {
               <View style={{ flex: 1, marginBottom: 10 }}>
                 <FlatList
                   keyExtractor={item => {
-                    item.id.toString();
+                    item.booking_id.toString();
                   }}
                   data={this.props.booking.booking}
                   renderItem={this.BookedList}

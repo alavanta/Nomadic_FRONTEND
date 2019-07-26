@@ -143,7 +143,7 @@ class BookingDetail extends Component {
                 transform: [{ translateY: imageTranslate }]
               }
             ]}
-            source={require('../assets/Red-nomadic.png')}
+            source={{ uri: this.props.bookingById.package_image }}
           />
           <Animated.View>
             <View style={styles.bar}>
@@ -157,7 +157,7 @@ class BookingDetail extends Component {
               </TouchableOpacity>
               <View style={styles.headerContent}>
                 <Text numberOfLines={1} style={styles.name}>
-                  nama paket
+                  {this.props.bookingById.package_name}
                 </Text>
               </View>
             </View>
