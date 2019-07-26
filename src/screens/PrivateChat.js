@@ -19,7 +19,7 @@ function Header(props) {
         }}
         icon={<Entypo name="chevron-left" size={23} />}
       />
-      <Text style={headStyle.headText}>{props.data.name}</Text>
+      <Text style={headStyle.headText}>Tour Guide</Text>
     </View>
   );
 }

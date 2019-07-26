@@ -56,10 +56,11 @@ class Package extends Component {
         if (this.state.data !== null) {
             return (
                 <FlatList
+                    style={{height:'100%'}}
                     data={this.state.data}
                     keyExtractor={(item, index) => item.id}
                     renderItem={({ item }) => (
-                        <View>
+                        <View style={styles.list}>
                             <TouchableOpacity
                                 onPress={() =>
                                     this.props.navigation.navigate('PackageDetail', {
@@ -143,9 +144,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(withNavigation(Package));
 
 const { height, width } = Dimensions.get('window');
-const HEADER_MAX_HEIGHT = 200;
-const HEADER_MIN_HEIGHT = 60;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const styles = StyleSheet.create({
     container: {
@@ -190,7 +188,10 @@ const styles = StyleSheet.create({
     },
     body: {
         backgroundColor: '#FFF',
-        margin: 10
+        flex:1
+    },
+    list:{
+        padding:20
     },
     card: {
         padding: 7,

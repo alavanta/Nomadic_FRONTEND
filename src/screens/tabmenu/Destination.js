@@ -56,10 +56,11 @@ class Destination extends Component {
         if (this.state.data !== null) {
             return (
                 <FlatList
+                    style={{height:'100%'}}
                     data={this.state.data}
                     keyExtractor={(item, index) => item.id}
                     renderItem={({ item }) => (
-                        <View>
+                        <View style={styles.list}>
                             <TouchableOpacity
                                 onPress={() =>
                                     this.props.navigation.navigate('PackageDetail', {
@@ -95,38 +96,12 @@ class Destination extends Component {
     };
 
     render() {
-
         return (
             <SafeAreaView style={styles.container}>
                 <StatusBar backgroundColor="#FFF" barStyle="dark-content" />
                 <View style={styles.header}>
-                    <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-                        <Icon name="arrowleft" type="antdesign" color="#444" size={25} />
-                    </TouchableOpacity>
                     <View style={{ flex: 1, alignItems: 'flex-end', paddingRight: 30, justifyContent: 'center' }}>
                         <Text style={{ fontSize: 19, fontWeight: '500' }}>PACKAGES</Text>
-                    </View>
-                </View>
-                <View style={styles.searchTab}>
-                    <View
-                        style={{
-                            alignItems: 'center',
-                            flex: 1,
-                            marginRight: 10,
-                            flexDirection: 'row',
-                            justifyContent: 'center'
-                        }}
-                    >
-                        <TextInput
-                            placeholderTextColor="#999"
-                            placeholder="Type here..."
-                            style={styles.searchInput}
-                            value={this.state.search}
-                            onChangeText={ (value) => {this.setState({search: value})} }
-                        />
-                        <TouchableOpacity onPress={() => {this.packagesSearch(this.state.search)}}>
-                            <Text style={styles.searchButton}>Search</Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.body}>{this.renderContent()}</View>
@@ -144,9 +119,6 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(withNavigation(Destination));
 
 const { height, width } = Dimensions.get('window');
-const HEADER_MAX_HEIGHT = 200;
-const HEADER_MIN_HEIGHT = 60;
-const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const styles = StyleSheet.create({
     container: {
@@ -162,36 +134,12 @@ const styles = StyleSheet.create({
         padding: 10,
         elevation: 5
     },
-    searchTab: {
-        backgroundColor: '#FFF',
-        height: 60,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 10,
-    },
-    searchInput: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: '#CCC',
-        marginHorizontal: 10,
-        flex: 1,
-        paddingHorizontal: 10,
-        backgroundColor: 'rgba(30,30,30,0.1)'
-    },
-    searchButton: {
-        borderWidth: 1,
-        borderRadius: 5,
-        borderColor: '#555',
-        padding: 8,
-        backgroundColor: '#555',
-        color: '#FFF',
-        elevation: 4
-    },
     body: {
         backgroundColor: '#FFF',
-        margin: 10
+        flex:1
+    },
+    list:{
+        padding:20
     },
     card: {
         padding: 7,
