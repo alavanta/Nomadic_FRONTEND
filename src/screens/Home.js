@@ -39,16 +39,11 @@ class Home extends Component {
         },
         {
           key: 'second',
-          title: 'Destination',
-          icon: 'rocket1'
-        },
-        {
-          key: 'fourth',
           title: 'Booking',
           icon: 'profile'
         },
         {
-          key: 'five',
+          key: 'third',
           title: 'Profile',
           icon: 'user'
         }
@@ -67,18 +62,14 @@ class Home extends Component {
   render() {
     return (
       <View style={styles.bodyParent}>
-        <StatusBar
-          barStyle="dark-content"
-          backgroundColor="#FFF"
-        />
+        <StatusBar barStyle="dark-content" backgroundColor="#FFF" />
         <TabView
           tabBarPosition="bottom"
           navigationState={this.state}
           renderScene={SceneMap({
             first: Explore,
-            second: Destination,
-            fourth: Booking,
-            five: Profile
+            second: Booking,
+            third: Profile
           })}
           onIndexChange={index => this.setState({ index })}
           initialLayout={{ width: Dimensions.get('window').width }}

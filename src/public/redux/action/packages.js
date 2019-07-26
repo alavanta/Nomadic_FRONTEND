@@ -31,3 +31,12 @@ export const fetchTourGuide = (token) => {
     payload: axios.get(`${url}/tourGuide/status/1`)
   };
 };
+
+export const fetchTestimonial = (token) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'FETCH_TESTIMONIAL',
+    payload: axios.get(`${url}/testimonial`)
+  };
+};
+

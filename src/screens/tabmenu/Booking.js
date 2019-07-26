@@ -28,14 +28,19 @@ class Booking extends Component {
     this.setState({ isLoading: true });
     AsyncStorage.getItem('token', (error, result) => {
       if (result) {
-        console.log(result)
+        console.log(result);
         this.props.dispatch(fetchBooking(result));
       }
     });
   }
 
   BookedList = ({ item, index }) => (
-    <TouchableOpacity style={{ flex: 1, flexDirection: 'row' }} onPress={()=>this.props.navigation.navigate('BookingDetail')}>
+    <TouchableOpacity
+      style={{ flex: 1, flexDirection: 'row' }}
+      onPress={() =>
+        this.props.navigation.navigate('BookingDetail', { id: item.booking_id })
+      }
+    >
       <Card
         image={{ uri: item.package_image }}
         containerStyle={{ width: '90%' }}
@@ -50,9 +55,18 @@ class Booking extends Component {
   );
 
   render() {
+    console.log(this.props.booking);
     if (this.props.booking.isLoading) {
       return (
-        <View style={{ backgroundColor: 'white', position: 'absolute', width: '100%', height: '100%', justifyContent: 'center' }}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            position: 'absolute',
+            width: '100%',
+            height: '100%',
+            justifyContent: 'center'
+          }}
+        >
           <ActivityIndicator size="large" color="#FF4453" animating={true} />
         </View>
       );
@@ -65,14 +79,14 @@ class Booking extends Component {
               width: '100%',
               height: '10%',
               flexDirection: 'row',
-              justifyContent: 'flex-start',
+              justifyContent: 'flex-start'
               // alignItems: 'center'
             }}
           >
             <View>
-              <Text
-                style={{ fontSize: 20, margin: 25, fontWeight: 'bold', }}
-              >My Bookings</Text>
+              <Text style={{ fontSize: 20, margin: 25, fontWeight: 'bold' }}>
+                My Bookings
+              </Text>
             </View>
           </View>
           <View
@@ -112,16 +126,16 @@ class Booking extends Component {
                 />
               </View>
             ) : (
-                  <View style={{ flex: 1, marginBottom: 10 }}>
-                    <FlatList
-                      keyExtractor={item => {
-                        item.id.toString();
-                      }}
-                      data={this.props.booking.booking}
-                      renderItem={this.BookedList}
-                    />
-                  </View>
-                )}
+              <View style={{ flex: 1, marginBottom: 10 }}>
+                <FlatList
+                  keyExtractor={item => {
+                    item.booking_id.toString();
+                  }}
+                  data={this.props.booking.booking}
+                  renderItem={this.BookedList}
+                />
+              </View>
+            )}
           </View>
         </View>
       );

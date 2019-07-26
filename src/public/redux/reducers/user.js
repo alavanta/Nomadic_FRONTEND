@@ -39,6 +39,7 @@ export default (user = (state = initialState, action) => {
     case 'FETCH_USER_FULFILLED':
       AsyncStorage.setItem('token', action.payload.data.token);
       AsyncStorage.setItem('user', action.payload.data.data[0].phone);
+      AsyncStorage.setItem('userName', action.payload.data.data[0].name);
       return {
         ...state,
         isLoading: false,

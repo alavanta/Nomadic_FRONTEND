@@ -41,14 +41,14 @@ export const editUser = (id, name, password, email, phone, address, gender) => {
 export const forgetPassword = email => {
   return {
     type: 'FORGET_PASSWORD',
-    payload: axios.post(`${url}/forget_password/send`, email)
+    payload: axios.post(`${url}/reset_password/send`, email)
   };
 };
 
 export const addNewPassword = (code, newPass) => {
   return {
     type: 'ADD_NEW_PASSWORD',
-    payload: axios.post(`${url}/forget_password`, {
+    payload: axios.post(`${url}/reset_password`, {
       code: code,
       newPass: newPass
     })

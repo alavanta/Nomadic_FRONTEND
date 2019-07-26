@@ -5,7 +5,8 @@ const initialState = {
   isLoading: false,
   isError: false,
   isFinish: false,
-  tourGuide:[]
+  tourGuide:[],
+  testimonial:[]
 };
 
 export default (user = (state = initialState, action) => {
@@ -55,6 +56,14 @@ export default (user = (state = initialState, action) => {
         isFinish: true,
         tourGuide: action.payload.data.data
       };
+    case 'FETCH_TESTIMONIAL_FULFILLED':
+        return {
+          ...state,
+          isLoading: false,
+          isError: false,
+          isFinish: true,
+          testimonial: action.payload.data.data
+        };
     default:
       return state;
   }

@@ -9,8 +9,7 @@ import {
   SafeAreaView,
   Image,
   TextInput,
-  Picker,
-  Dimensions
+  Picker
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 
@@ -49,15 +48,14 @@ class Checkout extends Component {
       name: '',
       address: '',
       phone: '',
-      gender: 'Male',
-      priceTotal: '',
+      gender: 'M',
       item: null,
-      guide: null,
       userToken: null,
       errName: false,
       errCcName: '',
       errAddress: false,
-      errPhone: false
+      errPhone: false,
+      guideId: null
     };
 
     OneSignal.init('90673f44-2b1e-4f5b-9de9-4b008c53d201');
@@ -66,17 +64,19 @@ class Checkout extends Component {
   }
 
   componentWillMount() {
-    this.setState({ item: this.props.navigation.getParam('selectedItem') });
-    this.setState({ guide: this.props.navigation.getParam('selectedGuide') });
+    this.setState({
+      item: this.props.navigation.getParam('selectedItem'),
+      guideId: this.props.navigation.getParam('selectedGuide')
+    });
     AsyncStorage.getItem('token', (error, result) => {
       if (result) {
+        let packageId = this.props.navigation.getParam('packageId');
         this.setState({
           userToken: result,
           isloading: false
         });
       }
     });
-    console.log(this.state.item, ' guide ', this.state.guide);
   }
 
   componentWillUnmount() {
@@ -212,9 +212,6 @@ class Checkout extends Component {
       separator = remains ? '.' : '';
       idr += separator + Thousands.join('.');
     }
-    this.setState({
-        priceTotal: idr
-    })
     return idr;
   };
 
@@ -231,9 +228,12 @@ class Checkout extends Component {
       packageId: this.state.item.id,
       month: parseInt(this.state.cardExpiry.toString().substring(0, 2)),
       year: parseInt(20 + this.state.cardExpiry.toString().substring(3, 5)),
-      appId: this.state.appId || 0,
-      guideId: this.state.guide.id
+      appId: this.state.appId,
+      guideId: this.state.guideId
     };
+
+    console.log(this.state, 'INI STATE');
+    console.log(data, 'INI DATA YG DIKIRIM');
 
     this.props
       .dispatch(addCheckout(this.state.userToken, data))
@@ -248,6 +248,7 @@ class Checkout extends Component {
   };
 
   render() {
+    console.log(this.state.item);
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <Header navigation={this.props.navigation} title="Checkout" />
@@ -323,7 +324,7 @@ class Checkout extends Component {
             </View>
             <TouchableOpacity
               style={styles.rightPersonBorder}
-              disabled={this.state.totalPassenger === 99 ? true : false}
+              disabled={this.state.totalPassenger === 999 ? true : false}
               onPress={this.totalPassengerIncrement}
             >
               <Text style={{ alignSelf: 'center', fontSize: 20 }}>+</Text>
@@ -423,7 +424,6 @@ class Checkout extends Component {
   }
 }
 
-const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   background: {
     position: 'absolute',
@@ -433,7 +433,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column'
   },
   redBackground: {
-    height: 180,
+    height: 230,
     borderBottomLeftRadius: 15,
     borderBottomRightRadius: 15
   },
@@ -445,19 +445,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   price: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
     color: 'white',
     alignSelf: 'flex-start'
   },
   imageWrap: {
-    height: 100,
-    width: width * 0.7,
+    height: 150,
     marginTop: 10,
     borderRadius: 50,
     elevation: 10
   },
   image: {
+    resizeMode: 'cover',
     height: '100%',
     borderRadius: 10,
     zIndex: -99

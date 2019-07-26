@@ -19,8 +19,8 @@ class Maps extends Component {
         destinations: this.props.navigation.getParam('destinations'),
         markers: this.props.navigation.getParam('destinations'),
         region: {
-            latitude: 45.52220671242907,
-            longitude: -122.6653281029795,
+            latitude: -7.755705,
+            longitude: -249.621202,
             latitudeDelta: LATITUDE_DELTA,
             longitudeDelta: LONGITUDE_DELTA,
         },

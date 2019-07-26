@@ -10,3 +10,11 @@ export const fetchBooking = (token, data) => {
     payload: axios.get(`${url}/booking`, data)
   };
 };
+
+export const fetchBookingById = (token, id) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  return {
+    type: 'FETCH_BOOKING_BY_ID',
+    payload: axios.get(`${url}/booking/byId/${id}`)
+  };
+};

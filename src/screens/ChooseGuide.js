@@ -82,7 +82,7 @@ class ChooseGuide extends Component {
     this.props.navigation.navigate('Checkout', {
       selectedItem: this.state.selectedItem,
       userToken: this.state.userToken,
-      selectedGuide: item
+      selectedGuide: item.id
     });
   };
 
