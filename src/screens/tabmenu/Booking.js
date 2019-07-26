@@ -115,7 +115,7 @@ class Booking extends Component {
                   <View style={{ flex: 1, marginBottom: 10 }}>
                     <FlatList
                       keyExtractor={item => {
-                        item.id.toString();
+                        item.booking_id.toString();
                       }}
                       data={this.props.booking.booking}
                       renderItem={this.BookedList}
