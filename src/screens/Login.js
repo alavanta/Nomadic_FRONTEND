@@ -15,14 +15,16 @@ import { connect } from 'react-redux';
 import { withNavigation } from 'react-navigation';
 import { fetchUser } from '../public/redux/action';
 
+import Entypo from 'react-native-vector-icons/dist/Entypo';
+
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
       password: '',
-      errEmail: false,
-      errPassword: false,
+      errEmail: '',
+      errPassword: '',
       errAuth: false,
       isLoading: false,
     };
@@ -103,79 +105,85 @@ class Login extends Component {
     this.renderError();
 
     return (
-      <SafeAreaView style={{ flex: 1 , backgroundColor:'#FFF'}}>
-        <View
-          style={{
-            width: '100%',
-            height: '10%',
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'center'
-          }}
-        >
-          <TouchableOpacity
-            style={{ margin: 10, flexDirection: 'row' }}
-            onPress={() => this.props.navigation.goBack()}
-          >
-            <Icon name="arrowleft" type="antdesign" color="#808080" size={25} />
-          </TouchableOpacity>
-          <View onPress={() => this.props.navigation.navigate('Main')}>
-            <Text>Login</Text>
-          </View>
-        </View>
-       
-        <View style={{ flex: 1, justifyContent: 'flex-start', margin: 15 }}>
-        <View style={{alignSelf:'center'}}>
-            <Image
-            source={require('../assets/Red-nomadic.png')}
-            style={{height:200,width:200}}
+      <SafeAreaView style={{ flex: 1 , backgroundColor:'white'}}>
+        <View style={styles.bodyParent}>
+
+          <View style={styles.parentHeader}>
+            <Button 
+              buttonStyle={{backgroundColor: 'rgba(0,0,0,0)'}}
+              icon={
+                  <Entypo
+                    name="chevron-left"
+                    size={25}
+                    color="black"
+                  />
+              }
+              onPress={() => {
+                this.props.navigation.goBack()
+              }}
             />
-            {/* <Text style={{margin: 8, fontSize: 15, color: '#FFF'}}>For Tour Guide</Text> */}
+            <View style={styles.textWrap}>
+              <Text style={styles.headerText}>Login</Text>
+            </View>
+
           </View>
-          <TextInput
-            placeholder="Email"
-            clearButtonMode="always"
-            value={this.state.email}
-            onChangeText={text => this.changeEmail(text)}
-            style={{ width: '90%', alignSelf: 'center' }}
-            underlineColorAndroid="#EF4453"
-          />
-          {this.state.errEmail !== false ? (
-            <Text style={{ color: '#ff0000', marginLeft: 5 }}>
-              {this.state.errEmail}
-            </Text>
-          ) : null}
-          <TextInput
-            placeholder="Password"
-            secureTextEntry={true}
-            value={this.state.password}
-            onChangeText={text => this.changePassword(text)}
-            style={{ width: '90%', alignSelf: 'center' }}
-            underlineColorAndroid="#EF4453"
-          // inputContainerStyle={{borderBottomColor:'#EF4453',borderBottomWidth:2}}
-          />
-          {this.state.errPassword !== false ? (
-            <Text style={{ color: '#ff0000', marginLeft: 5 }}>
-              {this.state.errPassword}
-            </Text>
-          ) : null}
-          <Button
-            title="Login"
-            disabled={
-              this.state.email == '' ? true :
-                this.state.password == '' ? true : false
-            }
-            buttonStyle={styles.btnLogin}
-            disabledStyle={{ backgroundColor: '#A8A8A8' }}
-            TouchableComponent={TouchableHighlight}
-            disabledTitleStyle={{ color: '#FFF' }}
-            onPress={this.validate}
-          />
-          <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgotPassword') }} style={{ alignSelf: 'center', paddingTop: 10 }}>
-            <Text style={{ fontSize: 12, color: '#F4B086' }}>
-              Forgot your password?
-            </Text>
-          </TouchableOpacity>
+
+
+          <View style={styles.imageWrap}>
+            <Image
+              style={styles.welcomeImage}
+              source={require('../assets/undraw_secure_data_0rwp.png')}
+            />
+          </View>
+
+          <View style={styles.bodyContain}>
+
+            <View style={{ width: '100%', paddingHorizontal: 30}}>
+
+              <View style={styles.form}>
+
+                <TextInput 
+                  placeholder="E - Mail" 
+                  style={styles.textInput} 
+                  value={this.state.email}
+                  onChangeText={this.changeEmail}
+                />
+                <Text style={{color: 'red', top: 5, left: 10}}>{this.state.errEmail}</Text>
+              </View>
+
+              <View style={styles.form}>
+
+                <TextInput 
+                  placeholder="Password" 
+                  style={styles.textInput} 
+                  value={this.state.password}
+                  onChangeText={this.changePassword}
+                  secureTextEntry={true}
+                />
+                <Text style={{color: 'red', top: 5, left: 10}}>{this.state.errPassword}</Text>
+              </View>
+
+              <View style={styles.buttonWrap}>
+                <Button
+                  disabled={
+                            this.state.errEmail !== false ? true :
+                            this.state.errPassword !== false ? true : false
+                        }
+                  buttonStyle={styles.loginButton}
+                  title="Next"
+                  onPress={this.validate}
+                />
+              </View>
+
+              <TouchableOpacity onPress={() => { this.props.navigation.navigate('ForgotPassword') }} style={{ alignSelf: 'center', paddingTop: 10 }}>
+                <Text style={{ fontSize: 15, color: 'black' }}>
+                  Forgot your password?
+                </Text>
+              </TouchableOpacity>
+
+            </View>
+
+          </View>
         </View>
 
         {
@@ -205,6 +213,67 @@ const styles = StyleSheet.create({
     width: '90%',
     alignSelf: 'center',
     marginTop: 40
+  },
+  bodyParent: {
+    flex: 1,
+    backgroundColor: 'white'
+  },
+  imageWrap: {
+    flex: 1,
+    zIndex: -999,
+    alignItems: 'flex-start',
+    top: -350,
+    right: -100,
+    position: 'absolute'
+  },
+  welcomeImage: {
+    width: 450,
+    resizeMode: 'contain',
+    paddingVertical: 0,
+    transform: [{ rotate: '-220deg' }]
+  },
+  parentHeader: {
+    flexDirection: 'row',
+    height: 60,
+    alignItems: 'center',
+    paddingHorizontal: 15,
+  },
+  textWrap: {
+    flex: 1,
+    alignItems: 'flex-end'
+  },
+  headerText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    right: 20
+  },
+  bodyContain: {
+    flex: 1,
+    justifyContent: 'center'
+  },
+  form: {
+    width: '100%',
+    marginVertical: 10
+  },
+  titleInput: {
+    fontSize: 18,
+    marginLeft: 10,
+    marginBottom: 10,
+  },
+  textInput: {
+    borderBottomWidth: 1,
+    borderColor: '#FF4453'
+  },
+  buttonWrap: {
+    width: '100%',
+    marginTop: 20
+  },
+  loginButton: {
+    backgroundColor: '#FF4453',
+    borderBottomRightRadius: 5,
+    borderTopLeftRadius: 5,
+    borderBottomLeftRadius: 5,
+    paddingVertical: 7
   }
 })
 

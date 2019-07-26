@@ -20,7 +20,6 @@ import Explore from './tabmenu/Explore';
 import Destination from './tabmenu/Destination';
 import Booking from './tabmenu/Booking';
 import Profile from './tabmenu/Profile';
-import Chat from './tabmenu/Chat';
 
 //============= Reducer =============//
 import { fetchPackages } from '../public/redux/action';
